@@ -1,0 +1,587 @@
+/* ==========================
+   FEATURED PAGE
+   SOME MEMORY LANE
+========================== */
+
+.featured-wall{
+
+    height:calc(100vh - 74px);
+
+    display:flex;
+
+    flex-direction:column;
+
+    /* Warm paper */
+    background:#FBF8F1;
+
+    overflow:hidden;
+
+    transform: scale(0.94);
+    
+    transform-origin: center top;
+}
+
+
+/* ==========================
+   TITLE
+========================== */
+
+.wall-title{
+
+    flex-shrink:0;
+
+    width:fit-content;
+
+    margin:20px auto 12px;
+
+    padding:16px 42px;
+
+    /* Paper card */
+
+    background:#FFFDF8;
+
+    border:1px solid #D9D0C4;
+
+    border-radius:6px;
+
+    box-shadow:
+        0 8px 18px rgba(70,55,40,.10),
+        2px 3px 0 rgba(70,55,40,.04);
+
+    text-align:center;
+
+    position:relative;
+
+    transform:rotate(-1deg);
+
+}
+
+
+/* ==========================
+   Push Pin
+========================== */
+
+.wall-title::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:14px;
+
+    height:14px;
+
+    background:#D96B61;
+
+    border-radius:50%;
+
+    top:-7px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    box-shadow:
+        0 2px 6px rgba(70,55,40,.25);
+
+}
+
+
+.wall-title h1{
+
+    font-family:'Poppins',sans-serif;
+
+    font-size:2.8rem;
+
+    margin-bottom:4px;
+
+    line-height:1.1;
+
+    color:#292725;
+
+}
+
+
+.wall-title p{
+
+    color:#8B8177;
+
+    font-size:.95rem;
+
+}
+
+
+/* ==========================
+   WALL
+========================== */
+
+.wall{
+
+    flex:1;
+
+    position:relative;
+
+    width:100%;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    /*
+        Paper / notebook style
+    */
+
+    background-color:#FBF8F1;
+
+    background-image:
+
+        radial-gradient(
+            #DDD3C7 0.8px,
+            transparent 0.8px
+        );
+
+    background-size:22px 22px;
+
+}
+
+
+/* ==========================
+   SMALL PAPER DETAILS
+========================== */
+
+/*
+   Gives the wall a very subtle
+   warm paper layer without
+   changing your layout.
+*/
+
+.wall::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,.18),
+            rgba(255,255,255,.18)
+        );
+
+    z-index:1;
+
+}
+
+
+/* ==========================
+   PHOTO STRIPS
+========================== */
+
+.strip{
+
+    position:absolute;
+
+    width:160px;
+
+    background:#FFFDF8;
+
+    padding:10px;
+
+    border-radius:5px;
+
+    border:1px solid #DED5C9;
+
+    box-shadow:
+        0 10px 22px rgba(65,50,38,.14),
+        2px 4px 0 rgba(65,50,38,.04);
+
+    transition:.35s ease;
+
+    z-index:5;
+
+}
+
+
+.strip img{
+
+    width:100%;
+
+    display:block;
+
+    border-radius:3px;
+
+}
+
+
+.strip:hover{
+
+    transform:scale(1.08) rotate(0deg);
+
+    z-index:100;
+
+}
+
+
+/* ==========================
+   TAPE
+========================== */
+
+.strip::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:58px;
+
+    height:14px;
+
+    left:50%;
+
+    top:-7px;
+
+    transform:translateX(-50%) rotate(-4deg);
+
+    background:rgba(244,229,178,.82);
+
+    border-radius:2px;
+
+    box-shadow:
+        0 1px 2px rgba(80,60,40,.08);
+
+}
+
+
+/* ==========================
+   STRIP POSITIONS
+   KEEPING YOUR ORIGINAL
+   POSITIONS
+========================== */
+
+.s1{
+    top:6%;
+    left:8%;
+    transform:rotate(-8deg);
+}
+
+.s2{
+    top:16%;
+    left:38%;
+    transform:rotate(6deg);
+}
+
+.s3{
+    top:8%;
+    right:8%;
+    transform:rotate(-5deg);
+}
+
+.s4{
+    bottom:14%;
+    left:18%;
+    transform:rotate(7deg);
+}
+
+.s5{
+    bottom:16%;
+    right:20%;
+    transform:rotate(-7deg);
+}
+
+.s6{
+    bottom:5%;
+    left:45%;
+    transform:rotate(4deg);
+}
+
+.s7{
+    top:42%;
+    left:3%;
+    transform:rotate(-10deg);
+}
+
+.s8{
+    top:44%;
+    right:3%;
+    transform:rotate(9deg);
+}
+
+
+/* ==========================
+   RESET
+========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+html{
+    scroll-behavior:smooth;
+}
+
+
+body{
+
+    font-family:'Inter',sans-serif;
+
+    /* Same warm paper feeling */
+
+    background:#FBF8F1;
+
+    color:#2B2926;
+
+    min-height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    overflow:hidden;
+
+}
+
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+
+/* ==========================
+   HEADER
+========================== */
+
+header{
+
+    backdrop-filter:blur(15px);
+
+    background:rgba(251,248,241,.88);
+
+    border-bottom:1px solid #DED6CB;
+
+}
+
+
+/* ==========================
+   FEATURE NAVBAR
+========================== */
+
+.feature-header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:999;
+
+    backdrop-filter:blur(18px);
+
+    background:rgba(251,248,241,.90);
+
+    border-bottom:1px solid #DED6CB;
+
+}
+
+
+.feature-navbar{
+
+    max-width:1400px;
+
+    margin:auto;
+
+    padding:18px 45px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+
+/* ==========================
+   LOGO
+========================== */
+
+.logo{
+
+    font-family:'Poppins',sans-serif;
+
+    font-size:1.5rem;
+
+    font-weight:700;
+
+    color:#2B2926;
+
+    transition:.25s;
+
+}
+
+
+.logo:hover{
+
+    opacity:.75;
+
+}
+
+
+/* ==========================
+   BUTTONS
+========================== */
+
+.primary-btn{
+
+    background:#302D29;
+
+    color:#FFFDF8;
+
+    padding:12px 24px;
+
+    border-radius:999px;
+
+    transition:.3s;
+
+}
+
+
+.primary-btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+
+.secondary-btn{
+
+    border:1px solid #D4CBC0;
+
+    padding:12px 24px;
+
+    border-radius:999px;
+
+    background:#FFFDF8;
+
+    transition:.3s;
+
+}
+
+
+.secondary-btn:hover{
+
+    background:#F3EDE3;
+
+    transform:translateY(-3px);
+
+}
+
+
+/* ==========================
+   HOME BUTTON
+========================== */
+
+.home-btn{
+
+    padding:11px 22px;
+
+    border:1px solid #D4CBC0;
+
+    border-radius:999px;
+
+    background:#FFFDF8;
+
+    color:#403B36;
+
+    font-size:.95rem;
+
+    transition:.25s;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    box-shadow:
+        0 5px 15px rgba(70,55,40,.07);
+
+}
+
+
+.home-btn:hover{
+
+    transform:translateY(-2px);
+
+    background:#302D29;
+
+    color:#FFFDF8;
+
+}
+
+
+/* ==========================
+   FOOTER
+========================== */
+
+footer{
+
+    background:#F1EBE1;
+
+    border-top:1px solid #DED6CB;
+
+    padding:10px;
+
+    text-align:center;
+
+    margin-top:auto;
+
+}
+
+
+.footer-links{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:24px;
+
+    flex-wrap:wrap;
+
+    margin-bottom:6px;
+
+}
+
+
+.footer-links a{
+
+    color:#514B45;
+
+    transition:.2s;
+
+}
+
+
+.footer-links a:hover{
+
+    color:#A15F57;
+
+}
+
+
+footer p{
+
+    color:#8A8177;
+
+    font-size:.9rem;
+
+}

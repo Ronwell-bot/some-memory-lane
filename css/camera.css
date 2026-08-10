@@ -1,0 +1,863 @@
+/* ==========================================
+   SOME MEMORY LANE
+   CAMERA PAGE
+========================================== */
+
+:root {
+
+    --cream: #F6F1E9;
+    --cream-light: #FBF8F3;
+    --white: #FFFDF9;
+
+    --brown: #403932;
+    --brown-light: #665D55;
+
+    --muted: #8A8178;
+
+    --border: #DED6CC;
+    --border-dark: #BDB3A7;
+
+    --shadow: rgba(64, 57, 50, 0.08);
+
+}
+
+
+/* ==========================================
+   RESET
+========================================== */
+
+* {
+
+    box-sizing: border-box;
+
+}
+
+
+html,
+body {
+
+    margin: 0;
+
+    padding: 0;
+
+    width: 100%;
+
+}
+
+
+body {
+
+    background: var(--cream);
+
+    color: var(--brown);
+
+    font-family: 'Inter', sans-serif;
+
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+header {
+
+    width: 100%;
+
+    border-bottom: 1px solid var(--border);
+
+    background: rgba(246, 241, 233, .92);
+
+}
+
+
+.navbar {
+
+    max-width: 1100px;
+
+    height: 82px;
+
+    margin: 0 auto;
+
+    padding: 0 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+}
+
+
+/* Logo */
+
+.logo {
+
+    text-decoration: none;
+
+    color: var(--brown);
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 1.35rem;
+
+    font-weight: 600;
+
+    letter-spacing: -0.02em;
+
+}
+
+
+/* Back button */
+
+.start-btn {
+
+    text-decoration: none;
+
+    color: var(--brown);
+
+    background: var(--cream-light);
+
+    border: 1px solid var(--border);
+
+    padding: 9px 17px;
+
+    border-radius: 999px;
+
+    font-size: .78rem;
+
+    transition: all .25s ease;
+
+}
+
+
+.start-btn:hover {
+
+    border-color: var(--border-dark);
+
+    background: var(--white);
+
+    transform: translateY(-1px);
+
+}
+
+
+/* ==========================================
+   CAMERA PAGE
+========================================== */
+
+.camera-page {
+
+    width: 100%;
+
+    max-width: 1100px;
+
+    margin: 42px auto 60px;
+
+    padding: 0 30px;
+
+}
+
+
+/* ==========================================
+   SESSION INFO
+========================================== */
+
+.session-info {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+    margin-bottom: 22px;
+
+}
+
+
+.session-info h2 {
+
+    margin: 0;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 1.65rem;
+
+    font-weight: 600;
+
+    letter-spacing: -0.025em;
+
+}
+
+
+.session-info p {
+
+    margin: 6px 0 0;
+
+    color: var(--muted);
+
+    font-size: .8rem;
+
+}
+
+
+.status {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: .78rem;
+
+    color: var(--brown-light);
+
+}
+
+
+.light {
+
+    width: 10px;
+
+    height: 10px;
+
+    border-radius: 50%;
+
+    flex-shrink: 0;
+
+}
+
+
+.red {
+
+    background: #E85C5C;
+
+}
+
+
+.green {
+
+    background: #67B87A;
+
+}
+
+
+/* ==========================================
+   CAMERA POWER CONTROLS
+========================================== */
+
+.camera-power {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    width: 100%;
+
+    padding: 12px 16px;
+
+    margin-bottom: 18px;
+
+    background: rgba(255, 253, 249, .82);
+
+    border: 1px solid var(--border);
+
+    border-radius: 15px;
+
+    box-shadow: 0 8px 22px var(--shadow);
+
+}
+
+
+.camera-power-copy {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 0;
+
+}
+
+
+.camera-power-label {
+
+    margin: 0;
+
+    color: var(--muted);
+
+    text-transform: uppercase;
+
+    letter-spacing: .12em;
+
+    font-size: .6rem;
+
+    white-space: nowrap;
+
+}
+
+
+.camera-power h3 {
+
+    margin: 0;
+
+    color: var(--brown-light);
+
+    font-family: 'Inter', sans-serif;
+
+    font-size: .76rem;
+
+    font-weight: 400;
+
+}
+
+
+/* ==========================================
+   POWER BUTTONS
+========================================== */
+
+.camera-power-request {
+
+    flex-shrink: 0;
+
+}
+
+
+.camera-power-buttons {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+}
+
+
+.power-btn {
+
+    border: 1px solid var(--border);
+
+    background: var(--white);
+
+    color: var(--brown);
+
+    padding: 8px 13px;
+
+    border-radius: 999px;
+
+    cursor: pointer;
+
+    font-family: 'Inter', sans-serif;
+
+    font-size: .67rem;
+
+    white-space: nowrap;
+
+    transition: all .25s ease;
+
+}
+
+
+.power-btn:hover {
+
+    border-color: var(--border-dark);
+
+    transform: translateY(-1px);
+
+}
+
+
+.primary-power-btn {
+
+    background: var(--brown);
+
+    color: white;
+
+    border-color: var(--brown);
+
+}
+
+
+.primary-power-btn:hover {
+
+    background: #332D28;
+
+    border-color: #332D28;
+
+}
+
+
+.power-btn:disabled {
+
+    opacity: .4;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+
+/* ==========================================
+   CAMERA PREVIEW
+========================================== */
+
+/*
+    IMPORTANT:
+
+    The camera frame has a fixed 16:9 ratio.
+
+    This means:
+
+    CAMERA ON  → same frame
+    CAMERA OFF → same frame
+
+    Only the video content changes.
+*/
+
+.camera-container {
+
+    position: relative;
+
+    width: 100%;
+
+    max-width: 860px;
+
+    aspect-ratio: 16 / 9;
+
+    margin: 0 auto;
+
+    overflow: hidden;
+
+    background: #171615;
+
+    border: 1px solid #D7CFC5;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 18px 40px rgba(64, 57, 50, .14),
+        0 3px 8px rgba(64, 57, 50, .06);
+
+}
+
+
+/*
+    The video always fills the exact
+    same camera frame.
+*/
+
+.camera-container video {
+
+    display: block;
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    background: #171615;
+
+}
+
+
+/*
+    This is important when the camera
+    is turned OFF.
+
+    The video element itself still occupies
+    the complete frame instead of collapsing.
+*/
+
+.camera-container video:empty {
+
+    background: #171615;
+
+}
+
+
+/* ==========================================
+   SMALL CAMERA DETAIL
+========================================== */
+
+.camera-container::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 15px;
+
+    left: 15px;
+
+    width: 8px;
+
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.55);
+
+    z-index: 3;
+
+    pointer-events: none;
+
+}
+
+
+/* ==========================================
+   FLASH
+========================================== */
+
+#flash {
+
+    position: absolute;
+
+    inset: 0;
+
+    background: white;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 5;
+
+}
+
+
+.flash {
+
+    animation: flash .35s ease;
+
+}
+
+
+@keyframes flash {
+
+    0% {
+
+        opacity: 0;
+
+    }
+
+    50% {
+
+        opacity: 1;
+
+    }
+
+    100% {
+
+        opacity: 0;
+
+    }
+
+}
+
+
+/* ==========================================
+   COUNTDOWN
+========================================== */
+
+#countdown {
+
+    position: absolute;
+
+    top: 50%;
+
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    display: none;
+
+    color: white;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 7rem;
+
+    font-weight: 600;
+
+    text-shadow: 0 3px 20px rgba(0,0,0,.5);
+
+    z-index: 4;
+
+}
+
+
+/* ==========================================
+   CAMERA OVERLAY
+========================================== */
+
+.camera-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    align-items: flex-start;
+
+    padding: 17px;
+
+    pointer-events: none;
+
+    z-index: 3;
+
+}
+
+
+.photo-progress {
+
+    padding: 8px 13px;
+
+    background: rgba(255,253,249,.93);
+
+    color: var(--brown);
+
+    border-radius: 999px;
+
+    font-size: .68rem;
+
+    font-weight: 600;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,.08);
+
+}
+
+
+/* ==========================================
+   CAPTURE BUTTONS
+========================================== */
+
+.controls {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin: 17px 0 0;
+
+}
+
+
+.controls button {
+
+    padding: 10px 17px;
+
+    border-radius: 999px;
+
+    font-family: 'Inter', sans-serif;
+
+    font-size: .72rem;
+
+    cursor: pointer;
+
+    transition: all .25s ease;
+
+}
+
+
+#startCapture {
+
+    background: var(--brown);
+
+    color: white;
+
+    border: 1px solid var(--brown);
+
+}
+
+
+#startCapture:hover {
+
+    background: #332D28;
+
+    transform: translateY(-2px);
+
+}
+
+
+#retakeSession {
+
+    background: var(--white);
+
+    color: var(--brown);
+
+    border: 1px solid var(--border);
+
+}
+
+
+#retakeSession:hover {
+
+    border-color: var(--border-dark);
+
+    transform: translateY(-2px);
+
+}
+
+
+.controls button:disabled {
+
+    opacity: .4;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+
+/* ==========================================
+   HIDE OLD SECTIONS
+========================================== */
+
+.progress-card,
+.captures-card {
+
+    display: none;
+
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 768px) {
+
+    .navbar {
+
+        height: 70px;
+
+        padding: 0 18px;
+
+    }
+
+
+    .logo {
+
+        font-size: 1.1rem;
+
+    }
+
+
+    .start-btn {
+
+        padding: 8px 13px;
+
+    }
+
+
+    .camera-page {
+
+        margin: 30px auto 45px;
+
+        padding: 0 15px;
+
+    }
+
+
+    .session-info {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 10px;
+
+    }
+
+
+    .session-info h2 {
+
+        font-size: 1.4rem;
+
+    }
+
+
+    .camera-power {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 12px;
+
+    }
+
+
+    .camera-power-copy {
+
+        width: 100%;
+
+        flex-wrap: wrap;
+
+    }
+
+
+    .camera-power-request {
+
+        width: 100%;
+
+    }
+
+
+    .camera-power-buttons {
+
+        width: 100%;
+
+        flex-wrap: wrap;
+
+    }
+
+
+    .camera-container {
+
+        border-radius: 19px;
+
+    }
+
+
+    .camera-container video {
+
+        border-radius: 19px;
+
+    }
+
+
+    #countdown {
+
+        font-size: 5rem;
+
+    }
+
+
+    .controls {
+
+        margin-top: 14px;
+
+    }
+
+}

@@ -1,0 +1,1234 @@
+/* ==========================================
+   SOME MEMORY LANE
+   EDIT / RESULT PAGE
+========================================== */
+
+
+/* ==========================================
+   RESET
+========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* ==========================================
+   HTML / BODY
+========================================== */
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+
+body {
+    font-family: 'Inter', sans-serif;
+
+    background: #F7F5F2;
+
+    color: #2B2B2B;
+
+    overflow-x: hidden;
+}
+
+
+/* ==========================================
+   PAGE
+========================================== */
+
+.edit-page {
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 0;
+
+    position: relative;
+}
+
+
+/* ==========================================
+   DEVELOPING SCREEN
+========================================== */
+
+.developing-screen {
+
+    width: 100%;
+
+    max-width: 700px;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+}
+
+
+.developing-content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+/* ==========================================
+   PHOTO ICON
+========================================== */
+
+.developing-icon {
+
+    width: 100px;
+    height: 100px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    border: 1px solid #E2DDD7;
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, .06);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 30px;
+}
+
+
+.photo-paper {
+
+    width: 42px;
+    height: 52px;
+
+    background: #F7F5F2;
+
+    border: 2px solid #2B2B2B;
+
+    border-radius: 4px;
+
+    padding: 7px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+
+.photo-paper span {
+
+    display: block;
+
+    height: 3px;
+
+    background: #D8D3CC;
+
+    border-radius: 5px;
+}
+
+
+.photo-paper span:nth-child(1) {
+    width: 70%;
+}
+
+
+.photo-paper span:nth-child(2) {
+    width: 100%;
+}
+
+
+.photo-paper span:nth-child(3) {
+    width: 55%;
+}
+
+
+/* ==========================================
+   TEXT
+========================================== */
+
+.section-label {
+
+    font-size: .72rem;
+
+    font-weight: 600;
+
+    letter-spacing: .16em;
+
+    color: #999;
+
+    margin-bottom: 10px;
+}
+
+
+.developing-content h1,
+.result-header h1 {
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 2rem;
+
+    line-height: 1.2;
+
+    margin-bottom: 10px;
+}
+
+
+.developing-message {
+
+    color: #777;
+
+    font-size: .9rem;
+
+    line-height: 1.6;
+
+    max-width: 420px;
+}
+
+
+/* ==========================================
+   LOADING DOTS
+========================================== */
+
+.loading-dots {
+
+    display: flex;
+
+    gap: 7px;
+
+    margin: 25px 0;
+}
+
+
+.loading-dots span {
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #2B2B2B;
+
+    animation:
+        loadingDot 1.2s infinite ease-in-out;
+}
+
+
+.loading-dots span:nth-child(2) {
+    animation-delay: .15s;
+}
+
+
+.loading-dots span:nth-child(3) {
+    animation-delay: .3s;
+}
+
+
+.loading-dots span:nth-child(4) {
+    animation-delay: .45s;
+}
+
+
+@keyframes loadingDot {
+
+    0%,
+    60%,
+    100% {
+
+        opacity: .25;
+
+        transform: translateY(0);
+    }
+
+    30% {
+
+        opacity: 1;
+
+        transform: translateY(-4px);
+    }
+}
+
+
+/* ==========================================
+   DEVELOPING PROGRESS
+========================================== */
+
+.developing-progress {
+
+    width: min(320px, 80%);
+
+    height: 5px;
+
+    background: #E5E1DB;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+
+.developing-progress-fill {
+
+    width: 0%;
+
+    height: 100%;
+
+    background: #2B2B2B;
+
+    border-radius: 20px;
+
+    transition: width .3s ease;
+}
+
+
+.developing-status {
+
+    margin-top: 12px;
+
+    color: #999;
+
+    font-size: .75rem;
+}
+
+
+/* ==========================================
+   RESULT SCREEN
+========================================== */
+
+/*
+    IMPORTANT
+
+    The result page is NOT using a grid anymore.
+
+    The photo strip is positioned at:
+
+        left: 50%
+        top: 50%
+
+    This guarantees that the strip itself
+    is exactly in the center of the screen.
+*/
+
+.result-screen {
+
+    position: relative;
+
+    width: 100vw;
+
+    max-width: none;
+
+    height: 100vh;
+
+    min-height: 100vh;
+
+    display: none;
+
+    animation: resultIn .6s ease;
+}
+
+
+.result-screen.show {
+
+    display: block;
+
+    position: relative;
+
+    width: 100vw;
+
+    height: 100vh;
+
+    min-height: 100vh;
+
+    padding: 0;
+
+    margin: 0;
+
+    overflow: hidden;
+}
+
+
+/* ==========================================
+   RESULT ANIMATION
+========================================== */
+
+@keyframes resultIn {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(15px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+}
+
+
+/* ==========================================
+   RESULT HEADER
+========================================== */
+
+/*
+    Text sits to the LEFT of the centered
+    photo strip.
+*/
+
+.result-header {
+
+    position: absolute;
+
+    top: 50%;
+
+    right: calc(50% + 350px);
+
+    transform: translateY(-50%);
+
+    width: 300px;
+
+    text-align: right;
+
+    align-self: center;
+}
+
+
+.result-header .section-label {
+
+    margin-bottom: 12px;
+}
+
+
+.result-header h1 {
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 2rem;
+
+    line-height: 1.2;
+
+    margin-bottom: 12px;
+}
+
+
+.result-header p:last-child {
+
+    color: #777;
+
+    font-size: .9rem;
+
+    line-height: 1.5;
+
+    max-width: 300px;
+
+    margin-left: auto;
+}
+
+
+/* ==========================================
+   STRIP STAGE
+========================================== */
+
+/*
+    NO CARD.
+    NO BORDER.
+    NO BACKGROUND.
+
+    The stage itself is positioned exactly
+    in the center of the viewport.
+*/
+
+.strip-stage {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    width: auto;
+
+    height: auto;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 0;
+
+    background: transparent;
+
+    border: none;
+
+    border-radius: 0;
+
+    box-shadow: none;
+
+    overflow: visible;
+}
+
+
+/* ==========================================
+   FINAL STRIP
+========================================== */
+
+.final-strip {
+
+    width: auto !important;
+
+    height: min(
+        calc(100vh - 120px),
+        700px
+    ) !important;
+
+    max-width: 280px;
+
+    min-height: 0 !important;
+
+    display: block;
+
+    background: #F7F5F2;
+
+    border-radius: 2px;
+
+}
+
+
+/* ==========================================
+   GENERATED STRIP IMAGE
+========================================== */
+
+.final-strip img {
+
+    display: block;
+
+    width: auto !important;
+
+    height: min(
+        calc(100vh - 120px),
+        700px
+    ) !important;
+
+    max-width: 280px;
+
+    max-height: calc(100vh - 120px);
+
+    object-fit: contain;
+}
+
+
+/* ==========================================
+   SESSION DETAILS
+========================================== */
+
+.session-details {
+
+    display: none !important;
+}
+
+
+/* ==========================================
+   RESULT ACTIONS
+========================================== */
+
+/*
+    Buttons sit to the RIGHT of the centered
+    strip.
+*/
+
+.result-actions {
+
+    position: absolute;
+
+    left: calc(50% + 300px);
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    display: flex;
+
+    flex-direction: row;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    gap: 10px;
+
+    white-space: nowrap;
+
+    width: auto;
+}
+
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.primary-btn,
+.secondary-btn {
+
+    display: inline-flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 12px 20px;
+
+    min-width: 120px;
+
+    height: 50px;
+
+    border-radius: 999px;
+
+    font: inherit;
+
+    font-size: .85rem;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        background .25s ease,
+        color .25s ease,
+        border-color .25s ease,
+        transform .25s ease,
+        box-shadow .25s ease;
+
+    white-space: nowrap;
+}
+
+
+/* ==========================================
+   PRIMARY BUTTON
+========================================== */
+
+.primary-btn {
+
+    background: #2B2B2B;
+
+    color: white;
+
+    border: 1px solid #2B2B2B;
+}
+
+
+.primary-btn:hover {
+
+    background: #444;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, .10);
+}
+
+
+/* ==========================================
+   SECONDARY BUTTON
+========================================== */
+
+.secondary-btn {
+
+    background: white;
+
+    color: #555;
+
+    border: 1px solid #D8D3CC;
+}
+
+
+.secondary-btn:hover {
+
+    background: #2B2B2B;
+
+    color: white;
+
+    border-color: #2B2B2B;
+
+    transform: translateY(-2px);
+}
+
+
+/* ==========================================
+   PRINTING SCREEN
+========================================== */
+
+.edit-strip {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    min-height: 500px;
+}
+
+
+.printing-screen {
+
+    text-align: center;
+
+    padding: 60px 30px;
+}
+
+
+.printing-icon {
+
+    font-size: 3rem;
+
+    margin-bottom: 20px;
+}
+
+
+.printing-screen h2 {
+
+    font-family: 'Poppins', sans-serif;
+
+    margin-bottom: 10px;
+}
+
+
+.printing-screen p {
+
+    color: #777;
+
+    margin-bottom: 30px;
+}
+
+
+/* ==========================================
+   PRINTING LOADER
+========================================== */
+
+.printing-loader {
+
+    width: 220px;
+
+    height: 6px;
+
+    background: #E8E3DC;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    margin: auto;
+}
+
+
+.printing-loader-fill {
+
+    width: 0%;
+
+    height: 100%;
+
+    background: #2B2B2B;
+
+    border-radius: inherit;
+
+    animation:
+        printingProgress 1.8s ease forwards;
+}
+
+
+@keyframes printingProgress {
+
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+
+/* ==========================================
+   ERROR MESSAGE
+========================================== */
+
+.edit-message {
+
+    text-align: center;
+
+    padding: 40px;
+
+    color: #777;
+}
+
+
+/* ==========================================
+   PRINT
+========================================== */
+
+@media print {
+
+    body {
+
+        background: white;
+
+        overflow: visible;
+    }
+
+
+    .result-header,
+    .session-details,
+    .result-actions {
+
+        display: none !important;
+    }
+
+
+    .edit-page {
+
+        min-height: auto;
+
+        padding: 0;
+    }
+
+
+    .result-screen.show {
+
+        display: block;
+
+        width: 100%;
+
+        height: auto;
+
+        min-height: auto;
+
+        overflow: visible;
+    }
+
+
+    .strip-stage {
+
+        position: static;
+
+        transform: none;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: flex-start;
+
+        width: 100%;
+
+        height: auto;
+
+        padding: 0;
+
+        background: white;
+
+        border: none;
+
+        box-shadow: none;
+    }
+
+
+    .final-strip {
+
+        height: auto !important;
+
+        width: 200px !important;
+
+        max-width: none;
+
+        box-shadow: none;
+    }
+
+
+    .final-strip img {
+
+        width: 200px !important;
+
+        height: auto !important;
+
+        max-width: none;
+
+        max-height: none;
+    }
+}
+
+
+/* ==========================================
+   TABLET / SMALL DESKTOP
+========================================== */
+
+@media (max-width: 1050px) and (min-width: 751px) {
+
+    .result-header {
+
+        right: calc(50% + 300px);
+
+        width: 240px;
+    }
+
+
+    .result-header h1 {
+
+        font-size: 1.7rem;
+    }
+
+
+    .final-strip {
+
+        height: min(
+            calc(100vh - 110px),
+            650px
+        ) !important;
+
+        max-width: 260px;
+    }
+
+
+    .final-strip img {
+
+        height: min(
+            calc(100vh - 110px),
+            650px
+        ) !important;
+
+        max-width: 260px;
+    }
+
+
+    .result-actions {
+
+        left: calc(50% + 280px);
+
+        gap: 8px;
+    }
+
+
+    .primary-btn,
+    .secondary-btn {
+
+        min-width: 100px;
+
+        padding: 11px 15px;
+
+        font-size: .8rem;
+    }
+}
+
+
+/* ==========================================
+   SMALL DESKTOP / SHORT SCREEN
+========================================== */
+
+@media (max-height: 750px) and (min-width: 751px) {
+
+    .final-strip {
+
+        height: min(
+            calc(100vh - 80px),
+            600px
+        ) !important;
+
+        max-width: 240px;
+    }
+
+
+    .final-strip img {
+
+        height: min(
+            calc(100vh - 80px),
+            600px
+        ) !important;
+
+        max-width: 240px;
+    }
+
+
+    .result-header h1 {
+
+        font-size: 1.7rem;
+    }
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 750px) {
+
+    body {
+
+        overflow-y: auto;
+    }
+
+
+    .edit-page {
+
+        min-height: 100vh;
+
+        padding: 0;
+    }
+
+
+    .result-screen.show {
+
+        display: flex;
+
+        position: static;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        align-items: center;
+
+        gap: 25px;
+
+        width: 100%;
+
+        min-height: 100vh;
+
+        height: auto;
+
+        padding: 30px 15px;
+
+        overflow: visible;
+    }
+
+
+    /* ==============================
+       HEADER
+    ============================== */
+
+    .result-header {
+
+        position: static;
+
+        transform: none;
+
+        order: 1;
+
+        width: 100%;
+
+        text-align: center;
+    }
+
+
+    .result-header .section-label {
+
+        margin-bottom: 8px;
+    }
+
+
+    .result-header h1 {
+
+        font-size: 1.7rem;
+
+        margin-bottom: 8px;
+    }
+
+
+    .result-header p:last-child {
+
+        font-size: .8rem;
+
+        max-width: none;
+
+        margin: 0 auto;
+    }
+
+
+    /* ==============================
+       STRIP
+    ============================== */
+
+    .strip-stage {
+
+        position: static;
+
+        transform: none;
+
+        order: 2;
+
+        width: auto;
+
+        height: auto;
+
+        padding: 0;
+
+        background: transparent;
+
+        border: none;
+
+        box-shadow: none;
+    }
+
+
+    .final-strip {
+
+        height: min(
+            55vh,
+            560px
+        ) !important;
+
+        width: auto !important;
+
+        max-width: 230px;
+    }
+
+
+    .final-strip img {
+
+        height: min(
+            55vh,
+            560px
+        ) !important;
+
+        width: auto !important;
+
+        max-width: 230px;
+    }
+
+
+    /* ==============================
+       BUTTONS
+    ============================== */
+
+    .result-actions {
+
+        position: static;
+
+        transform: none;
+
+        order: 3;
+
+        display: flex;
+
+        flex-direction: row;
+
+        justify-content: center;
+
+        align-items: center;
+
+        width: 100%;
+
+        gap: 7px;
+
+        flex-wrap: nowrap;
+    }
+
+
+    .primary-btn,
+    .secondary-btn {
+
+        width: auto;
+
+        min-width: 0;
+
+        height: 44px;
+
+        padding: 9px 13px;
+
+        font-size: .75rem;
+    }
+}
+
+
+/* ==========================================
+   VERY SMALL PHONES
+========================================== */
+
+@media (max-width: 430px) {
+
+    .result-screen.show {
+
+        gap: 18px;
+
+        padding: 20px 10px;
+    }
+
+
+    .result-header h1 {
+
+        font-size: 1.5rem;
+    }
+
+
+    .result-header p:last-child {
+
+        font-size: .75rem;
+    }
+
+
+    .final-strip {
+
+        height: min(
+            52vh,
+            480px
+        ) !important;
+
+        max-width: 200px;
+    }
+
+
+    .final-strip img {
+
+        height: min(
+            52vh,
+            480px
+        ) !important;
+
+        max-width: 200px;
+    }
+
+
+    .result-actions {
+
+        gap: 5px;
+    }
+
+
+    .primary-btn,
+    .secondary-btn {
+
+        height: 42px;
+
+        padding: 8px 10px;
+
+        font-size: .7rem;
+    }
+}

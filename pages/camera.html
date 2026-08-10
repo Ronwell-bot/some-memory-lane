@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Camera | Memory Lane</title>
+
+
+    <link rel="stylesheet" href="/css/camera.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+<header>
+
+<nav class="navbar">
+
+<div class="logo">
+
+    <span>Memory Lane</span>
+
+</div>
+
+<a href="../pages/start.html" class="start-btn">
+
+    ← Back
+
+</a>
+
+</nav>
+
+</header>
+
+
+<!-- =============================== -->
+
+<section class="camera-page">
+
+
+<!-- Session Information -->
+
+<div class="session-info">
+
+<div>
+
+<h2 id="layoutName">
+
+    Classic Strip
+
+</h2>
+
+<p id="captureInfo">
+
+    4 Photos Required
+
+</p>
+
+</div>
+
+
+<div class="status">
+
+<div class="light red" id="statusLight"></div>
+
+<span id="statusText">
+
+    Preparing Camera...
+
+</span>
+
+</div>
+
+</div>
+
+
+
+<!-- Camera Power -->
+
+<div class="camera-power">
+
+<div class="camera-power-copy">
+
+<p class="camera-power-label">
+    Camera Controls
+</p>
+
+<h3>
+    Request or turn the camera on and off
+</h3>
+
+</div>
+
+
+<div class="camera-power-request">
+
+<div class="camera-power-buttons">
+
+<button
+    id="requestCamera"
+    class="power-btn primary-power-btn">
+
+    Request Camera Access
+
+</button>
+
+
+<button
+    id="turnOnCamera"
+    class="power-btn">
+
+    Turn Camera On
+
+</button>
+
+
+<button
+    id="turnOffCamera"
+    class="power-btn">
+
+    Turn Camera Off
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- Camera -->
+
+<div class="camera-container">
+
+<video
+    id="video"
+    autoplay
+    playsinline
+    muted>
+</video>
+
+
+<div id="flash"></div>
+
+
+<div id="countdown">
+    3
+</div>
+
+
+<div class="camera-overlay">
+
+<div class="photo-progress">
+
+    Photo
+
+    <span id="currentPhoto">
+        1
+    </span>
+
+    /
+
+    <span id="totalPhotos">
+        4
+    </span>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- Controls -->
+
+<div class="controls">
+
+<button id="startCapture">
+
+    📸 Start Countdown
+
+</button>
+
+
+<button id="retakeSession">
+
+    ↺ Restart Session
+
+</button>
+
+</div>
+
+
+
+<!-- Hidden Canvas -->
+
+<canvas
+    id="canvas"
+    style="display:none;">
+</canvas>
+
+
+</section>
+
+
+<script src="/js/camera.js"></script>
+
+</body>
+
+</html>

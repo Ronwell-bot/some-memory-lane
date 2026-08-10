@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Memory Lane could not open this page.">
+<title>Memory Lane</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #FBF8F1;
+    --card-bg: #FFFDF8;
+    --text: #2B2926;
+    --text-muted: #766E65;
+    --text-faint: #A0988E;
+    --border: #DCD3C7;
+
+    --radius-lg: 8px;
+    --radius-full: 999px;
+
+    --shadow:
+      0 14px 30px rgba(70, 55, 40, 0.12),
+      3px 4px 0 rgba(70, 55, 40, 0.04);
+  }
+
+
+  /* ==========================
+     RESET
+  ========================== */
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+
+  /* ==========================
+     BODY
+  ========================== */
+
+  body {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-family: 'Inter', sans-serif;
+
+    background-color: var(--bg);
+
+    color: var(--text);
+
+    padding: 24px;
+
+    /*
+       Same paper texture as
+       your Memory Lane pages
+    */
+
+    background-image:
+      radial-gradient(
+        #DED5C9 0.8px,
+        transparent 0.8px
+      );
+
+    background-size: 22px 22px;
+
+    position: relative;
+
+    overflow: hidden;
+
+  }
+
+
+  /* ==========================
+     DECORATIVE PAPER LAYERS
+  ========================== */
+
+  body::before {
+
+    content: "";
+
+    position: fixed;
+
+    width: 180px;
+
+    height: 45px;
+
+    background: rgba(244, 229, 178, 0.72);
+
+    top: 8%;
+
+    left: 12%;
+
+    transform: rotate(-7deg);
+
+    border-radius: 3px;
+
+    opacity: .55;
+
+    pointer-events: none;
+
+  }
+
+
+  body::after {
+
+    content: "";
+
+    position: fixed;
+
+    width: 150px;
+
+    height: 40px;
+
+    background: rgba(244, 229, 178, 0.65);
+
+    bottom: 10%;
+
+    right: 12%;
+
+    transform: rotate(6deg);
+
+    border-radius: 3px;
+
+    opacity: .5;
+
+    pointer-events: none;
+
+  }
+
+
+  /* ==========================
+     ERROR CARD
+  ========================== */
+
+  .card {
+
+    width: 100%;
+
+    max-width: 420px;
+
+    background: var(--card-bg);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-lg);
+
+    padding: 44px 36px;
+
+    text-align: center;
+
+    box-shadow: var(--shadow);
+
+    animation: rise 0.5s ease;
+
+    /*
+       Slight handmade rotation
+    */
+
+    transform: rotate(-1deg);
+
+    position: relative;
+
+  }
+
+
+  /* ==========================
+     TAPE
+  ========================== */
+
+  .card::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 72px;
+
+    height: 17px;
+
+    background: rgba(244, 229, 178, .8);
+
+    top: -9px;
+
+    left: 50%;
+
+    transform: translateX(-50%) rotate(-3deg);
+
+    border-radius: 3px;
+
+    box-shadow:
+      0 1px 3px rgba(70, 55, 40, .08);
+
+  }
+
+
+  /* ==========================
+     LOGO
+  ========================== */
+
+  .logo {
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 1rem;
+
+    font-weight: 600;
+
+    color: var(--text);
+
+    letter-spacing: .02em;
+
+    margin-bottom: 30px;
+
+  }
+
+
+  /* ==========================
+     TITLE
+  ========================== */
+
+  h1 {
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 1.6rem;
+
+    font-weight: 600;
+
+    margin-bottom: 12px;
+
+    letter-spacing: -0.01em;
+
+    color: #292724;
+
+  }
+
+
+  /* ==========================
+     MESSAGE
+  ========================== */
+
+  p {
+
+    color: var(--text-muted);
+
+    font-size: .95rem;
+
+    line-height: 1.65;
+
+    margin-bottom: 32px;
+
+  }
+
+
+  /* ==========================
+     HOME BUTTON
+  ========================== */
+
+  a {
+
+    display: inline-block;
+
+    border: 1px solid #D4CBC0;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    padding: 13px 30px;
+
+    border-radius: var(--radius-full);
+
+    font-size: .9rem;
+
+    font-weight: 500;
+
+    font-family: 'Inter', sans-serif;
+
+    background: #302D29;
+
+    color: #FFFDF8;
+
+    transition:
+      transform .2s ease,
+      box-shadow .2s ease,
+      background .2s ease;
+
+  }
+
+
+  a:hover {
+
+    transform: translateY(-2px);
+
+    background: #49443E;
+
+    box-shadow:
+      0 10px 22px rgba(60, 45, 30, .16);
+
+  }
+
+
+  a:focus-visible {
+
+    outline: 2px solid #302D29;
+
+    outline-offset: 3px;
+
+  }
+
+
+  /* ==========================
+     FOOTER
+  ========================== */
+
+  .footer {
+
+    margin-top: 28px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #E3DBD0;
+
+    font-size: .8rem;
+
+    color: var(--text-faint);
+
+  }
+
+
+  /* ==========================
+     ANIMATION
+  ========================== */
+
+  @keyframes rise {
+
+    from {
+
+      opacity: 0;
+
+      transform:
+        translateY(12px)
+        rotate(-1deg);
+
+    }
+
+    to {
+
+      opacity: 1;
+
+      transform:
+        translateY(0)
+        rotate(-1deg);
+
+    }
+
+  }
+
+
+  /* ==========================
+     REDUCED MOTION
+  ========================== */
+
+  @media (prefers-reduced-motion: reduce) {
+
+    .card {
+
+      animation: none;
+
+    }
+
+    a {
+
+      transition: none;
+
+    }
+
+  }
+
+
+  /* ==========================
+     MOBILE
+  ========================== */
+
+  @media (max-width: 480px) {
+
+    body {
+
+      padding: 18px;
+
+    }
+
+    .card {
+
+      padding: 36px 24px;
+
+    }
+
+    h1 {
+
+      font-size: 1.35rem;
+
+    }
+
+  }
+
+</style>
+</head>
+
+<body>
+
+<div class="card" role="alert" aria-live="polite">
+
+  <div class="logo">Memory Lane</div>
+
+  <h1 id="title">Oops...</h1>
+
+  <p id="message">
+    Looks like this page couldn't be opened. Your session may have
+    expired, the link may no longer exist, or you accessed this
+    page directly.
+  </p>
+
+  <a href="../index.html">Back to home</a>
+
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const reason = params.get("reason");
+
+  const title = document.getElementById("title");
+  const message = document.getElementById("message");
+
+  const reasons = {
+    expired: {
+      title: "Session expired",
+      message: "This memory session has already expired. Start a new one to create another memory."
+    },
+    camera: {
+      title: "Camera not available",
+      message: "We couldn't access your camera. Please allow camera permission and try again."
+    },
+    photos: {
+      title: "No photos found",
+      message: "It looks like there aren't any captured photos yet. Let's start a new session."
+    },
+    editor: {
+      title: "Nothing to edit",
+      message: "There are no selected photos available for editing."
+    },
+    "404": {
+      title: "Page not found",
+      message: "The page you're looking for doesn't exist or may have been moved."
+    }
+  };
+
+  const match = reasons[reason];
+  if (match) {
+    title.textContent = match.title;
+    message.textContent = match.message;
+  }
+</script>
+
+</body>
+</html>

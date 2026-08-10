@@ -1,0 +1,437 @@
+/* ==========================================
+   SOME MEMORY LANE
+   LANDING PAGE
+========================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+body {
+    background: #ffffff;
+    font-family: 'Inter', sans-serif;
+}
+
+
+/* ==========================================
+   LANDING PAGE
+========================================== */
+
+.landing-page {
+
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    padding: 5px 20px;
+
+}
+
+
+/* ==========================================
+   MAIN IMAGE
+========================================== */
+
+.landing-visual {
+
+    position: relative;
+
+    /*
+        Smaller than before.
+        This keeps the sketch from feeling
+        zoomed in.
+    */
+
+    height: min(78vh, 540px);
+
+    width: auto;
+
+    aspect-ratio: 872 / 620;
+
+    flex-shrink: 1;
+
+}
+
+
+/* ==========================================
+   SKETCH IMAGE
+========================================== */
+
+.landing-image {
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    user-select: none;
+
+}
+
+
+/* ==========================================
+   START / ENTER AREA
+========================================== */
+
+/*
+    Invisible clickable area over
+    the curtain.
+
+    NO background.
+    NO text.
+    NO hover effect.
+*/
+
+.enter-button {
+
+    position: absolute;
+
+    left: 28%;
+    top: 20%;
+
+    width: 15%;
+    height: 57%;
+
+    display: block;
+
+    background: transparent;
+
+    border: none;
+
+    color: transparent;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    z-index: 10;
+
+}
+
+
+/*
+    Completely disable the
+    visual hover effect.
+*/
+
+.enter-button:hover,
+.enter-button:focus,
+.enter-button:active {
+
+    background: transparent;
+
+    color: transparent;
+
+    outline: none;
+
+    transform: none;
+
+}
+
+
+/*
+    Hide the text completely.
+*/
+
+.enter-button span {
+
+    display: none;
+
+}
+
+
+/* ==========================================
+   FEATURED STRIPS AREA
+========================================== */
+
+/*
+    Invisible clickable area over
+    the strips/display drawing.
+*/
+
+.featured-strips {
+
+    position: absolute;
+
+    left: 44%;
+    top: 21%;
+
+    width: 17%;
+    height: 25%;
+
+    display: block;
+
+    background: transparent;
+
+    border: none;
+
+    color: transparent;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    z-index: 10;
+
+}
+
+
+/*
+    NO visual hover effect.
+*/
+
+.featured-strips:hover,
+.featured-strips:focus,
+.featured-strips:active {
+
+    background: transparent;
+
+    color: transparent;
+
+    outline: none;
+
+    transform: none;
+
+}
+
+
+/*
+    Hide the text completely.
+*/
+
+.featured-strips span {
+
+    display: none;
+
+}
+
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.landing-footer {
+
+    width: auto;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 28px;
+
+    margin-top: 4px;
+
+    flex-shrink: 0;
+
+}
+
+
+/* ==========================================
+   FOOTER LINKS
+========================================== */
+
+.footer-link {
+
+    color: #444;
+
+    text-decoration: none;
+
+    font-size: .72rem;
+
+    font-weight: 400;
+
+    white-space: nowrap;
+
+    transition: color .2s ease;
+
+}
+
+
+.footer-link:hover {
+
+    color: #000;
+
+    text-decoration: underline;
+
+}
+
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 900px) {
+
+    .landing-page {
+
+        padding: 5px 10px;
+
+    }
+
+
+    .landing-visual {
+
+        height: min(76vh, 500px);
+
+    }
+
+
+    .landing-footer {
+
+        gap: 20px;
+
+    }
+
+
+    .footer-link {
+
+        font-size: .68rem;
+
+    }
+
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 600px) {
+
+    .landing-page {
+
+        padding: 5px;
+
+    }
+
+
+    .landing-visual {
+
+        height: min(72vh, 420px);
+
+    }
+
+
+    .landing-footer {
+
+        gap: 10px;
+
+        flex-wrap: wrap;
+
+    }
+
+
+    .footer-link {
+
+        font-size: .6rem;
+
+    }
+
+}
+
+
+/* ==========================================
+   SHORT SCREEN
+========================================== */
+
+@media (max-height: 650px) {
+
+    .landing-visual {
+
+        height: 72vh;
+
+    }
+
+
+    .landing-footer {
+
+        gap: 18px;
+
+    }
+
+
+    .footer-link {
+
+        font-size: .62rem;
+
+    }
+
+}
+
+
+/* ==========================================
+   MUSIC BUTTON
+========================================== */
+
+.music-toggle {
+
+    position: fixed;
+
+    top: 20px;
+    right: 20px;
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #D8D3CC;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, .85);
+
+    color: #2B2B2B;
+
+    font-size: 1rem;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,.06);
+
+    transition: .25s ease;
+
+    z-index: 100;
+}
+
+
+.music-toggle:hover {
+
+    background: #2B2B2B;
+
+    color: white;
+
+    transform: translateY(-2px);
+
+}
+
+
+.music-toggle.playing {
+
+    background: #2B2B2B;
+
+    color: white;
+
+}
