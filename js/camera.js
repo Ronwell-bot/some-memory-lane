@@ -1,6 +1,17 @@
 /* ==========================================
    MEMORY LANE
-   CAMERA ENGINE V2
+   CAMERA ENGINE V5
+
+   RESPONSIBILITIES:
+   - Read selected session
+   - Determine photo count by layout
+   - Restore current session photos
+   - Capture photos with countdown
+   - Prevent duplicate captures
+   - Automatically continue captures
+   - Finish when required number is reached
+   - Match camera preview to actual camera ratio
+   - Prevent black side bars
 ========================================== */
 
 
@@ -8,27 +19,53 @@
    ELEMENTS
 ========================================== */
 
-const video = document.getElementById("video");
-const canvas = document.getElementById("canvas");
+const video =
+    document.getElementById("video");
 
-const countdown = document.getElementById("countdown");
-const flash = document.getElementById("flash");
+const canvas =
+    document.getElementById("canvas");
 
-const statusLight = document.getElementById("statusLight");
-const statusText = document.getElementById("statusText");
+const countdown =
+    document.getElementById("countdown");
 
-const currentPhoto = document.getElementById("currentPhoto");
-const totalPhotos = document.getElementById("totalPhotos");
+const flash =
+    document.getElementById("flash");
 
-const startButton = document.getElementById("startCapture");
-const restartButton = document.getElementById("retakeSession");
+const statusLight =
+    document.getElementById("statusLight");
 
-const requestButton = document.getElementById("requestCamera");
-const turnOnButton = document.getElementById("turnOnCamera");
-const turnOffButton = document.getElementById("turnOffCamera");
+const statusText =
+    document.getElementById("statusText");
 
-const layoutName = document.getElementById("layoutName");
-const captureInfo = document.getElementById("captureInfo");
+const currentPhoto =
+    document.getElementById("currentPhoto");
+
+const totalPhotos =
+    document.getElementById("totalPhotos");
+
+const startButton =
+    document.getElementById("startCapture");
+
+const restartButton =
+    document.getElementById("retakeSession");
+
+const requestButton =
+    document.getElementById("requestCamera");
+
+const turnOnButton =
+    document.getElementById("turnOnCamera");
+
+const turnOffButton =
+    document.getElementById("turnOffCamera");
+
+const layoutName =
+    document.getElementById("layoutName");
+
+const captureInfo =
+    document.getElementById("captureInfo");
+
+const cameraContainer =
+    document.querySelector(".camera-container");
 
 
 /* ==========================================
@@ -37,21 +74,10 @@ const captureInfo = document.getElementById("captureInfo");
 
 const savedSession =
     JSON.parse(
-        sessionStorage.getItem("memoryLaneSession")
+        sessionStorage.getItem(
+            "memoryLaneSession"
+        )
     ) || {};
-
-
-/*
-    Example:
-
-    {
-        session: "Solo",
-        layout: "Layout 1",
-        design: "Design 1",
-        strip: "layout1-design1",
-        captures: 4
-    }
-*/
 
 
 /* ==========================================
@@ -65,13 +91,99 @@ const layout =
     savedSession.layout || "Layout 1";
 
 const design =
-    savedSession.design || "Design 1";
+    savedSession.design || "Blue";
 
 const strip =
     savedSession.strip || "layout1-design1";
 
+
+/* ==========================================
+   PHOTO COUNT BY LAYOUT
+========================================== */
+
+const layoutPhotoCounts = {
+
+    "Layout 1": 4,
+
+    "Layout 2": 4,
+
+    "Layout 3": 4,
+
+    "Layout 4": 3,
+
+    "Layout 5": 1
+
+};
+
+
+/* ==========================================
+   DETERMINE PHOTO COUNT
+========================================== */
+
+const layoutCaptureCount =
+    layoutPhotoCounts[layout];
+
+
 const captureMode =
-    parseInt(savedSession.captures) || 4;
+    layoutCaptureCount ||
+    Number(savedSession.captures) ||
+    4;
+
+
+/* ==========================================
+   DEBUG INFORMATION
+========================================== */
+
+console.log(
+    "================================="
+);
+
+console.log(
+    "MEMORY LANE CAMERA SESSION"
+);
+
+console.log(
+    "================================="
+);
+
+console.log(
+    "Saved Session:",
+    savedSession
+);
+
+console.log(
+    "Session:",
+    session
+);
+
+console.log(
+    "Layout:",
+    layout
+);
+
+console.log(
+    "Design:",
+    design
+);
+
+console.log(
+    "Strip:",
+    strip
+);
+
+console.log(
+    "Saved Captures:",
+    savedSession.captures
+);
+
+console.log(
+    "Required Photos:",
+    captureMode
+);
+
+console.log(
+    "================================="
+);
 
 
 /* ==========================================
@@ -81,7 +193,7 @@ const captureMode =
 if(layoutName){
 
     layoutName.textContent =
-        `${layout}`;
+        layout;
 
 }
 
@@ -89,7 +201,7 @@ if(layoutName){
 if(captureInfo){
 
     captureInfo.textContent =
-        `${captureMode} Captures • ${design}`;
+        `${captureMode} Photos • ${design}`;
 
 }
 
@@ -117,17 +229,96 @@ let cameraReady = false;
 let cameraBusy = false;
 
 
+/*
+    Prevent multiple countdowns
+    from running simultaneously.
+*/
+
+let captureInProgress = false;
+
+
+/*
+    Used to stop delayed automatic
+    countdowns after the session ends.
+*/
+
+let sessionFinished = false;
+
+
+/*
+    Reference to the next-photo timer.
+*/
+
+let nextCaptureTimer = null;
+
+
 /* ==========================================
    RESTORE PHOTOS
 ========================================== */
 
-photos =
-    JSON.parse(
-        localStorage.getItem("memoryLanePhotos") || "[]"
+try{
+
+    photos =
+        JSON.parse(
+            localStorage.getItem(
+                "memoryLanePhotos"
+            ) || "[]"
+        );
+
+
+    if(!Array.isArray(photos)){
+
+        photos = [];
+
+    }
+
+}
+
+catch(error){
+
+    console.error(
+        "Unable to restore saved photos:",
+        error
+    );
+
+    photos = [];
+
+}
+
+
+/* ==========================================
+   SAFETY CHECK
+========================================== */
+
+if(photos.length > captureMode){
+
+    console.warn(
+        `Too many saved photos detected. Keeping only the first ${captureMode}.`
     );
 
 
-current = photos.length;
+    photos =
+        photos.slice(
+            0,
+            captureMode
+        );
+
+
+    localStorage.setItem(
+
+        "memoryLanePhotos",
+
+        JSON.stringify(
+            photos
+        )
+
+    );
+
+}
+
+
+current =
+    photos.length;
 
 
 /* ==========================================
@@ -136,7 +327,8 @@ current = photos.length;
 
 if(startButton){
 
-    startButton.disabled = true;
+    startButton.disabled =
+        true;
 
 }
 
@@ -163,44 +355,57 @@ function updateCameraControls(){
         Boolean(stream);
 
 
-    /* Request Camera */
+    /* ======================================
+       REQUEST CAMERA
+    ====================================== */
 
     if(requestButton){
 
         requestButton.disabled =
-            cameraBusy || hasStream;
+            cameraBusy ||
+            hasStream;
 
     }
 
 
-    /* Turn Camera On */
+    /* ======================================
+       TURN CAMERA ON
+    ====================================== */
 
     if(turnOnButton){
 
         turnOnButton.disabled =
-            cameraBusy || hasStream;
+            cameraBusy ||
+            hasStream;
 
     }
 
 
-    /* Turn Camera Off */
+    /* ======================================
+       TURN CAMERA OFF
+    ====================================== */
 
     if(turnOffButton){
 
         turnOffButton.disabled =
-            cameraBusy || !hasStream;
+            cameraBusy ||
+            !hasStream;
 
     }
 
 
-    /* Start Capture */
+    /* ======================================
+       START CAPTURE
+    ====================================== */
 
     if(startButton){
 
         startButton.disabled =
             cameraBusy ||
+            !cameraReady ||
             !hasStream ||
-            current >= captureMode;
+            current >= captureMode ||
+            sessionFinished;
 
     }
 
@@ -270,10 +475,96 @@ function updatePhotoCounter(){
 
 
 /* ==========================================
+   UPDATE CAMERA ASPECT RATIO
+========================================== */
+
+/*
+    IMPORTANT:
+
+    This function makes the camera container
+    use the EXACT aspect ratio of the actual
+    camera stream.
+
+    Example:
+
+        1280 x 720
+        = 16:9
+
+        1920 x 1080
+        = 16:9
+
+        1280 x 960
+        = 4:3
+
+    Because the container uses the same ratio
+    as the video, object-fit: cover will not
+    crop the camera and will not create
+    black side bars.
+*/
+
+function updateCameraAspectRatio(){
+
+    if(
+        !video ||
+        !cameraContainer ||
+        !video.videoWidth ||
+        !video.videoHeight
+    ){
+
+        return;
+
+    }
+
+
+    const ratio =
+        video.videoWidth /
+        video.videoHeight;
+
+
+    cameraContainer.style.aspectRatio =
+        `${ratio}`;
+
+
+    /*
+        The video can now fill the container
+        because the container has the same
+        ratio as the actual camera.
+    */
+
+    video.style.objectFit =
+        "cover";
+
+
+    video.style.objectPosition =
+        "center";
+
+
+    console.log(
+        "Camera resolution:",
+        video.videoWidth,
+        "x",
+        video.videoHeight
+    );
+
+
+    console.log(
+        "Camera aspect ratio:",
+        ratio
+    );
+
+}
+
+
+/* ==========================================
    OPEN CAMERA
 ========================================== */
 
 async function openCamera(){
+
+    /*
+        Don't open another camera stream
+        if one already exists.
+    */
 
     if(stream){
 
@@ -282,7 +573,39 @@ async function openCamera(){
     }
 
 
-    cameraBusy = true;
+    /*
+        Don't open camera after session
+        has already finished.
+    */
+
+    if(sessionFinished){
+
+        return;
+
+    }
+
+
+    /*
+        Make sure the browser supports
+        camera access.
+    */
+
+    if(
+        !navigator.mediaDevices ||
+        !navigator.mediaDevices.getUserMedia
+    ){
+
+        alert(
+            "Camera access is not supported by this browser."
+        );
+
+        return;
+
+    }
+
+
+    cameraBusy =
+        true;
 
     updateCameraControls();
 
@@ -293,7 +616,10 @@ async function openCamera(){
             await navigator.mediaDevices.getUserMedia({
 
                 video:{
-                    facingMode:"user"
+
+                    facingMode:
+                        "user"
+
                 },
 
                 audio:false
@@ -301,19 +627,96 @@ async function openCamera(){
             });
 
 
-        video.srcObject =
-            stream;
-
-
         /*
-            Keep camera mirrored.
+            Connect camera stream.
         */
 
-        video.style.transform =
-            "scaleX(-1)";
+        if(video){
+
+            video.srcObject =
+                stream;
 
 
-        cameraReady = true;
+            /*
+                Mirror camera preview.
+            */
+
+            video.style.transform =
+                "scaleX(-1)";
+
+
+            /*
+                Wait until the browser knows
+                the actual camera dimensions.
+            */
+
+            await new Promise(
+                resolve => {
+
+                    /*
+                        If metadata is already
+                        available, continue immediately.
+                    */
+
+                    if(
+                        video.videoWidth &&
+                        video.videoHeight
+                    ){
+
+                        resolve();
+
+                        return;
+
+                    }
+
+
+                    /*
+                        Otherwise wait for metadata.
+                    */
+
+                    video.onloadedmetadata =
+                        () => {
+
+                            resolve();
+
+                        };
+
+                }
+            );
+
+
+            /*
+                Make the camera container match
+                the real camera ratio.
+            */
+
+            updateCameraAspectRatio();
+
+
+            /*
+                Make sure playback starts.
+            */
+
+            try{
+
+                await video.play();
+
+            }
+
+            catch(playError){
+
+                console.warn(
+                    "Video playback could not start automatically:",
+                    playError
+                );
+
+            }
+
+        }
+
+
+        cameraReady =
+            true;
 
 
         setCameraStatus(
@@ -322,11 +725,20 @@ async function openCamera(){
         );
 
 
+        console.log(
+            "Camera opened successfully."
+        );
+
     }
+
 
     catch(error){
 
-        cameraReady = false;
+        cameraReady =
+            false;
+
+        stream =
+            null;
 
 
         setCameraStatus(
@@ -350,7 +762,8 @@ async function openCamera(){
 
     finally{
 
-        cameraBusy = false;
+        cameraBusy =
+            false;
 
         updateCameraControls();
 
@@ -365,28 +778,56 @@ async function openCamera(){
 
 function stopCamera(){
 
-    if(!stream){
+    /*
+        Cancel any pending automatic
+        capture timer.
+    */
 
-        return;
+    if(nextCaptureTimer){
+
+        clearTimeout(
+            nextCaptureTimer
+        );
+
+        nextCaptureTimer =
+            null;
 
     }
 
 
-    stream
-        .getTracks()
-        .forEach(track => {
+    /*
+        Stop all camera tracks.
+    */
 
-            track.stop();
+    if(stream){
 
-        });
+        stream
+            .getTracks()
+            .forEach(
+                track => {
+
+                    track.stop();
+
+                }
+            );
+
+    }
 
 
-    stream = null;
+    stream =
+        null;
 
-    cameraReady = false;
+
+    cameraReady =
+        false;
 
 
-    video.srcObject = null;
+    if(video){
+
+        video.srcObject =
+            null;
+
+    }
 
 
     setCameraStatus(
@@ -406,6 +847,38 @@ function stopCamera(){
 
 async function startCountdown(){
 
+    /*
+        Don't start another countdown
+        if one is already running.
+    */
+
+    if(captureInProgress){
+
+        console.warn(
+            "Capture already in progress."
+        );
+
+        return;
+
+    }
+
+
+    /*
+        Don't capture after the session
+        has finished.
+    */
+
+    if(sessionFinished){
+
+        return;
+
+    }
+
+
+    /*
+        Camera must be ready.
+    */
+
     if(
         !cameraReady ||
         !stream
@@ -421,7 +894,14 @@ async function startCountdown(){
     }
 
 
+    /*
+        Stop if all required photos
+        have already been captured.
+    */
+
     if(current >= captureMode){
+
+        finishSession();
 
         return;
 
@@ -430,12 +910,24 @@ async function startCountdown(){
 
     if(!countdown){
 
+        console.error(
+            "Countdown element not found."
+        );
+
         return;
 
     }
 
 
-    cameraBusy = true;
+    /*
+        Lock capture process.
+    */
+
+    captureInProgress =
+        true;
+
+    cameraBusy =
+        true;
 
     updateCameraControls();
 
@@ -444,17 +936,44 @@ async function startCountdown(){
         "block";
 
 
+    /*
+        Countdown:
+            3
+            2
+            1
+    */
+
     for(
         let i = 3;
         i >= 1;
         i--
     ){
 
+        if(sessionFinished){
+
+            countdown.style.display =
+                "none";
+
+            captureInProgress =
+                false;
+
+            cameraBusy =
+                false;
+
+            updateCameraControls();
+
+            return;
+
+        }
+
+
         countdown.textContent =
             i;
 
 
-        await wait(1000);
+        await wait(
+            1000
+        );
 
     }
 
@@ -462,6 +981,34 @@ async function startCountdown(){
     countdown.style.display =
         "none";
 
+
+    /*
+        Final safety check.
+    */
+
+    if(
+        sessionFinished ||
+        !cameraReady ||
+        !stream ||
+        current >= captureMode
+    ){
+
+        captureInProgress =
+            false;
+
+        cameraBusy =
+            false;
+
+        updateCameraControls();
+
+        return;
+
+    }
+
+
+    /*
+        Take actual photo.
+    */
 
     capturePhoto();
 
@@ -474,9 +1021,68 @@ async function startCountdown(){
 
 function capturePhoto(){
 
-    if(!video.videoWidth){
+    /*
+        Prevent duplicate capture.
+    */
 
-        cameraBusy = false;
+    if(
+        sessionFinished ||
+        current >= captureMode
+    ){
+
+        captureInProgress =
+            false;
+
+        cameraBusy =
+            false;
+
+        updateCameraControls();
+
+        return;
+
+    }
+
+
+    /*
+        Make sure video has dimensions.
+    */
+
+    if(
+        !video ||
+        !video.videoWidth ||
+        !video.videoHeight
+    ){
+
+        console.warn(
+            "Camera video is not ready yet."
+        );
+
+
+        captureInProgress =
+            false;
+
+        cameraBusy =
+            false;
+
+        updateCameraControls();
+
+        return;
+
+    }
+
+
+    if(!canvas){
+
+        console.error(
+            "Canvas element not found."
+        );
+
+
+        captureInProgress =
+            false;
+
+        cameraBusy =
+            false;
 
         updateCameraControls();
 
@@ -486,8 +1092,18 @@ function capturePhoto(){
 
 
     const ctx =
-        canvas.getContext("2d");
+        canvas.getContext(
+            "2d"
+        );
 
+
+    /*
+        Use the REAL camera resolution.
+
+        This guarantees that the saved image
+        has the same aspect ratio as the
+        camera preview.
+    */
 
     canvas.width =
         video.videoWidth;
@@ -497,10 +1113,9 @@ function capturePhoto(){
         video.videoHeight;
 
 
-    /*
-        Because the camera preview is mirrored,
-        mirror the captured image too.
-    */
+    /* ======================================
+       MIRROR PHOTO
+    ====================================== */
 
     ctx.save();
 
@@ -544,13 +1159,19 @@ function capturePhoto(){
         );
 
 
-        setTimeout(() => {
+        setTimeout(
 
-            flash.classList.remove(
-                "flash"
-            );
+            () => {
 
-        },350);
+                flash.classList.remove(
+                    "flash"
+                );
+
+            },
+
+            350
+
+        );
 
     }
 
@@ -567,10 +1188,31 @@ function capturePhoto(){
 
 
     /* ======================================
+       EXTRA SAFETY
+    ====================================== */
+
+    if(current >= captureMode){
+
+        captureInProgress =
+            false;
+
+        cameraBusy =
+            false;
+
+        updateCameraControls();
+
+        return;
+
+    }
+
+
+    /* ======================================
        SAVE PHOTO
     ====================================== */
 
-    photos.push(image);
+    photos.push(
+        image
+    );
 
 
     current =
@@ -581,7 +1223,9 @@ function capturePhoto(){
 
         "memoryLanePhotos",
 
-        JSON.stringify(photos)
+        JSON.stringify(
+            photos
+        )
 
     );
 
@@ -589,20 +1233,66 @@ function capturePhoto(){
     updatePhotoCounter();
 
 
+    console.log(
+        `Photo ${current} of ${captureMode} captured.`
+    );
+
+
     /* ======================================
-       MORE PHOTOS?
+       SESSION COMPLETE?
     ====================================== */
 
-    if(current < captureMode){
+    if(current >= captureMode){
 
-        cameraBusy = false;
+        captureInProgress =
+            false;
 
-        updateCameraControls();
+
+        finishSession();
+
+        return;
+
+    }
 
 
+    /* ======================================
+       MORE PHOTOS
+    ====================================== */
+
+    cameraBusy =
+        false;
+
+    captureInProgress =
+        false;
+
+    updateCameraControls();
+
+
+    /*
+        Automatically begin the next
+        countdown after 1.2 seconds.
+    */
+
+    nextCaptureTimer =
         setTimeout(
 
             () => {
+
+                nextCaptureTimer =
+                    null;
+
+
+                if(
+                    sessionFinished ||
+                    current >= captureMode ||
+                    !cameraReady ||
+                    !stream
+                ){
+
+                    return;
+
+                }
+
 
                 startCountdown();
 
@@ -611,14 +1301,6 @@ function capturePhoto(){
             1200
 
         );
-
-    }
-
-    else{
-
-        finishSession();
-
-    }
 
 }
 
@@ -629,7 +1311,44 @@ function capturePhoto(){
 
 function finishSession(){
 
-    cameraBusy = true;
+    /*
+        Prevent duplicate finish.
+    */
+
+    if(sessionFinished){
+
+        return;
+
+    }
+
+
+    sessionFinished =
+        true;
+
+
+    cameraBusy =
+        true;
+
+
+    captureInProgress =
+        false;
+
+
+    /*
+        Cancel pending capture.
+    */
+
+    if(nextCaptureTimer){
+
+        clearTimeout(
+            nextCaptureTimer
+        );
+
+        nextCaptureTimer =
+            null;
+
+    }
+
 
     updateCameraControls();
 
@@ -640,34 +1359,36 @@ function finishSession(){
     );
 
 
-    /*
-        Stop the webcam.
-    */
+    /* ======================================
+       STOP WEBCAM
+    ====================================== */
 
     stopCamera();
 
 
-    /*
-        Save final session information.
-
-        This is important because
-        edit.html will need to know
-        which strip template the user selected.
-    */
+    /* ======================================
+       SAVE FINAL SESSION
+    ====================================== */
 
     const finalSession = {
 
-        session: session,
+        session:
+            session,
 
-        layout: layout,
+        layout:
+            layout,
 
-        design: design,
+        design:
+            design,
 
-        strip: strip,
+        strip:
+            strip,
 
-        captures: captureMode,
+        photoCount:
+            captureMode,
 
-        photos: photos
+        photos:
+            photos
 
     };
 
@@ -676,22 +1397,40 @@ function finishSession(){
 
         "memoryLaneSession",
 
-        JSON.stringify(finalSession)
+        JSON.stringify(
+            finalSession
+        )
 
     );
 
 
-    /*
-        Small delay before moving
-        to the next screen.
-    */
+    console.log(
+        "Final Session:",
+        finalSession
+    );
 
-    setTimeout(() => {
 
-        window.location.href =
-            "../pages/edit.html";
+    console.log(
+        `Final photo count: ${photos.length} / ${captureMode}`
+    );
 
-    },1200);
+
+    /* ======================================
+       MOVE TO EDIT PAGE
+    ====================================== */
+
+    setTimeout(
+
+        () => {
+
+            window.location.href =
+                "../pages/edit.html";
+
+        },
+
+        1200
+
+    );
 
 }
 
@@ -703,6 +1442,7 @@ function finishSession(){
 function wait(ms){
 
     return new Promise(
+
         resolve => {
 
             setTimeout(
@@ -711,6 +1451,7 @@ function wait(ms){
             );
 
         }
+
     );
 
 }
@@ -728,9 +1469,16 @@ if(startButton){
 
         () => {
 
+            /*
+                Don't allow multiple clicks.
+            */
+
             if(
                 cameraBusy ||
-                !cameraReady
+                captureInProgress ||
+                !cameraReady ||
+                !stream ||
+                sessionFinished
             ){
 
                 return;
@@ -738,8 +1486,20 @@ if(startButton){
             }
 
 
-            startButton.disabled =
-                true;
+            /*
+                Prevent capture if required
+                number has been reached.
+            */
+
+            if(
+                current >= captureMode
+            ){
+
+                finishSession();
+
+                return;
+
+            }
 
 
             startCountdown();
@@ -805,6 +1565,18 @@ if(turnOffButton){
 
         () => {
 
+            /*
+                Don't stop camera during
+                countdown.
+            */
+
+            if(captureInProgress){
+
+                return;
+
+            }
+
+
             stopCamera();
 
         }
@@ -815,7 +1587,7 @@ if(turnOffButton){
 
 
 /* ==========================================
-   RESTART SESSION
+   RETAKE / RESTART SESSION
 ========================================== */
 
 if(restartButton){
@@ -827,7 +1599,44 @@ if(restartButton){
         () => {
 
             /*
-                Remove old captured photos.
+                Stop camera first.
+            */
+
+            stopCamera();
+
+
+            /*
+                Cancel pending capture.
+            */
+
+            if(nextCaptureTimer){
+
+                clearTimeout(
+                    nextCaptureTimer
+                );
+
+                nextCaptureTimer =
+                    null;
+
+            }
+
+
+            /*
+                Reset capture state.
+            */
+
+            sessionFinished =
+                false;
+
+            captureInProgress =
+                false;
+
+            cameraBusy =
+                false;
+
+
+            /*
+                Remove old photos.
             */
 
             localStorage.removeItem(
@@ -836,8 +1645,25 @@ if(restartButton){
 
 
             /*
-                Keep the user's
-                selected session/layout/design.
+                Reset in-memory photos.
+            */
+
+            photos = [];
+
+            current = 0;
+
+
+            /*
+                Update UI.
+            */
+
+            updatePhotoCounter();
+
+            updateCameraControls();
+
+
+            /*
+                Reload camera page.
             */
 
             location.reload();

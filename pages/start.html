@@ -4,18 +4,44 @@
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Start Session | Some Memory Lane</title>
 
-    <link rel="stylesheet" href="../css/start.css">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- ==========================================
+         CSS
+    =========================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../css/start.css"
+    >
+
+
+    <!-- ==========================================
+         FONTS
+    =========================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+        rel="stylesheet"
+    >
 
 </head>
 
@@ -23,147 +49,217 @@
 <body>
 
 
-<header>
+    <!-- ==========================================
+         HEADER
+    =========================================== -->
 
-    <nav class="navbar">
+    <header>
 
-        <a href="../index.html" class="logo">
-            Some Memory Lane
-        </a>
+        <nav class="navbar">
 
-        <a href="../index.html" class="start-btn">
-            ← Home
-        </a>
-
-    </nav>
-
-</header>
-
+            <a
+                href="../index.html"
+                class="logo"
+            >
+                Some Memory Lane
+            </a>
 
 
-<main class="start-page">
+            <a
+                href="../index.html"
+                class="start-btn"
+            >
+                ← Home
+            </a>
+
+        </nav>
+
+    </header>
 
 
-    <!-- ==================================================
-         STEP 1 — CHOOSE SESSION
-    ================================================== -->
 
-    <section class="setup-step active" id="sessionStep">
+    <!-- ==========================================
+         START PAGE
+    =========================================== -->
 
-        <div class="step-heading">
-
-            <span class="step-label">01</span>
-
-            <h1>Choose Your Session</h1>
-
-            <p>
-                How are you making memories today?
-            </p>
-
-        </div>
+    <main class="start-page">
 
 
-        <div class="selection-window session-window">
+        <!-- ==========================================
+             STEP 1 — CHOOSE SESSION
+        =========================================== -->
 
-            <div class="session-options">
+        <section
+            class="setup-step active"
+            id="sessionStep"
+        >
 
+            <div class="step-heading">
 
-                <!-- SOLO -->
-
-                <button
-                    class="session-card selected"
-                    type="button"
-                    data-session="Solo"
-                    id="soloBtn">
-
-                    <span class="session-icon">◉</span>
-
-                    <strong>Solo</strong>
-
-                    <small>
-                        Just me
-                    </small>
-
-                </button>
+                <span class="step-label">
+                    01
+                </span>
 
 
-                <!-- DUO -->
-
-                <button
-                    class="session-card"
-                    type="button"
-                    data-session="Duo">
-
-                    <span class="session-icon">◉◉</span>
-
-                    <strong>Duo</strong>
-
-                    <small>
-                        Two people
-                    </small>
-
-                </button>
+                <h1>
+                    Choose Your Session
+                </h1>
 
 
-                <!-- GROUP -->
-
-                <button
-                    class="session-card"
-                    type="button"
-                    data-session="Group"
-                    id="groupBtn">
-
-                    <span class="session-icon">◉◉◉◉</span>
-
-                    <strong>Group</strong>
-
-                    <small>
-                        Friends & family
-                    </small>
-
-                </button>
+                <p>
+                    How are you making memories today?
+                </p>
 
             </div>
 
 
-            <!-- GROUP OPTIONS -->
 
-            <div class="group-options" id="groupOptions">
+            <div class="selection-window session-window">
 
-                <div class="group-divider"></div>
+                <div class="session-options">
 
-                <p>
-                    Group sessions are coming soon.
-                </p>
 
-                <div class="room-actions">
+                    <!-- ==================================
+                         SOLO
+                    =================================== -->
 
                     <button
                         type="button"
-                        class="room-btn disabled-room"
-                        disabled>
+                        class="session-card selected"
+                        data-session="Solo"
+                        id="soloBtn"
+                    >
 
-                        Create Room
+                        <span class="session-icon">
+                            ◉
+                        </span>
+
+
+                        <strong>
+                            Solo
+                        </strong>
+
+
+                        <small>
+                            Just me
+                        </small>
 
                     </button>
 
-                    <span>or</span>
 
-                    <div class="join-room">
 
-                        <input
-                            type="text"
-                            placeholder="Enter room code"
-                            disabled>
+                    <!-- ==================================
+                         DUO
+                    =================================== -->
+
+                    <button
+                        type="button"
+                        class="session-card"
+                        data-session="Duo"
+                    >
+
+                        <span class="session-icon">
+                            ◉◉
+                        </span>
+
+
+                        <strong>
+                            Duo
+                        </strong>
+
+
+                        <small>
+                            Two people
+                        </small>
+
+                    </button>
+
+
+
+                    <!-- ==================================
+                         GROUP
+                    =================================== -->
+
+                    <button
+                        type="button"
+                        class="session-card"
+                        data-session="Group"
+                        id="groupBtn"
+                    >
+
+                        <span class="session-icon">
+                            ◉◉◉◉
+                        </span>
+
+
+                        <strong>
+                            Group
+                        </strong>
+
+
+                        <small>
+                            Friends & family
+                        </small>
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- ==================================
+                     GROUP OPTIONS
+                =================================== -->
+
+                <div
+                    class="group-options"
+                    id="groupOptions"
+                >
+
+                    <div class="group-divider"></div>
+
+
+                    <p>
+                        Group sessions are coming soon.
+                    </p>
+
+
+                    <div class="room-actions">
+
 
                         <button
                             type="button"
                             class="room-btn disabled-room"
-                            disabled>
-
-                            Join
-
+                            disabled
+                        >
+                            Create Room
                         </button>
+
+
+                        <span>
+                            or
+                        </span>
+
+
+                        <div class="join-room">
+
+
+                            <input
+                                type="text"
+                                placeholder="Enter room code"
+                                disabled
+                            >
+
+
+                            <button
+                                type="button"
+                                class="room-btn disabled-room"
+                                disabled
+                            >
+                                Join
+                            </button>
+
+                        </div>
 
                     </div>
 
@@ -171,735 +267,926 @@
 
             </div>
 
-        </div>
 
 
-        <div class="step-action">
+            <!-- ==================================
+                 CONTINUE
+            =================================== -->
 
-            <button
-                type="button"
-                class="continue-btn"
-                id="sessionContinue">
-
-                Continue →
-
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-
-    <!-- ==================================================
-         STEP 2 — CHOOSE LAYOUT + DESIGN
-    ================================================== -->
-
-    <section class="setup-step" id="layoutStep">
-
-        <div class="step-heading">
-
-            <span class="step-label">02</span>
-
-            <h1>Choose Your Strip</h1>
-
-            <p>
-                Pick a layout and design for your memories.
-            </p>
-
-        </div>
-
-
-
-        <!-- ==================================================
-             ALL STRIP DESIGNS
-        ================================================== -->
-
-        <div class="selection-window strip-window">
-
-
-            <button
-                type="button"
-                class="scroll-arrow left"
-                id="layoutLeft">
-
-                ←
-
-            </button>
-
-
-
-            <div
-                class="strip-scroller"
-                id="layoutScroller">
-
-
-                <!-- ==========================================
-                     LAYOUT 1 — 4x STRIP
-                =========================================== -->
-
-
-                <!-- Blue -->
+            <div class="step-action">
 
                 <button
                     type="button"
-                    class="strip-option selected"
-                    data-layout="Layout 1"
-                    data-design="Blue"
-                    data-strip="blue-pattern-4xs.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/blue-pattern-4xs.jpeg"
-                            alt="Blue 4x strip">
-
-                    </div>
-
-                    <strong>Blue - 4x Strip</strong>
-
-                </button>
-
-
-                <!-- Green -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 1"
-                    data-design="Green"
-                    data-strip="green-pattern-4xs.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/green-pattern-4xs.jpeg"
-                            alt="Green 4x strip">
-
-                    </div>
-
-                    <strong>Green - 4x Strip</strong>
-
-                </button>
-
-
-                <!-- Red -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 1"
-                    data-design="Red"
-                    data-strip="red-pattern-4xs.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/red-pattern-4xs.jpeg"
-                            alt="Red 4x strip">
-
-                    </div>
-
-                    <strong>Red - 4x Strip</strong>
-
-                </button>
-
-
-                <!-- Yellow -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 1"
-                    data-design="Yellow"
-                    data-strip="yellow-pattern-4xs.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/yellow-pattern-4xs.jpeg"
-                            alt="Yellow 4x strip">
-
-                    </div>
-
-                    <strong>Yellow - 4x Strip</strong>
-
-                </button>
-
-
-                <!-- Red Simple -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 1"
-                    data-design="Red Simple"
-                    data-strip="red-simple-4xs.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/red-simple-4xs.jpeg"
-                            alt="Red simple 4x strip">
-
-                    </div>
-
-                    <strong>Red Simple - 4x Strip</strong>
-
-                </button>
-
-
-
-
-                <!-- ==========================================
-                     LAYOUT 2 — 8x STRIP / 2x4
-                =========================================== -->
-
-
-                <!-- Blue -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 2"
-                    data-design="Blue"
-                    data-strip="blue-pattern-8xs.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/blue-pattern-8xs.jpeg"
-                            alt="Blue 2x4 strip">
-
-                    </div>
-
-                    <strong>Blue - 2x4 Strip</strong>
-
-                </button>
-
-
-                <!-- Green -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 2"
-                    data-design="Green"
-                    data-strip="green-pattern-8xs.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/green-pattern-8xs.jpeg"
-                            alt="Green 2x4 strip">
-
-                    </div>
-
-                    <strong>Green - 2x4 Strip</strong>
-
-                </button>
-
-
-                <!-- Red -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 2"
-                    data-design="Red"
-                    data-strip="red-pattern-8xs.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/red-pattern-8xs.jpeg"
-                            alt="Red 2x4 strip">
-
-                    </div>
-
-                    <strong>Red - 2x4 Strip</strong>
-
-                </button>
-
-
-                <!-- Yellow -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 2"
-                    data-design="Yellow"
-                    data-strip="yellow-pattern-8xs.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/yellow-pattern-8xs.jpeg"
-                            alt="Yellow 2x4 strip">
-
-                    </div>
-
-                    <strong>Yellow - 2x4 Strip</strong>
-
-                </button>
-
-
-                <!-- Red Simple -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 2"
-                    data-design="Red Simple"
-                    data-strip="red-simple-8xs.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/red-simple-8xs.jpeg"
-                            alt="Red simple 2x4 strip">
-
-                    </div>
-
-                    <strong>Red Simple - 2x4 Strip</strong>
-
-                </button>
-
-
-
-                <!-- ==========================================
-                     LAYOUT 4 — 4x GRID
-                =========================================== -->
-
-
-                <!-- Blue -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 4"
-                    data-design="Blue"
-                    data-strip="blue-pattern-4xg.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/blue-pattern-4xg.jpeg"
-                            alt="Blue 4x grid">
-
-                    </div>
-
-                    <strong>Blue - 4x Grid</strong>
-
-                </button>
-
-
-                <!-- Green -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 4"
-                    data-design="Green"
-                    data-strip="green-pattern-4xg.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/green-pattern-4xg.jpeg"
-                            alt="Green 4x grid">
-
-                    </div>
-
-                    <strong>Green - 4x Grid</strong>
-
-                </button>
-
-
-                <!-- Red -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 4"
-                    data-design="Red"
-                    data-strip="red-pattern-4xg.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/red-pattern-4xg.jpeg"
-                            alt="Red 4x grid">
-
-                    </div>
-
-                    <strong>Red - 4x Grid</strong>
-
-                </button>
-
-
-                <!-- Yellow -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 4"
-                    data-design="Yellow"
-                    data-strip="yellow-pattern-4xg.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/yellow-pattern-4xg.jpeg"
-                            alt="Yellow 4x grid">
-
-                    </div>
-
-                    <strong>Yellow - 4x Grid</strong>
-
-                </button>
-
-
-                <!-- Red Simple -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 4"
-                    data-design="Red Simple"
-                    data-strip="red-simple-4xg.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/red-simple-4xg.jpeg"
-                            alt="Red simple 4x grid">
-
-                    </div>
-
-                    <strong>Red Simple - 4x Grid</strong>
-
-                </button>
-
-
-
-                <!-- ==========================================
-                     LAYOUT 3 — 3x STRIP
-                =========================================== -->
-
-
-                <!-- Blue -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 3"
-                    data-design="Blue"
-                    data-strip="blue-pattern-3xs.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/blue-pattern-3xs.jpeg"
-                            alt="Blue 3x strip">
-
-                    </div>
-
-                    <strong>Blue - 3x Strip</strong>
-
-                </button>
-
-
-                <!-- Green -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 3"
-                    data-design="Green"
-                    data-strip="green-pattern-3xs.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/green-pattern-3xs.jpeg"
-                            alt="Green 3x strip">
-
-                    </div>
-
-                    <strong>Green - 3x Strip</strong>
-
-                </button>
-
-
-                <!-- Red -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 3"
-                    data-design="Red"
-                    data-strip="red-pattern-3xs.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/red-pattern-3xs.jpeg"
-                            alt="Red 3x strip">
-
-                    </div>
-
-                    <strong>Red - 3x Strip</strong>
-
-                </button>
-
-
-                <!-- Yellow -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 3"
-                    data-design="Yellow"
-                    data-strip="yellow-pattern-3xs.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/yellow-pattern-3xs.jpeg"
-                            alt="Yellow 3x strip">
-
-                    </div>
-
-                    <strong>Yellow - 3x Strip</strong>
-
-                </button>
-
-
-                <!-- Red Simple -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 3"
-                    data-design="Red Simple"
-                    data-strip="red-simple-3xs.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/red-simple-3xs.jpeg"
-                            alt="Red simple 3x strip">
-
-                    </div>
-
-                    <strong>Red Simple - 3x Strip</strong>
-
-                </button>
-
-
-
-
-                <!-- ==========================================
-                     LAYOUT 5 — INSTAX
-                =========================================== -->
-
-
-                <!-- Blue -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 5"
-                    data-design="Blue"
-                    data-strip="blue-pattern-instax.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/blue-pattern-instax.jpeg"
-                            alt="Blue Instax">
-
-                    </div>
-
-                    <strong>Blue - Instax</strong>
-
-                </button>
-
-
-                <!-- Green -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 5"
-                    data-design="Green"
-                    data-strip="green-pattern-instax.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/green-pattern-instax.jpeg"
-                            alt="Green Instax">
-
-                    </div>
-
-                    <strong>Green - Instax</strong>
-
-                </button>
-
-
-                <!-- Red -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 5"
-                    data-design="Red"
-                    data-strip="red-pattern-instax.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/red-pattern-instax.jpeg"
-                            alt="Red Instax">
-
-                    </div>
-
-                    <strong>Red - Instax</strong>
-
-                </button>
-
-
-                <!-- Yellow -->
-
-                <button
-                    type="button"
-                    class="strip-option"
-                    data-layout="Layout 5"
-                    data-design="Yellow"
-                    data-strip="yellow-pattern-instax.jpeg">
-
-                    <div class="strip-preview">
-
-                        <img
-                            src="../assets/strip design/yellow-pattern-instax.jpeg"
-                            alt="Yellow Instax">
-
-                    </div>
-
-                    <strong>Yellow - Instax</strong>
-
-                </button>
-
-
-            </div> 
-        
-
-
-            <button
-                type="button"
-                class="scroll-arrow right"
-                id="layoutRight">
-
-                →
-
-            </button>
-
-        </div>
-
-
-
-        <!-- ==================================================
-             CAPTURE COUNT
-        ================================================== -->
-
-        <div class="capture-section">
-
-            <h2>How Many Takes?</h2>
-
-            <p>
-                Choose how many photos the camera will take.
-            </p>
-
-
-            <div class="capture-options">
-
-
-                <button
-                    type="button"
-                    class="capture-circle"
-                    data-captures="6">
-
-                    <strong>6</strong>
-                    <span>shots</span>
-
-                </button>
-
-
-                <button
-                    type="button"
-                    class="capture-circle selected"
-                    data-captures="4">
-
-                    <strong>4</strong>
-                    <span>shots</span>
-
-                </button>
-
-
-                <button
-                    type="button"
-                    class="capture-circle"
-                    data-captures="2">
-
-                    <strong>2</strong>
-                    <span>shots</span>
-
+                    class="continue-btn"
+                    id="sessionContinue"
+                >
+                    Continue →
                 </button>
 
             </div>
 
-        </div>
+        </section>
 
 
 
-        <!-- ==================================================
-             ACTION BUTTONS
-        ================================================== -->
 
-        <div class="step-action">
+        <!-- ==========================================
+             STEP 2 — CHOOSE LAYOUT + DESIGN
+        =========================================== -->
 
-            <button
-                type="button"
-                class="back-btn"
-                id="layoutBack">
-
-                ← Back
-
-            </button>
+        <section
+            class="setup-step"
+            id="layoutStep"
+        >
 
 
-            <button
-                type="button"
-                class="continue-btn"
-                id="layoutContinue">
+            <div class="step-heading">
 
-                Take Pictures →
-
-            </button>
-
-        </div>
-
-    </section>
+                <span class="step-label">
+                    02
+                </span>
 
 
-</main>
+                <h1>
+                    Choose Your Strip
+                </h1>
+
+
+                <p>
+                    Pick a layout and design for your memories.
+                </p>
+
+            </div>
 
 
 
-<script src="../js/start.js"></script>
+            <!-- ==========================================
+                 STRIP DESIGNS
+            ============================================ -->
+
+            <div class="selection-window strip-window">
+
+
+                <!-- LEFT ARROW -->
+
+                <button
+                    type="button"
+                    class="scroll-arrow left"
+                    id="layoutLeft"
+                    aria-label="Previous designs"
+                >
+                    ←
+                </button>
+
+
+
+                <!-- ==========================================
+                     STRIP SCROLLER
+                ============================================ -->
+
+                <div
+                    class="strip-scroller"
+                    id="layoutScroller"
+                >
+
+
+                    <!-- ==================================
+                         LAYOUT 1 — 4× STRIP
+                         4 PHOTOS
+                    =================================== -->
+
+                    <button
+                        type="button"
+                        class="strip-option selected"
+                        data-layout="Layout 1"
+                        data-design="Blue"
+                        data-strip="layout1-design1"
+                        data-captures="4"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/blue-pattern-4xs.jpeg"
+                                alt="Blue 4x strip"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Blue - 4x Strip
+                        </strong>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 1"
+                        data-design="Green"
+                        data-strip="layout1-design2"
+                        data-captures="4"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/green-pattern-4xs.jpeg"
+                                alt="Green 4x strip"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Green - 4x Strip
+                        </strong>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 1"
+                        data-design="Red"
+                        data-strip="layout1-design3"
+                        data-captures="4"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/red-pattern-4xs.jpeg"
+                                alt="Red 4x strip"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Red - 4x Strip
+                        </strong>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 1"
+                        data-design="Yellow"
+                        data-strip="layout1-design4"
+                        data-captures="4"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/yellow-pattern-4xs.jpeg"
+                                alt="Yellow 4x strip"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Yellow - 4x Strip
+                        </strong>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 1"
+                        data-design="Red Simple"
+                        data-strip="layout1-design5"
+                        data-captures="4"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/red-simple-4xs.jpeg"
+                                alt="Red simple 4x strip"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Red Simple - 4x Strip
+                        </strong>
+
+                    </button>
+
+
+
+
+                    <!-- ==================================
+                         LAYOUT 2 — 2×4 STRIP
+                         4 PHOTOS
+                    =================================== -->
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 2"
+                        data-design="Blue"
+                        data-strip="layout2-design1"
+                        data-captures="4"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/blue-pattern-8xs.jpeg"
+                                alt="Blue 2x4 strip"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Blue - 2x4 Strip
+                        </strong>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 2"
+                        data-design="Green"
+                        data-strip="layout2-design2"
+                        data-captures="4"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/green-pattern-8xs.jpeg"
+                                alt="Green 2x4 strip"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Green - 2x4 Strip
+                        </strong>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 2"
+                        data-design="Red"
+                        data-strip="layout2-design3"
+                        data-captures="4"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/red-pattern-8xs.jpeg"
+                                alt="Red 2x4 strip"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Red - 2x4 Strip
+                        </strong>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 2"
+                        data-design="Yellow"
+                        data-strip="layout2-design4"
+                        data-captures="4"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/yellow-pattern-8xs.jpeg"
+                                alt="Yellow 2x4 strip"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Yellow - 2x4 Strip
+                        </strong>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 2"
+                        data-design="Red Simple"
+                        data-strip="layout2-design5"
+                        data-captures="4"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/red-simple-8xs.jpeg"
+                                alt="Red simple 2x4 strip"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Red Simple - 2x4 Strip
+                        </strong>
+
+                    </button>
+
+
+
+
+                    <!-- ==================================
+                         LAYOUT 3 — 4× GRID
+                         4 PHOTOS
+                    =================================== -->
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 3"
+                        data-design="Blue"
+                        data-strip="layout3-design1"
+                        data-captures="4"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/blue-pattern-4xg.jpeg"
+                                alt="Blue 4x grid"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Blue - 4x Grid
+                        </strong>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 3"
+                        data-design="Green"
+                        data-strip="layout3-design2"
+                        data-captures="4"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/green-pattern-4xg.jpeg"
+                                alt="Green 4x grid"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Green - 4x Grid
+                        </strong>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 3"
+                        data-design="Red"
+                        data-strip="layout3-design3"
+                        data-captures="4"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/red-pattern-4xg.jpeg"
+                                alt="Red 4x grid"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Red - 4x Grid
+                        </strong>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 3"
+                        data-design="Yellow"
+                        data-strip="layout3-design4"
+                        data-captures="4"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/yellow-pattern-4xg.jpeg"
+                                alt="Yellow 4x grid"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Yellow - 4x Grid
+                        </strong>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 3"
+                        data-design="Red Simple"
+                        data-strip="layout3-design5"
+                        data-captures="4"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/red-simple-4xg.jpeg"
+                                alt="Red simple 4x grid"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Red Simple - 4x Grid
+                        </strong>
+
+                    </button>
+
+
+
+
+                    <!-- ==================================
+                         LAYOUT 4 — 3× STRIP
+                         3 PHOTOS
+                    =================================== -->
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 4"
+                        data-design="Blue"
+                        data-strip="layout4-design1"
+                        data-captures="3"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/blue-pattern-3xs.jpeg"
+                                alt="Blue 3x strip"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Blue - 3x Strip
+                        </strong>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 4"
+                        data-design="Green"
+                        data-strip="layout4-design2"
+                        data-captures="3"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/green-pattern-3xs.jpeg"
+                                alt="Green 3x strip"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Green - 3x Strip
+                        </strong>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 4"
+                        data-design="Red"
+                        data-strip="layout4-design3"
+                        data-captures="3"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/red-pattern-3xs.jpeg"
+                                alt="Red 3x strip"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Red - 3x Strip
+                        </strong>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 4"
+                        data-design="Yellow"
+                        data-strip="layout4-design4"
+                        data-captures="3"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/yellow-pattern-3xs.jpeg"
+                                alt="Yellow 3x strip"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Yellow - 3x Strip
+                        </strong>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 4"
+                        data-design="Red Simple"
+                        data-strip="layout4-design5"
+                        data-captures="3"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/red-simple-3xs.jpeg"
+                                alt="Red simple 3x strip"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Red Simple - 3x Strip
+                        </strong>
+
+                    </button>
+
+
+
+
+                    <!-- ==================================
+                         LAYOUT 5 — INSTAX
+                         1 PHOTO
+                    =================================== -->
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 5"
+                        data-design="Blue"
+                        data-strip="layout5-design1"
+                        data-captures="1"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/blue-pattern-instax.jpeg"
+                                alt="Blue Instax"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Blue - Instax
+                        </strong>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 5"
+                        data-design="Green"
+                        data-strip="layout5-design2"
+                        data-captures="1"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/green-pattern-instax.jpeg"
+                                alt="Green Instax"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Green - Instax
+                        </strong>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 5"
+                        data-design="Red"
+                        data-strip="layout5-design3"
+                        data-captures="1"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/red-pattern-instax.jpeg"
+                                alt="Red Instax"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Red - Instax
+                        </strong>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="strip-option"
+                        data-layout="Layout 5"
+                        data-design="Yellow"
+                        data-strip="layout5-design4"
+                        data-captures="1"
+                    >
+
+                        <div class="strip-preview">
+
+                            <img
+                                src="../assets/strip design/yellow-pattern-instax.jpeg"
+                                alt="Yellow Instax"
+                            >
+
+                        </div>
+
+
+                        <strong>
+                            Yellow - Instax
+                        </strong>
+
+                    </button>
+
+
+                </div>
+
+
+
+                <!-- RIGHT ARROW -->
+
+                <button
+                    type="button"
+                    class="scroll-arrow right"
+                    id="layoutRight"
+                    aria-label="Next designs"
+                >
+                    →
+                </button>
+
+            </div>
+
+
+
+            <!-- ==========================================
+                 AUTOMATIC PHOTO COUNT
+            =========================================== -->
+
+            <div class="capture-section">
+
+                <h2>
+                    Photo Count
+                </h2>
+
+
+                <p>
+                    The number of photos is automatically based
+                    on the layout you choose.
+                </p>
+
+
+                <div class="selected-capture-info">
+
+                    <strong id="selectedCaptureCount">
+                        4
+                    </strong>
+
+
+                    <span>
+                        photos
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ==========================================
+                 ACTION BUTTONS
+            =========================================== -->
+
+            <div class="step-action">
+
+
+                <button
+                    type="button"
+                    class="back-btn"
+                    id="layoutBack"
+                >
+                    ← Back
+                </button>
+
+
+                <button
+                    type="button"
+                    class="continue-btn"
+                    id="layoutContinue"
+                >
+                    Take Pictures →
+                </button>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ==========================================
+         JAVASCRIPT
+    =========================================== -->
+
+    <script src="../js/start.js"></script>
+
+
+    <!-- ==========================================
+         FRESH SESSION RESET
+    =========================================== -->
+
+    <script>
+
+        /*
+            Every time the user starts a new
+            photobooth session, remove any
+            photos left over from a previous
+            session.
+
+            Capture phase is used so this runs
+            BEFORE the normal start.js click
+            handler.
+        */
+
+        const layoutContinue =
+            document.getElementById(
+                "layoutContinue"
+            );
+
+
+        if(layoutContinue){
+
+            layoutContinue.addEventListener(
+
+                "click",
+
+                function(){
+
+                    console.log(
+                        "Starting a fresh Memory Lane session..."
+                    );
+
+
+                    /*
+                        Remove old camera photos.
+                    */
+
+                    localStorage.removeItem(
+                        "memoryLanePhotos"
+                    );
+
+
+                    /*
+                        Remove old session data.
+                    */
+
+                    sessionStorage.removeItem(
+                        "memoryLaneSession"
+                    );
+
+
+                    console.log(
+                        "Old session data cleared."
+                    );
+
+                },
+
+                true
+
+            );
+
+        }
+
+    </script>
+
 
 </body>
 

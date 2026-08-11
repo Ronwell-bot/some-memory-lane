@@ -12,7 +12,7 @@ let sessionChoice = "Solo";
 
 let layoutChoice = "Layout 1";
 
-let designChoice = "Design 1";
+let designChoice = "Blue";
 
 let stripChoice = "layout1-design1";
 
@@ -41,6 +41,9 @@ const layoutContinue =
 const layoutBack =
     document.getElementById("layoutBack");
 
+const selectedCaptureCount =
+    document.getElementById("selectedCaptureCount");
+
 
 /* ==========================================
    SESSION SELECTION
@@ -54,17 +57,16 @@ sessionCards.forEach(card => {
 
     card.addEventListener("click", () => {
 
-
-        /* Ignore disabled cards */
-
-        if(card.classList.contains("disabled")){
+        if(card.disabled){
 
             return;
 
         }
 
 
-        /* Remove previous selection */
+        /*
+            Remove previous selection.
+        */
 
         sessionCards.forEach(item => {
 
@@ -73,55 +75,71 @@ sessionCards.forEach(card => {
         });
 
 
-        /* Select clicked session */
+        /*
+            Select clicked session.
+        */
 
         card.classList.add("selected");
 
 
-        /* Save session */
+        /*
+            Save session choice.
+        */
 
         sessionChoice =
             card.dataset.session;
 
 
-        /* ==================================
-           GROUP / DUO
-        ================================== */
+        /*
+            Duo / Group are not available yet.
+        */
 
         if(
             sessionChoice === "Group" ||
             sessionChoice === "Duo"
         ){
 
-            groupOptions.classList.add("show");
+            if(groupOptions){
+
+                groupOptions.classList.add("show");
+
+            }
 
 
-            sessionContinue.disabled = true;
+            if(sessionContinue){
 
+                sessionContinue.disabled = true;
 
-            sessionContinue.style.opacity =
-                ".45";
+                sessionContinue.style.opacity =
+                    "0.45";
 
+                sessionContinue.style.cursor =
+                    "not-allowed";
 
-            sessionContinue.style.cursor =
-                "not-allowed";
+            }
 
         }
 
         else{
 
-            groupOptions.classList.remove("show");
+            if(groupOptions){
+
+                groupOptions.classList.remove("show");
+
+            }
 
 
-            sessionContinue.disabled = false;
+            if(sessionContinue){
 
+                sessionContinue.disabled = false;
 
-            sessionContinue.style.opacity =
-                "1";
+                sessionContinue.style.opacity =
+                    "1";
 
+                sessionContinue.style.cursor =
+                    "pointer";
 
-            sessionContinue.style.cursor =
-                "pointer";
+            }
 
         }
 
@@ -131,37 +149,43 @@ sessionCards.forEach(card => {
 
 
 /* ==========================================
-   SESSION → STRIP
+   SESSION → LAYOUT
 ========================================== */
 
 if(sessionContinue){
 
-    sessionContinue.addEventListener("click", () => {
+    sessionContinue.addEventListener(
+        "click",
+        () => {
+
+            /*
+                Only Solo is currently available.
+            */
+
+            if(sessionChoice !== "Solo"){
+
+                return;
+
+            }
 
 
-        /*
-            Only Solo is currently available.
-        */
+            sessionStep.classList.remove(
+                "active"
+            );
 
-        if(sessionChoice !== "Solo"){
 
-            return;
+            layoutStep.classList.add(
+                "active"
+            );
 
         }
-
-
-        sessionStep.classList.remove("active");
-
-        layoutStep.classList.add("active");
-
-    });
+    );
 
 }
 
 
 /* ==========================================
    STRIP SELECTION
-   Layout + Design
 ========================================== */
 
 const stripOptions =
@@ -170,117 +194,131 @@ const stripOptions =
 
 stripOptions.forEach(option => {
 
-    option.addEventListener("click", () => {
+    option.addEventListener(
+        "click",
+        () => {
+
+            /*
+                Remove previous selection.
+            */
+
+            stripOptions.forEach(item => {
+
+                item.classList.remove(
+                    "selected"
+                );
+
+            });
 
 
-        /* ==============================
-           Remove previous selection
-        ============================== */
+            /*
+                Select clicked strip.
+            */
 
-        stripOptions.forEach(item => {
-
-            item.classList.remove("selected");
-
-        });
+            option.classList.add(
+                "selected"
+            );
 
 
-        /* ==============================
-           Select clicked strip
-        ============================== */
+            /*
+                Save layout.
+            */
 
-        option.classList.add("selected");
-
-
-        /* ==============================
-           Save layout
-        ============================== */
-
-        layoutChoice =
-            option.dataset.layout ||
-            "Layout 1";
+            layoutChoice =
+                option.dataset.layout ||
+                "Layout 1";
 
 
-        /* ==============================
-           Save design
-        ============================== */
+            /*
+                Save design.
+            */
 
-        designChoice =
-            option.dataset.design ||
-            "Design 1";
-
-
-        /* ==============================
-           Save complete strip
-        ============================== */
-
-        stripChoice =
-            option.dataset.strip ||
-            "";
+            designChoice =
+                option.dataset.design ||
+                "Blue";
 
 
-        console.log(
-            "Selected Strip:",
-            stripChoice
-        );
+            /*
+                Save strip identifier.
+            */
+
+            stripChoice =
+                option.dataset.strip ||
+                "layout1-design1";
 
 
-        console.log(
-            "Layout:",
-            layoutChoice
-        );
+            /*
+                Get the number of photos
+                from the selected strip.
+            */
+
+            captureChoice =
+                Number(
+                    option.dataset.captures
+                ) || 4;
 
 
-        console.log(
-            "Design:",
-            designChoice
-        );
+            /*
+                Update visible count.
+            */
 
-    });
+            updateCaptureDisplay();
+
+
+            /*
+                Debug.
+            */
+
+            console.log(
+                "Selected Strip:",
+                stripChoice
+            );
+
+            console.log(
+                "Layout:",
+                layoutChoice
+            );
+
+            console.log(
+                "Design:",
+                designChoice
+            );
+
+            console.log(
+                "Captures:",
+                captureChoice
+            );
+
+        }
+    );
 
 });
 
 
 /* ==========================================
-   CAPTURE SELECTION
+   UPDATE PHOTO COUNT
 ========================================== */
 
-const captureOptions =
-    document.querySelectorAll(".capture-circle");
+function updateCaptureDisplay(){
+
+    if(!selectedCaptureCount){
+
+        return;
+
+    }
 
 
-captureOptions.forEach(option => {
+    selectedCaptureCount.textContent =
+        captureChoice;
 
-    option.addEventListener("click", () => {
-
-
-        /* Remove previous selection */
-
-        captureOptions.forEach(item => {
-
-            item.classList.remove("selected");
-
-        });
+}
 
 
-        /* Select clicked option */
+/* ==========================================
+   INITIAL PHOTO COUNT
+========================================== */
 
-        option.classList.add("selected");
-
-
-        /* Save number of captures */
-
-        captureChoice =
-            Number(option.dataset.captures);
-
-
-        console.log(
-            "Captures:",
-            captureChoice
-        );
-
-    });
-
-});
+updateCaptureDisplay();
 
 
 /* ==========================================
@@ -296,6 +334,10 @@ const layoutLeft =
 const layoutRight =
     document.getElementById("layoutRight");
 
+
+/*
+    Scroll left.
+*/
 
 if(
     layoutLeft &&
@@ -319,6 +361,10 @@ if(
 
 }
 
+
+/*
+    Scroll right.
+*/
 
 if(
     layoutRight &&
@@ -369,10 +415,57 @@ if(layoutBack){
 
 
 /* ==========================================
+   CLEAR PREVIOUS SESSION
+========================================== */
+
+/*
+    IMPORTANT:
+
+    A new "Take Pictures" session must
+    NEVER inherit photos from a previous
+    session.
+
+    We clear both:
+
+        memoryLanePhotos
+        memoryLaneSession
+
+    before creating the new session.
+*/
+
+function clearPreviousSession(){
+
+    localStorage.removeItem(
+        "memoryLanePhotos"
+    );
+
+
+    sessionStorage.removeItem(
+        "memoryLaneSession"
+    );
+
+
+    console.log(
+        "Previous Memory Lane session cleared."
+    );
+
+}
+
+
+/* ==========================================
    SAVE SESSION
 ========================================== */
 
 function saveSession(){
+
+    /*
+        IMPORTANT:
+        Start with a completely clean
+        photo/session state.
+    */
+
+    clearPreviousSession();
+
 
     const memoryLaneSession = {
 
@@ -389,7 +482,13 @@ function saveSession(){
             stripChoice,
 
         captures:
-            captureChoice
+            captureChoice,
+
+        photoCount:
+            captureChoice,
+
+        photos:
+            []
 
     };
 
@@ -405,8 +504,19 @@ function saveSession(){
     );
 
 
+    /*
+        Make absolutely sure there are
+        no old photos.
+    */
+
+    localStorage.setItem(
+        "memoryLanePhotos",
+        JSON.stringify([])
+    );
+
+
     console.log(
-        "Memory Lane Session Saved:",
+        "New Memory Lane Session Saved:",
         memoryLaneSession
     );
 
@@ -423,21 +533,76 @@ if(layoutContinue){
         "click",
         () => {
 
+            /*
+                Find the currently selected strip.
+            */
 
-            /* ==============================
-               Save everything
-            ============================== */
+            const selectedStrip =
+                document.querySelector(
+                    ".strip-option.selected"
+                );
+
+
+            /*
+                Make sure a strip exists.
+            */
+
+            if(!selectedStrip){
+
+                alert(
+                    "Please choose a strip first."
+                );
+
+                return;
+
+            }
+
+
+            /*
+                Read the current selection
+                one final time.
+            */
+
+            layoutChoice =
+                selectedStrip.dataset.layout ||
+                "Layout 1";
+
+
+            designChoice =
+                selectedStrip.dataset.design ||
+                "Blue";
+
+
+            stripChoice =
+                selectedStrip.dataset.strip ||
+                "layout1-design1";
+
+
+            captureChoice =
+                Number(
+                    selectedStrip.dataset.captures
+                ) || 4;
+
+
+            /*
+                IMPORTANT:
+
+                Start a completely fresh session.
+            */
 
             saveSession();
 
 
-            /* ==============================
-               Show saved data in console
-               for testing
-            ============================== */
+            /*
+                Debug information.
+            */
 
             console.log(
                 "-------------------------"
+            );
+
+            console.log(
+                "NEW SESSION"
             );
 
             console.log(
@@ -466,13 +631,18 @@ if(layoutContinue){
             );
 
             console.log(
+                "Photos:",
+                0
+            );
+
+            console.log(
                 "-------------------------"
             );
 
 
-            /* ==============================
-               Go to camera
-            ============================== */
+            /*
+                Go to camera.
+            */
 
             window.location.href =
                 "../pages/camera.html";

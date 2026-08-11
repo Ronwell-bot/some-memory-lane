@@ -1412,7 +1412,7 @@ const stripTemplates = {
 
 
 
-"layout3-design1": {
+"layout3-design5": {
 
     image:
         "../assets/strip design/red-simple-4xg.jpeg",
@@ -1484,7 +1484,360 @@ const stripTemplates = {
 
     ]
 
-}
+},
+
+"layout4-design1": {
+
+    image:
+        "../assets/strip design/blue-pattern-3xs.jpeg",
+
+    width: 350,
+
+    height: 1050,
+
+    slots: [
+
+        /* ==================================
+           PHOTO 1 — TOP
+        ================================== */
+
+        {
+            photoIndex: 0,
+
+            x: 30,
+            y: 45,
+
+            width: 290,
+            height: 275
+        },
+
+
+        /* ==================================
+           PHOTO 2 — MIDDLE
+        ================================== */
+
+        {
+            photoIndex: 1,
+
+            x: 30,
+            y: 350,
+
+            width: 290,
+            height: 275
+        },
+
+
+        /* ==================================
+           PHOTO 3 — BOTTOM
+        ================================== */
+
+        {
+            photoIndex: 2,
+
+            x: 30,
+            y: 655,
+
+            width: 290,
+            height: 275
+        }
+
+    ]
+
+},
+
+"layout4-design2": {
+
+    image:
+        "../assets/strip design/green-pattern-3xs.jpeg",
+
+    width: 350,
+
+    height: 1050,
+
+    slots: [
+
+        /* ==================================
+           PHOTO 1 — TOP
+        ================================== */
+
+        {
+            photoIndex: 0,
+
+            x: 35,
+            y: 45,
+
+            width: 280,
+            height: 275
+        },
+
+
+        /* ==================================
+           PHOTO 2 — MIDDLE
+        ================================== */
+
+        {
+            photoIndex: 1,
+
+            x: 35,
+            y: 345,
+
+            width: 285,
+            height: 275
+        },
+
+
+        /* ==================================
+           PHOTO 3 — BOTTOM
+        ================================== */
+
+        {
+            photoIndex: 2,
+
+            x: 35,
+            y: 650,
+
+            width: 285,
+            height: 275
+        }
+
+    ]
+
+},
+
+"layout4-design3": {
+
+    image:
+        "../assets/strip design/red-pattern-3xs.jpeg",
+
+    width: 350,
+
+    height: 1050,
+
+    slots: [
+
+        /* ==================================
+           PHOTO 1 — TOP
+        ================================== */
+
+        {
+            photoIndex: 0,
+
+            x: 30,
+            y: 45,
+
+            width: 290,
+            height: 275
+        },
+
+
+        /* ==================================
+           PHOTO 2 — MIDDLE
+        ================================== */
+
+        {
+            photoIndex: 1,
+
+            x: 30,
+            y: 350,
+
+            width: 290,
+            height: 275
+        },
+
+
+        /* ==================================
+           PHOTO 3 — BOTTOM
+        ================================== */
+
+        {
+            photoIndex: 2,
+
+            x: 30,
+            y: 655,
+
+            width: 290,
+            height: 275
+        }
+
+    ]
+
+},
+
+"layout4-design5": {
+
+    image:
+        "../assets/strip design/red-simple-3xs.jpeg",
+
+    width: 350,
+
+    height: 1050,
+
+    slots: [
+
+        /* ==================================
+           PHOTO 1 — TOP
+        ================================== */
+
+        {
+            photoIndex: 0,
+
+            x: 30,
+            y: 45,
+
+            width: 290,
+            height: 275
+        },
+
+
+        /* ==================================
+           PHOTO 2 — MIDDLE
+        ================================== */
+
+        {
+            photoIndex: 1,
+
+            x: 30,
+            y: 350,
+
+            width: 290,
+            height: 275
+        },
+
+
+        /* ==================================
+           PHOTO 3 — BOTTOM
+        ================================== */
+
+        {
+            photoIndex: 2,
+
+            x: 30,
+            y: 655,
+
+            width: 290,
+            height: 275
+        }
+
+    ]
+
+},
+
+"layout5-design1": {
+
+    image:
+        "../assets/strip design/blue-pattern-instax.jpeg",
+
+    width: 970,
+
+    height: 1139,
+
+    slots: [
+
+        /* ==================================
+           PHOTO 1 — INSTAX PHOTO AREA
+        ================================== */
+
+        {
+            photoIndex: 0,
+
+            x: 60,
+            y: 55,
+
+            width: 840,
+            height: 960
+        }
+
+    ]
+
+},
+
+"layout5-design2": {
+
+    image:
+        "../assets/strip design/green-pattern-instax.jpeg",
+
+    width: 970,
+
+    height: 1139,
+
+    slots: [
+
+        /* ==================================
+           PHOTO 1 — INSTAX PHOTO AREA
+        ================================== */
+
+        {
+            photoIndex: 0,
+
+            x: 60,
+            y: 55,
+
+            width: 840,
+            height: 960
+        }
+
+    ]
+
+},
+
+"layout5-design3": {
+
+    image:
+        "../assets/strip design/red-pattern-instax.jpeg",
+
+    width: 970,
+
+    height: 1139,
+
+    slots: [
+
+        /* ==================================
+           PHOTO 1 — INSTAX PHOTO AREA
+        ================================== */
+
+        {
+            photoIndex: 0,
+
+            x: 60,
+            y: 55,
+
+            width: 840,
+            height: 955
+        }
+
+    ]
+
+},
+
+"layout5-design4": {
+
+    image:
+        "../assets/strip design/yellow-pattern-instax.jpeg",
+
+    width: 970,
+
+    height: 1139,
+
+    slots: [
+
+        /* ==================================
+           PHOTO 1 — INSTAX PHOTO AREA
+        ================================== */
+
+        {
+            photoIndex: 0,
+
+            x: 60,
+            y: 55,
+
+            width: 840,
+            height: 955
+        }
+
+    ]
+
+},  
+
 
 };
 
