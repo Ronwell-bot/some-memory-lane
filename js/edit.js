@@ -466,6 +466,130 @@ const stripTemplates = {
 
     },
 
+    "layout1-design6": {
+
+        image:
+            "../assets/strip design/cat-4xs.jpg",
+
+        width: 430,
+
+        height: 1330,
+
+        slots: [
+
+            /* PHOTO 1 */
+
+            {
+                photoIndex: 0,
+
+                x: 35,
+                y: 45,
+                width: 360,
+                height: 265
+            },
+
+
+            /* PHOTO 2 */
+
+            {
+                photoIndex: 1,
+
+                x: 35,
+                y: 335,
+                width: 365,
+                height: 265
+            },
+
+
+            /* PHOTO 3 */
+
+            {
+                photoIndex: 2,
+
+                x: 35,
+                y: 630,
+                width: 365,
+                height: 265
+            },
+
+
+            /* PHOTO 4 */
+
+            {
+                photoIndex: 3,
+
+                x: 35,
+                y: 925,
+                width: 365,
+                height: 265
+            }
+
+        ]
+
+    },
+
+    "layout1-design7": {
+
+        image:
+            "../assets/strip design/cat2-4xs.jpg",
+
+        width: 430,
+
+        height: 1330,
+
+        slots: [
+
+            /* PHOTO 1 */
+
+            {
+                photoIndex: 0,
+
+                x: 34,
+                y: 163,
+                width: 362,
+                height: 262
+            },
+
+
+            /* PHOTO 2 */
+
+            {
+                photoIndex: 1,
+
+                x: 34,
+                y: 454,
+                width: 362,
+                height: 262
+            },
+
+
+            /* PHOTO 3 */
+
+            {
+                photoIndex: 2,
+
+                x: 34,
+                y: 746,
+                width: 362,
+                height: 262
+            },
+
+
+            /* PHOTO 4 */
+
+            {
+                photoIndex: 3,
+
+                x: 34,
+                y: 1041,
+                width: 362,
+                height: 262
+            }
+
+        ]
+
+    },
+
 
 
     "layout2-design1": {
