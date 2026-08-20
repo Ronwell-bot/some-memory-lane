@@ -1,490 +1,1326 @@
-/* ==========================
-   FEATURED PAGE
+/* ==========================================
    SOME MEMORY LANE
-========================== */
+   FEATURED MEMORIES / MEMORY WALL
+========================================== */
 
-.featured-wall {
-  height: calc(100vh - 74px);
 
-  display: flex;
+/* ==========================================
+   VARIABLES
+========================================== */
 
-  flex-direction: column;
+:root {
 
-  /* Warm paper */
-  background: #fbf8f1;
+    --paper:
+        #fbf8f1;
 
-  overflow: hidden;
+    --paper-light:
+        #fffdf8;
 
-  transform: scale(0.94);
+    --paper-dark:
+        #f1ebe1;
 
-  transform-origin: center top;
+    --text:
+        #2b2926;
+
+    --text-light:
+        #514b45;
+
+    --muted:
+        #8a8177;
+
+    --border:
+        #ded6cb;
+
+    --shadow:
+        rgba(65, 50, 38, .16);
+
 }
 
-/* ==========================
-   TITLE
-========================== */
 
-.wall-title {
-  flex-shrink: 0;
-
-  width: fit-content;
-
-  margin: 20px auto 12px;
-
-  padding: 16px 42px;
-
-  /* Paper card */
-
-  background: #fffdf8;
-
-  border: 1px solid #d9d0c4;
-
-  border-radius: 6px;
-
-  box-shadow:
-    0 8px 18px rgba(70, 55, 40, 0.1),
-    2px 3px 0 rgba(70, 55, 40, 0.04);
-
-  text-align: center;
-
-  position: relative;
-
-  transform: rotate(-1deg);
-}
-
-/* ==========================
-   Push Pin
-========================== */
-
-.wall-title::before {
-  content: "";
-
-  position: absolute;
-
-  width: 14px;
-
-  height: 14px;
-
-  background: #d96b61;
-
-  border-radius: 50%;
-
-  top: -7px;
-
-  left: 50%;
-
-  transform: translateX(-50%);
-
-  box-shadow: 0 2px 6px rgba(70, 55, 40, 0.25);
-}
-
-.wall-title h1 {
-  font-family: "Poppins", sans-serif;
-
-  font-size: 2.8rem;
-
-  margin-bottom: 4px;
-
-  line-height: 1.1;
-
-  color: #292725;
-}
-
-.wall-title p {
-  color: #8b8177;
-
-  font-size: 0.95rem;
-}
-
-/* ==========================
-   WALL
-========================== */
-
-.wall {
-  flex: 1;
-
-  position: relative;
-
-  width: 100%;
-
-  border-radius: 18px;
-
-  overflow: hidden;
-
-  /*
-        Paper / notebook style
-    */
-
-  background-color: #fbf8f1;
-
-  background-image: radial-gradient(#ddd3c7 0.8px, transparent 0.8px);
-
-  background-size: 22px 22px;
-}
-
-/* ==========================
-   SMALL PAPER DETAILS
-========================== */
-
-/*
-   Gives the wall a very subtle
-   warm paper layer without
-   changing your layout.
-*/
-
-.wall::after {
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  pointer-events: none;
-
-  background: linear-gradient(
-    rgba(255, 255, 255, 0.18),
-    rgba(255, 255, 255, 0.18)
-  );
-
-  z-index: 1;
-}
-
-/* ==========================
-   PHOTO STRIPS
-========================== */
-
-.strip {
-  position: absolute;
-
-  width: 160px;
-
-  background: #fffdf8;
-
-  padding: 10px;
-
-  border-radius: 5px;
-
-  border: 1px solid #ded5c9;
-
-  box-shadow:
-    0 10px 22px rgba(65, 50, 38, 0.14),
-    2px 4px 0 rgba(65, 50, 38, 0.04);
-
-  transition: 0.35s ease;
-
-  z-index: 5;
-}
-
-.strip img {
-  width: 100%;
-
-  display: block;
-
-  border-radius: 3px;
-}
-
-.strip:hover {
-  transform: scale(1.08) rotate(0deg);
-
-  z-index: 100;
-}
-
-/* ==========================
-   TAPE
-========================== */
-
-.strip::before {
-  content: "";
-
-  position: absolute;
-
-  width: 58px;
-
-  height: 14px;
-
-  left: 50%;
-
-  top: -7px;
-
-  transform: translateX(-50%) rotate(-4deg);
-
-  background: rgba(244, 229, 178, 0.82);
-
-  border-radius: 2px;
-
-  box-shadow: 0 1px 2px rgba(80, 60, 40, 0.08);
-}
-
-/* ==========================
-   STRIP POSITIONS
-   KEEPING YOUR ORIGINAL
-   POSITIONS
-========================== */
-
-.s1 {
-  top: 6%;
-  left: 8%;
-  transform: rotate(-8deg);
-}
-
-.s2 {
-  top: 16%;
-  left: 38%;
-  transform: rotate(6deg);
-}
-
-.s3 {
-  top: 8%;
-  right: 8%;
-  transform: rotate(-5deg);
-}
-
-.s4 {
-  bottom: 14%;
-  left: 18%;
-  transform: rotate(7deg);
-}
-
-.s5 {
-  bottom: 16%;
-  right: 20%;
-  transform: rotate(-7deg);
-}
-
-.s6 {
-  bottom: 5%;
-  left: 45%;
-  transform: rotate(4deg);
-}
-
-.s7 {
-  top: 42%;
-  left: 3%;
-  transform: rotate(-10deg);
-}
-
-.s8 {
-  top: 44%;
-  right: 3%;
-  transform: rotate(9deg);
-}
-
-/* ==========================
+/* ==========================================
    RESET
-========================== */
+========================================== */
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
 }
+
 
 html {
-  scroll-behavior: smooth;
+
+    width: 100%;
+
+    height: 100%;
+
+    scroll-behavior: smooth;
+
 }
+
 
 body {
-  font-family: "Inter", sans-serif;
 
-  /* Same warm paper feeling */
+    width: 100%;
 
-  background: #fbf8f1;
+    min-height: 100%;
 
-  color: #2b2926;
+    font-family:
+        "Inter",
+        sans-serif;
 
-  min-height: 100vh;
+    background:
+        var(--paper);
 
-  display: flex;
+    color:
+        var(--text);
 
-  flex-direction: column;
+    overflow: hidden;
 
-  overflow: hidden;
 }
+
+
+button,
+a {
+
+    font: inherit;
+
+}
+
 
 a {
-  text-decoration: none;
 
-  color: inherit;
+    text-decoration: none;
+
+    color: inherit;
+
 }
 
-/* ==========================
+
+/* ==========================================
    HEADER
-========================== */
-
-header {
-  backdrop-filter: blur(15px);
-
-  background: rgba(251, 248, 241, 0.88);
-
-  border-bottom: 1px solid #ded6cb;
-}
-
-/* ==========================
-   FEATURE NAVBAR
-========================== */
+========================================== */
 
 .feature-header {
-  position: sticky;
 
-  top: 0;
+    position: relative;
 
-  z-index: 999;
+    z-index: 1000;
 
-  backdrop-filter: blur(18px);
+    width: 100%;
 
-  background: rgba(251, 248, 241, 0.9);
+    background:
+        rgba(251, 248, 241, .92);
 
-  border-bottom: 1px solid #ded6cb;
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
+
+    border-bottom:
+        1px solid var(--border);
+
 }
+
 
 .feature-navbar {
-  max-width: 1400px;
 
-  margin: auto;
+    width: 100%;
 
-  padding: 18px 45px;
+    max-width: 1500px;
 
-  display: flex;
+    margin: auto;
 
-  justify-content: space-between;
+    padding:
+        17px 45px;
 
-  align-items: center;
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
 }
 
-/* ==========================
+
+/* ==========================================
    LOGO
-========================== */
+========================================== */
 
 .logo {
-  font-family: "Poppins", sans-serif;
 
-  font-size: 1.5rem;
+    font-family:
+        "Poppins",
+        sans-serif;
 
-  font-weight: 700;
+    font-size:
+        1.25rem;
 
-  color: #2b2926;
+    font-weight:
+        600;
 
-  transition: 0.25s;
+    letter-spacing:
+        -.025em;
+
+    color:
+        var(--text);
+
+    transition:
+        opacity .25s ease;
+
 }
+
 
 .logo:hover {
-  opacity: 0.75;
+
+    opacity: .65;
+
 }
 
-/* ==========================
-   BUTTONS
-========================== */
 
-.primary-btn {
-  background: #302d29;
+/* ==========================================
+   NAV ACTIONS
+========================================== */
 
-  color: #fffdf8;
+.nav-actions {
 
-  padding: 12px 24px;
+    display: flex;
 
-  border-radius: 999px;
+    align-items: center;
 
-  transition: 0.3s;
+    gap: 9px;
+
 }
 
-.primary-btn:hover {
-  transform: translateY(-3px);
+
+/* ==========================================
+   SHUFFLE BUTTON
+========================================== */
+
+.shuffle-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    padding:
+        10px 17px;
+
+    border:
+        1px solid #d4cbc0;
+
+    border-radius:
+        999px;
+
+    background:
+        var(--paper-light);
+
+    color:
+        var(--text-light);
+
+    font-size:
+        .82rem;
+
+    cursor:
+        pointer;
+
+    transition:
+        background .25s ease,
+        color .25s ease,
+        transform .25s ease,
+        box-shadow .25s ease;
+
 }
 
-.secondary-btn {
-  border: 1px solid #d4cbc0;
 
-  padding: 12px 24px;
+.shuffle-btn:hover {
 
-  border-radius: 999px;
+    background:
+        var(--text);
 
-  background: #fffdf8;
+    color:
+        white;
 
-  transition: 0.3s;
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 7px 18px rgba(60, 45, 35, .12);
+
 }
 
-.secondary-btn:hover {
-  background: #f3ede3;
 
-  transform: translateY(-3px);
+.shuffle-btn:active {
+
+    transform:
+        translateY(0)
+        scale(.97);
+
 }
 
-/* ==========================
-   HOME BUTTON
-========================== */
+
+.shuffle-icon {
+
+    display: inline-block;
+
+    font-size:
+        1.05rem;
+
+    line-height:
+        1;
+
+    transition:
+        transform .45s ease;
+
+}
+
+
+.shuffle-btn.is-spinning
+.shuffle-icon {
+
+    transform:
+        rotate(360deg);
+
+}
+
+
+/* ==========================================
+   EXIT BUTTON
+========================================== */
 
 .home-btn {
-  padding: 11px 22px;
 
-  border: 1px solid #d4cbc0;
+    display: inline-flex;
 
-  border-radius: 999px;
+    align-items: center;
 
-  background: #fffdf8;
+    justify-content: center;
 
-  color: #403b36;
+    gap: 7px;
 
-  font-size: 0.95rem;
+    padding:
+        10px 17px;
 
-  transition: 0.25s;
+    border:
+        1px solid #d4cbc0;
 
-  display: flex;
+    border-radius:
+        999px;
 
-  align-items: center;
+    background:
+        var(--paper-light);
 
-  gap: 8px;
+    color:
+        var(--text-light);
 
-  box-shadow: 0 5px 15px rgba(70, 55, 40, 0.07);
+    font-size:
+        .82rem;
+
+    box-shadow:
+        0 5px 15px rgba(70, 55, 40, .06);
+
+    transition:
+        background .25s ease,
+        color .25s ease,
+        transform .25s ease;
+
 }
+
 
 .home-btn:hover {
-  transform: translateY(-2px);
 
-  background: #302d29;
+    background:
+        var(--text);
 
-  color: #fffdf8;
+    color:
+        white;
+
+    transform:
+        translateY(-2px);
+
 }
 
-/* ==========================
-   FOOTER
-========================== */
 
-footer {
-  background: #f1ebe1;
+/* ==========================================
+   MAIN WALL AREA
+========================================== */
 
-  border-top: 1px solid #ded6cb;
+.featured-wall {
 
-  padding: 10px;
+    width: 100%;
 
-  text-align: center;
+    height:
+        calc(100vh - 70px);
 
-  margin-top: auto;
+    display: flex;
+
+    flex-direction: column;
+
+    padding:
+        14px 18px 18px;
+
+    background:
+        var(--paper);
+
 }
 
-.footer-links {
-  display: flex;
 
-  justify-content: center;
+/* ==========================================
+   TITLE
+========================================== */
 
-  gap: 24px;
+.wall-title {
 
-  flex-wrap: wrap;
+    position: relative;
 
-  margin-bottom: 6px;
+    z-index: 100;
+
+    flex-shrink: 0;
+
+    width:
+        fit-content;
+
+    min-width:
+        260px;
+
+    margin:
+        5px auto 12px;
+
+    padding:
+        13px 35px 14px;
+
+    background:
+        var(--paper-light);
+
+    border:
+        1px solid #d9d0c4;
+
+    border-radius:
+        5px;
+
+    box-shadow:
+        0 8px 18px rgba(70, 55, 40, .08),
+        2px 3px 0 rgba(70, 55, 40, .035);
+
+    text-align:
+        center;
+
+    transform:
+        rotate(-.8deg);
+
 }
 
-.footer-links a {
-  color: #514b45;
 
-  transition: 0.2s;
+.title-pin {
+
+    position: absolute;
+
+    width:
+        13px;
+
+    height:
+        13px;
+
+    top:
+        -7px;
+
+    left:
+        50%;
+
+    transform:
+        translateX(-50%);
+
+    border-radius:
+        50%;
+
+    background:
+        #d96b61;
+
+    box-shadow:
+        0 2px 6px rgba(70, 55, 40, .25);
+
 }
 
-.footer-links a:hover {
-  color: #a15f57;
+
+.title-label {
+
+    font-size:
+        .58rem;
+
+    font-weight:
+        600;
+
+    letter-spacing:
+        .18em;
+
+    color:
+        #9b9186;
+
+    margin-bottom:
+        4px;
+
 }
 
-footer p {
-  color: #8a8177;
 
-  font-size: 0.9rem;
+.wall-title h1 {
+
+    font-family:
+        "Poppins",
+        sans-serif;
+
+    font-size:
+        2rem;
+
+    font-weight:
+        600;
+
+    line-height:
+        1.1;
+
+    color:
+        var(--text);
+
+}
+
+
+.title-description {
+
+    margin-top:
+        4px;
+
+    color:
+        #8b8177;
+
+    font-size:
+        .72rem;
+
+}
+
+
+/* ==========================================
+   WALL
+========================================== */
+
+.wall {
+
+    position:
+        relative;
+
+    flex:
+        1;
+
+    width:
+        100%;
+
+    min-height:
+        0;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        16px;
+
+    background-color:
+        var(--paper);
+
+    background-image:
+        radial-gradient(
+            #ddd3c7 .8px,
+            transparent .8px
+        );
+
+    background-size:
+        22px 22px;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(210, 200, 188, .25);
+
+}
+
+
+/* ==========================================
+   PAPER LIGHTING
+========================================== */
+
+.wall::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    pointer-events:
+        none;
+
+    background:
+        linear-gradient(
+            rgba(255, 255, 255, .18),
+            rgba(255, 255, 255, .18)
+        );
+
+    z-index:
+        50;
+
+}
+
+
+/* ==========================================
+   STRIPS
+========================================== */
+
+.strip {
+
+    --rotation:
+        0deg;
+
+    position:
+        absolute;
+
+    width:
+        145px;
+
+    padding:
+        9px 9px 12px;
+
+    background:
+        var(--paper-light);
+
+    border:
+        1px solid #ded5c9;
+
+    border-radius:
+        4px;
+
+    box-shadow:
+        0 12px 25px var(--shadow),
+        2px 4px 0 rgba(65, 50, 38, .035);
+
+    transform:
+        translate3d(0, 0, 0)
+        rotate(var(--rotation));
+
+    transform-origin:
+        center center;
+
+    cursor:
+        grab;
+
+    user-select:
+        none;
+
+    touch-action:
+        none;
+
+    z-index:
+        5;
+
+    transition:
+        left .65s cubic-bezier(.22, 1, .36, 1),
+        top .65s cubic-bezier(.22, 1, .36, 1),
+        transform .4s cubic-bezier(.22, 1, .36, 1),
+        box-shadow .25s ease;
+
+}
+
+
+.strip:active {
+
+    cursor:
+        grabbing;
+
+}
+
+
+.strip:hover {
+
+    transform:
+        translate3d(0, -6px, 0)
+        rotate(0deg)
+        scale(1.06);
+
+    box-shadow:
+        0 18px 35px rgba(65, 50, 38, .20),
+        2px 4px 0 rgba(65, 50, 38, .035);
+
+    z-index:
+        90;
+
+}
+
+
+/* ==========================================
+   PHOTO
+========================================== */
+
+.strip-paper {
+
+    width:
+        100%;
+
+    background:
+        #f5f2ec;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        2px;
+
+}
+
+
+.strip img {
+
+    display:
+        block;
+
+    width:
+        100%;
+
+    height:
+        auto;
+
+    border-radius:
+        2px;
+
+    pointer-events:
+        none;
+
+}
+
+
+/* ==========================================
+   STRIP LABEL
+========================================== */
+
+.strip-label {
+
+    display:
+        block;
+
+    padding-top:
+        7px;
+
+    text-align:
+        center;
+
+    font-family:
+        "Poppins",
+        sans-serif;
+
+    font-size:
+        .48rem;
+
+    letter-spacing:
+        .1em;
+
+    text-transform:
+        uppercase;
+
+    color:
+        #aaa095;
+
+}
+
+
+/* ==========================================
+   TAPE
+========================================== */
+
+.strip::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    width:
+        54px;
+
+    height:
+        13px;
+
+    left:
+        50%;
+
+    top:
+        -7px;
+
+    transform:
+        translateX(-50%)
+        rotate(-4deg);
+
+    background:
+        rgba(244, 229, 178, .82);
+
+    border-radius:
+        2px;
+
+    box-shadow:
+        0 1px 2px rgba(80, 60, 40, .08);
+
+    z-index:
+        2;
+
+}
+
+
+/* ==========================================
+   INITIAL POSITIONS
+========================================== */
+
+.s1 {
+
+    top:
+        7%;
+
+    left:
+        7%;
+
+    --rotation:
+        -8deg;
+
+}
+
+
+.s2 {
+
+    top:
+        14%;
+
+    left:
+        36%;
+
+    --rotation:
+        6deg;
+
+}
+
+
+.s3 {
+
+    top:
+        7%;
+
+    right:
+        8%;
+
+    --rotation:
+        -5deg;
+
+}
+
+
+.s4 {
+
+    bottom:
+        13%;
+
+    left:
+        17%;
+
+    --rotation:
+        7deg;
+
+}
+
+
+.s5 {
+
+    bottom:
+        14%;
+
+    right:
+        19%;
+
+    --rotation:
+        -7deg;
+
+}
+
+
+.s6 {
+
+    bottom:
+        5%;
+
+    left:
+        45%;
+
+    --rotation:
+        4deg;
+
+}
+
+
+.s7 {
+
+    top:
+        43%;
+
+    left:
+        3%;
+
+    --rotation:
+        -10deg;
+
+}
+
+
+.s8 {
+
+    top:
+        43%;
+
+    right:
+        3%;
+
+    --rotation:
+        9deg;
+
+}
+
+
+/* ==========================================
+   WALL MESSAGE
+========================================== */
+
+.wall-message {
+
+    position:
+        absolute;
+
+    left:
+        50%;
+
+    bottom:
+        14px;
+
+    transform:
+        translateX(-50%);
+
+    z-index:
+        70;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+
+    padding:
+        7px 12px;
+
+    border:
+        1px solid rgba(210, 200, 188, .8);
+
+    border-radius:
+        999px;
+
+    background:
+        rgba(255, 253, 248, .75);
+
+    backdrop-filter:
+        blur(8px);
+
+    color:
+        #9b9186;
+
+    font-size:
+        .62rem;
+
+    pointer-events:
+        none;
+
+    opacity:
+        .8;
+
+}
+
+
+.wall-message-dot {
+
+    width:
+        5px;
+
+    height:
+        5px;
+
+    border-radius:
+        50%;
+
+    background:
+        #d96b61;
+
+}
+
+
+/* ==========================================
+   SHUFFLING
+========================================== */
+
+.strip.is-shuffling {
+
+    transition:
+        left .65s cubic-bezier(.22, 1, .36, 1),
+        top .65s cubic-bezier(.22, 1, .36, 1),
+        transform .65s cubic-bezier(.22, 1, .36, 1);
+
+}
+
+
+/* ==========================================
+   SELECTED STRIP
+========================================== */
+
+.strip.is-selected {
+
+    z-index:
+        200 !important;
+
+    transform:
+        translate3d(0, -8px, 0)
+        rotate(0deg)
+        scale(1.08);
+
+    box-shadow:
+        0 22px 45px rgba(65, 50, 38, .24);
+
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 800px) {
+
+    body {
+
+        overflow-y:
+            auto;
+
+    }
+
+
+    .feature-navbar {
+
+        padding:
+            14px 20px;
+
+    }
+
+
+    .logo {
+
+        font-size:
+            1.05rem;
+
+    }
+
+
+    .shuffle-btn {
+
+        padding:
+            9px 12px;
+
+        font-size:
+            .72rem;
+
+    }
+
+
+    .home-btn {
+
+        padding:
+            9px 12px;
+
+        font-size:
+            .72rem;
+
+    }
+
+
+    .featured-wall {
+
+        height:
+            calc(100vh - 61px);
+
+        padding:
+            10px;
+
+    }
+
+
+    .wall-title {
+
+        padding:
+            11px 25px 12px;
+
+    }
+
+
+    .wall-title h1 {
+
+        font-size:
+            1.55rem;
+
+    }
+
+
+    .title-description {
+
+        font-size:
+            .65rem;
+
+    }
+
+
+    .strip {
+
+        width:
+            110px;
+
+    }
+
+
+    .strip-label {
+
+        font-size:
+            .4rem;
+
+    }
+
+
+    .wall-message {
+
+        font-size:
+            .55rem;
+
+        bottom:
+            8px;
+
+    }
+
+}
+
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width: 520px) {
+
+    .feature-navbar {
+
+        padding:
+            12px 14px;
+
+    }
+
+
+    .logo {
+
+        font-size:
+            .92rem;
+
+    }
+
+
+    .nav-actions {
+
+        gap:
+            5px;
+
+    }
+
+
+    .shuffle-btn {
+
+        width:
+            40px;
+
+        height:
+            40px;
+
+        padding:
+            0;
+
+    }
+
+
+    .shuffle-btn .shuffle-icon {
+
+        font-size:
+            1.2rem;
+
+    }
+
+
+    .shuffle-btn {
+
+        font-size:
+            0;
+
+    }
+
+
+    .home-btn {
+
+        width:
+            40px;
+
+        height:
+            40px;
+
+        padding:
+            0;
+
+        font-size:
+            0;
+
+    }
+
+
+    .home-btn::first-letter {
+
+        font-size:
+            1rem;
+
+    }
+
+
+    .featured-wall {
+
+        height:
+            calc(100vh - 58px);
+
+        padding:
+            8px;
+
+    }
+
+
+    .wall-title {
+
+        min-width:
+            210px;
+
+        padding:
+            9px 20px 10px;
+
+    }
+
+
+    .wall-title h1 {
+
+        font-size:
+            1.35rem;
+
+    }
+
+
+    .title-label {
+
+        font-size:
+            .48rem;
+
+    }
+
+
+    .title-description {
+
+        font-size:
+            .58rem;
+
+    }
+
+
+    .strip {
+
+        width:
+            82px;
+
+        padding:
+            6px 6px 8px;
+
+    }
+
+
+    .strip::before {
+
+        width:
+            38px;
+
+        height:
+            9px;
+
+        top:
+            -5px;
+
+    }
+
+
+    .strip-label {
+
+        padding-top:
+            5px;
+
+        font-size:
+            .33rem;
+
+    }
+
+
+    .wall-message {
+
+        display:
+            none;
+
+    }
+
+}
+
+
+/* ==========================================
+   REDUCED MOTION
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .strip {
+
+        transition:
+            none;
+
+    }
+
+
+    .shuffle-btn {
+
+        transition:
+            none;
+
+    }
+
 }
