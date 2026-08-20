@@ -1,140 +1,81 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Some Memory Lane</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-</head>
-
-
-<body>
-
-
+  <body>
     <!-- ==========================================
          LANDING PAGE
     =========================================== -->
 
     <main class="landing-page">
-
-
-        <!-- ======================================
+      <!-- ======================================
              MAIN SKETCH
         ======================================= -->
-        <!-- ======================================
+      <!-- ======================================
             MUSIC
         ======================================= -->
 
-        <audio id="backgroundMusic" loop>
-            <source src="assets/music/notcuteanymore.mp3" type="audio/mpeg">
-        </audio>
+      <audio id="backgroundMusic" loop>
+        <source src="assets/music/notcuteanymore.mp3" type="audio/mpeg" />
+      </audio>
 
-        <button id="musicToggle"class="music-toggle"> ♫    </button>
+      <button id="musicToggle" class="music-toggle">♫</button>
 
-        <section class="landing-visual">
+      <section class="landing-visual">
+        <img
+          src="assets/images/landing-page.png"
+          alt="Some Memory Lane photobooth"
+          class="landing-image"
+        />
 
-            <img
-                src="assets/images/landing-page.png"
-                alt="Some Memory Lane photobooth"
-                class="landing-image"
-            >
+        <!-- START / ENTER -->
 
+        <a href="pages/start.html" class="enter-button">
+          <span>Enter</span>
 
-            <!-- START / ENTER -->
+          <span class="enter-arrow">→</span>
+        </a>
 
-            <a
-                href="pages/start.html"
-                class="enter-button"
-            >
+        <!-- FEATURED STRIPS -->
 
-                <span>Enter</span>
+        <a href="pages/features.html" class="featured-strips">
+          <span>Some</span>
+          <span>Memories</span>
+        </a>
+      </section>
 
-                <span class="enter-arrow">→</span>
-
-            </a>
-
-
-            <!-- FEATURED STRIPS -->
-
-            <a
-                href="pages/features.html"
-                class="featured-strips"
-            >
-
-                <span>Some</span>
-                <span>Memories</span>
-
-            </a>
-
-
-        </section>
-
-
-
-        <!-- ======================================
+      <!-- ======================================
              FOOTER
         ======================================= -->
 
-        <footer class="landing-footer">
+      <footer class="landing-footer">
+        <a href="fallback.html" class="footer-link"> Give Feedback </a>
 
-            <a
-                href="fallback.html"
-                class="footer-link"
-            >
-                Give Feedback
-            </a>
+        <a href="pages/privacy.html" class="footer-link"> Privacy Policy </a>
 
+        <a href="pages/faq.html" class="footer-link"> FAQs </a>
 
-            <a
-                href="pages/privacy.html"
-                class="footer-link"
-            >
-                Privacy Policy
-            </a>
+        <a href="pages/about.html" class="footer-link"> About Me </a>
 
-
-            <a
-                href="pages/faq.html"
-                class="footer-link"
-            >
-                FAQs
-            </a>
-
-
-            <a
-                href="pages/about.html"
-                class="footer-link"
-            >
-                About Me
-            </a>
-
-
-            <a
-                href="fallback.html"
-                class="footer-link"
-            >
-                How it works
-            </a>
-
-
-        </footer>
-
-
+        <a href="fallback.html" class="footer-link"> How it works </a>
+      </footer>
     </main>
 
-<script src="script.js"></script>
-</body>
-
+    <script src="script.js"></script>
+  </body>
 </html>

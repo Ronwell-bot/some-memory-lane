@@ -1,829 +1,183 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/info.css" />
 
     <title>FAQs | Memory Lane</title>
-
 
     <!-- ==========================================
          FONTS
     =========================================== -->
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;600;700&display=swap"
-        rel="stylesheet"
-    >
-
-
-    <!-- ==========================================
-         CSS
-    =========================================== -->
-
-    <style>
-
-        /* ==========================================
-           RESET
-        ========================================== */
-
-        * {
-
-            margin: 0;
-            padding: 0;
-
-            box-sizing: border-box;
-
-        }
-
-
-        html,
-        body {
-
-            width: 100%;
-            height: 100%;
-
-        }
-
-
-        body {
-
-            font-family: 'Inter', sans-serif;
-
-            background: #F7F5F2;
-
-            color: #2B2B2B;
-
-            overflow: hidden;
-
-        }
-
-
-        /* ==========================================
-           PAGE
-        ========================================== */
-
-        .page {
-
-            width: 100%;
-            height: 100vh;
-
-            display: flex;
-
-            flex-direction: column;
-
-        }
-
-
-        /* ==========================================
-           HEADER
-        ========================================== */
-
-        header {
-
-            width: 100%;
-
-            padding: 24px 50px;
-
-            flex-shrink: 0;
-
-        }
-
-
-        .navbar {
-
-            display: flex;
-
-            align-items: center;
-
-        }
-
-
-        .logo {
-
-            font-family: 'Poppins', sans-serif;
-
-            font-size: 1.1rem;
-
-            font-weight: 600;
-
-            letter-spacing: -.02em;
-
-        }
-
-
-        /* ==========================================
-           MAIN
-        ========================================== */
-
-        main {
-
-            flex: 1;
-
-            width: 100%;
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: flex-start;
-
-            padding: 10px 40px;
-
-        }
-
-
-        .page-content {
-
-            width: 100%;
-
-            max-width: 850px;
-
-        }
-
-
-        /* ==========================================
-           TITLE
-        ========================================== */
-
-        .page-heading {
-
-            margin-bottom: 20px;
-
-        }
-
-
-        .section-label {
-
-            font-size: .65rem;
-
-            font-weight: 600;
-
-            letter-spacing: .16em;
-
-            color: #999;
-
-            margin-bottom: 7px;
-
-        }
-
-
-        h1 {
-
-            font-family: 'Poppins', sans-serif;
-
-            font-size: 2rem;
-
-            line-height: 1.2;
-
-            margin-bottom: 8px;
-
-        }
-
-
-        .intro {
-
-            color: #777;
-
-            font-size: .82rem;
-
-            line-height: 1.5;
-
-            max-width: 600px;
-
-        }
-
-
-        /* ==========================================
-           FAQ
-        ========================================== */
-
-        .faq-container {
-
-            border-top: 1px solid #DED9D2;
-
-        }
-
-
-        .faq-item {
-
-            border-bottom: 1px solid #DED9D2;
-
-        }
-
-
-        .faq-question {
-
-            width: 100%;
-
-            padding: 14px 0;
-
-            background: transparent;
-
-            border: none;
-
-            color: #2B2B2B;
-
-            font-family: 'Inter', sans-serif;
-
-            font-size: .84rem;
-
-            font-weight: 500;
-
-            text-align: left;
-
-            cursor: pointer;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            gap: 20px;
-
-        }
-
-
-        .faq-question::after {
-
-            content: "+";
-
-            flex-shrink: 0;
-
-            font-size: 1rem;
-
-            font-weight: 300;
-
-            color: #999;
-
-        }
-
-
-        .faq-item.open
-        .faq-question::after {
-
-            content: "−";
-
-        }
-
-
-        .faq-answer {
-
-            display: none;
-
-            padding: 0 30px 14px 0;
-
-            color: #777;
-
-            font-size: .76rem;
-
-            line-height: 1.5;
-
-        }
-
-
-        .faq-item.open
-        .faq-answer {
-
-            display: block;
-
-        }
-
-
-        /* ==========================================
-           BACK HOME
-        ========================================== */
-
-        .page-actions {
-
-            display: flex;
-
-            justify-content: center;
-
-            margin-top: 20px;
-
-        }
-
-
-        .back-home-btn {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            padding: 9px 17px;
-
-            border-radius: 999px;
-
-            border: 1px solid #D8D3CC;
-
-            background: white;
-
-            color: #555;
-
-            font-size: .74rem;
-
-            text-decoration: none;
-
-            transition:
-                background .2s ease,
-                color .2s ease,
-                border-color .2s ease,
-                transform .2s ease;
-
-        }
-
-
-        .back-home-btn:hover {
-
-            background: #2B2B2B;
-
-            color: white;
-
-            border-color: #2B2B2B;
-
-            transform: translateY(-1px);
-
-        }
-
-
-        /* ==========================================
-           FOOTER
-        ========================================== */
-
-        footer {
-
-            width: 100%;
-
-            padding: 15px 40px 18px;
-
-            text-align: center;
-
-            color: #999;
-
-            flex-shrink: 0;
-
-        }
-
-
-        .footer-logo {
-
-            font-family: 'Poppins', sans-serif;
-
-            font-size: .82rem;
-
-            font-weight: 600;
-
-            color: #555;
-
-            margin-bottom: 3px;
-
-        }
-
-
-        footer p {
-
-            font-size: .65rem;
-
-        }
-
-
-        /* ==========================================
-           TABLET
-        ========================================== */
-
-        @media (max-width: 800px) {
-
-            header {
-
-                padding: 20px 25px;
-
-            }
-
-
-            main {
-
-                padding: 10px 25px;
-
-            }
-
-
-            h1 {
-
-                font-size: 1.8rem;
-
-            }
-
-        }
-
-
-        /* ==========================================
-           MOBILE
-        ========================================== */
-
-        @media (max-width: 600px) {
-
-            body {
-
-                overflow: hidden;
-
-            }
-
-
-            header {
-
-                padding: 18px 20px;
-
-            }
-
-
-            main {
-
-                padding: 5px 20px;
-
-            }
-
-
-            .page-heading {
-
-                margin-bottom: 15px;
-
-            }
-
-
-            .section-label {
-
-                font-size: .58rem;
-
-            }
-
-
-            h1 {
-
-                font-size: 1.55rem;
-
-            }
-
-
-            .intro {
-
-                font-size: .75rem;
-
-            }
-
-
-            .faq-question {
-
-                font-size: .76rem;
-
-                padding: 12px 0;
-
-            }
-
-
-            .faq-answer {
-
-                font-size: .7rem;
-
-                padding-right: 15px;
-
-                padding-bottom: 12px;
-
-            }
-
-
-            .page-actions {
-
-                margin-top: 15px;
-
-            }
-
-
-            .back-home-btn {
-
-                font-size: .68rem;
-
-                padding: 8px 14px;
-
-            }
-
-
-            footer {
-
-                padding: 12px 20px 15px;
-
-            }
-
-
-            .footer-logo {
-
-                font-size: .75rem;
-
-            }
-
-
-            footer p {
-
-                font-size: .58rem;
-
-            }
-
-        }
-
-    </style>
-
-</head>
-
-
-<body>
-
-
-<div class="page">
-
-
-    <!-- ==========================================
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="page">
+      <!-- ==========================================
          HEADER
     ========================================== -->
 
-    <header>
+      <header></header>
 
-        
-
-    </header>
-
-
-    <!-- ==========================================
+      <!-- ==========================================
          MAIN
     ========================================== -->
 
-    <main>
-
+      <main>
         <div class="page-content">
-
-
-            <!-- ======================================
+          <!-- ======================================
                  TITLE
             ======================================= -->
 
-            <div class="page-heading">
+          <div class="page-heading">
+            <p class="section-label">SOME MEMORY LANE</p>
 
-                <p class="section-label">
-                    SOME MEMORY LANE
-                </p>
+            <h1>Frequently Asked Questions</h1>
 
-                <h1>
-                    Frequently Asked Questions
-                </h1>
+            <p class="intro">
+              Here are some of the most common things people ask before using
+              Some Memory Lane.
+            </p>
+          </div>
 
-                <p class="intro">
-                    Here are some of the most common things
-                    people ask before using Some Memory Lane.
-                </p>
-
-            </div>
-
-
-            <!-- ======================================
+          <!-- ======================================
                  FAQ
             ======================================= -->
 
-            <div class="faq-container">
+          <div class="faq-container">
+            <!-- FAQ 1 -->
 
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                What is Some Memory Lane?
+              </button>
 
-                <!-- FAQ 1 -->
-
-                <div class="faq-item">
-
-                    <button
-                        class="faq-question"
-                        type="button"
-                    >
-                        What is Some Memory Lane?
-                    </button>
-
-                    <p class="faq-answer">
-
-                        Some Memory Lane is a browser-based
-                        photobooth where you can capture
-                        and save printable memories.
-
-                    </p>
-
-                </div>
-
-
-                <!-- FAQ 2 -->
-
-                <div class="faq-item">
-
-                    <button
-                        class="faq-question"
-                        type="button"
-                    >
-                        Is Some Memory Lane free to use?
-                    </button>
-
-                    <p class="faq-answer">
-
-                        Yes. The project is currently free
-                        while it continues to grow and improve.
-
-                    </p>
-
-                </div>
-
-
-                <!-- FAQ 3 -->
-
-                <div class="faq-item">
-
-                    <button
-                        class="faq-question"
-                        type="button"
-                    >
-                        Do I need an account?
-                    </button>
-
-                    <p class="faq-answer">
-
-                        No account is needed to get started.
-                        You can use the site right away.
-
-                    </p>
-
-                </div>
-
-
-                <!-- FAQ 4 -->
-
-                <div class="faq-item">
-
-                    <button
-                        class="faq-question"
-                        type="button"
-                    >
-                        Can I use my phone?
-                    </button>
-
-                    <p class="faq-answer">
-
-                        Yes. Some Memory Lane is designed to work
-                        on desktops, tablets, and most modern
-                        phones.
-
-                    </p>
-
-                </div>
-
-
-                <!-- FAQ 5 -->
-
-                <div class="faq-item">
-
-                    <button
-                        class="faq-question"
-                        type="button"
-                    >
-                        Can I print my photostrips?
-                    </button>
-
-                    <p class="faq-answer">
-
-                        Yes. You can download your photostrip
-                        and print it however you like.
-
-                    </p>
-
-                </div>
-
-
+              <p class="faq-answer">
+                Some Memory Lane is a browser-based photobooth where you can
+                capture and save printable memories.
+              </p>
             </div>
 
+            <!-- FAQ 2 -->
 
-            <!-- ======================================
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                Is Some Memory Lane free to use?
+              </button>
+
+              <p class="faq-answer">
+                Yes. The project is currently free while it continues to grow
+                and improve.
+              </p>
+            </div>
+
+            <!-- FAQ 3 -->
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                Do I need an account?
+              </button>
+
+              <p class="faq-answer">
+                No account is needed to get started. You can use the site right
+                away.
+              </p>
+            </div>
+
+            <!-- FAQ 4 -->
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                Can I use my phone?
+              </button>
+
+              <p class="faq-answer">
+                Yes. Some Memory Lane is designed to work on desktops, tablets,
+                and most modern phones.
+              </p>
+            </div>
+
+            <!-- FAQ 5 -->
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                Can I print my photostrips?
+              </button>
+
+              <p class="faq-answer">
+                Yes. You can download your photostrip and print it however you
+                like.
+              </p>
+            </div>
+          </div>
+
+          <!-- ======================================
                  BACK HOME
             ======================================= -->
 
-            <div class="page-actions">
-
-                <a
-                    href="../index.html"
-                    class="back-home-btn"
-                >
-                    Back Home
-                </a>
-
-            </div>
-
-
+          <div class="page-actions">
+            <a href="../index.html" class="back-home-btn"> Back Home </a>
+          </div>
         </div>
+      </main>
 
-    </main>
 
-
-    <!-- ==========================================
-         FOOTER
-    ========================================== -->
-
-    <footer>
-
-        <div class="footer-logo">
-            Some Memory Lane
-        </div>
+        <!-- ==========================================
+             FOOTER
+        ========================================== -->
+      <footer>
+        <div class="footer-logo">Some Memory Lane</div>
 
         <p>
-            © 2026 Some Memory Lane. All Rights Reserved.
+          Some Memory Lane is an independent personal project created for 
+          educational and portfolio purposes.
+          <br>
+          © 2026 Some Memory Lane. All Rights Reserved.
         </p>
+      </footer>
 
-    </footer>
-
-
-    <!-- ==========================================
+      <!-- ==========================================
          FAQ SCRIPT
     ========================================== -->
 
-    <script>
+      <script>
+        const faqQuestions = document.querySelectorAll(".faq-question");
 
-        const faqQuestions =
-            document.querySelectorAll(
-                ".faq-question"
-            );
+        faqQuestions.forEach((question) => {
+          question.addEventListener("click", () => {
+            const item = question.parentElement;
 
+            const wasOpen = item.classList.contains("open");
 
-        faqQuestions.forEach(question => {
-
-            question.addEventListener(
-                "click",
-                () => {
-
-                    const item =
-                        question.parentElement;
-
-
-                    const wasOpen =
-                        item.classList.contains(
-                            "open"
-                        );
-
-
-                    /*
+            /*
                         Close all other FAQs.
                     */
 
-                    document
-                        .querySelectorAll(".faq-item")
-                        .forEach(faq => {
+            document.querySelectorAll(".faq-item").forEach((faq) => {
+              faq.classList.remove("open");
+            });
 
-                            faq.classList.remove(
-                                "open"
-                            );
-
-                        });
-
-
-                    /*
+            /*
                         Open selected FAQ.
                     */
 
-                    if(!wasOpen){
-
-                        item.classList.add(
-                            "open"
-                        );
-
-                    }
-
-                }
-            );
-
+            if (!wasOpen) {
+              item.classList.add("open");
+            }
+          });
         });
-
-    </script>
-
-
-</div>
-
-
-</body>
-
-</html> 
+      </script>
+    </div>
+  </body>
+</html>

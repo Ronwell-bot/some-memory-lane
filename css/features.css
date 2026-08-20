@@ -3,147 +3,124 @@
    SOME MEMORY LANE
 ========================== */
 
-.featured-wall{
+.featured-wall {
+  height: calc(100vh - 74px);
 
-    height:calc(100vh - 74px);
+  display: flex;
 
-    display:flex;
+  flex-direction: column;
 
-    flex-direction:column;
+  /* Warm paper */
+  background: #fbf8f1;
 
-    /* Warm paper */
-    background:#FBF8F1;
+  overflow: hidden;
 
-    overflow:hidden;
+  transform: scale(0.94);
 
-    transform: scale(0.94);
-    
-    transform-origin: center top;
+  transform-origin: center top;
 }
-
 
 /* ==========================
    TITLE
 ========================== */
 
-.wall-title{
+.wall-title {
+  flex-shrink: 0;
 
-    flex-shrink:0;
+  width: fit-content;
 
-    width:fit-content;
+  margin: 20px auto 12px;
 
-    margin:20px auto 12px;
+  padding: 16px 42px;
 
-    padding:16px 42px;
+  /* Paper card */
 
-    /* Paper card */
+  background: #fffdf8;
 
-    background:#FFFDF8;
+  border: 1px solid #d9d0c4;
 
-    border:1px solid #D9D0C4;
+  border-radius: 6px;
 
-    border-radius:6px;
+  box-shadow:
+    0 8px 18px rgba(70, 55, 40, 0.1),
+    2px 3px 0 rgba(70, 55, 40, 0.04);
 
-    box-shadow:
-        0 8px 18px rgba(70,55,40,.10),
-        2px 3px 0 rgba(70,55,40,.04);
+  text-align: center;
 
-    text-align:center;
+  position: relative;
 
-    position:relative;
-
-    transform:rotate(-1deg);
-
+  transform: rotate(-1deg);
 }
-
 
 /* ==========================
    Push Pin
 ========================== */
 
-.wall-title::before{
+.wall-title::before {
+  content: "";
 
-    content:"";
+  position: absolute;
 
-    position:absolute;
+  width: 14px;
 
-    width:14px;
+  height: 14px;
 
-    height:14px;
+  background: #d96b61;
 
-    background:#D96B61;
+  border-radius: 50%;
 
-    border-radius:50%;
+  top: -7px;
 
-    top:-7px;
+  left: 50%;
 
-    left:50%;
+  transform: translateX(-50%);
 
-    transform:translateX(-50%);
-
-    box-shadow:
-        0 2px 6px rgba(70,55,40,.25);
-
+  box-shadow: 0 2px 6px rgba(70, 55, 40, 0.25);
 }
 
+.wall-title h1 {
+  font-family: "Poppins", sans-serif;
 
-.wall-title h1{
+  font-size: 2.8rem;
 
-    font-family:'Poppins',sans-serif;
+  margin-bottom: 4px;
 
-    font-size:2.8rem;
+  line-height: 1.1;
 
-    margin-bottom:4px;
-
-    line-height:1.1;
-
-    color:#292725;
-
+  color: #292725;
 }
 
+.wall-title p {
+  color: #8b8177;
 
-.wall-title p{
-
-    color:#8B8177;
-
-    font-size:.95rem;
-
+  font-size: 0.95rem;
 }
-
 
 /* ==========================
    WALL
 ========================== */
 
-.wall{
+.wall {
+  flex: 1;
 
-    flex:1;
+  position: relative;
 
-    position:relative;
+  width: 100%;
 
-    width:100%;
+  border-radius: 18px;
 
-    border-radius:18px;
+  overflow: hidden;
 
-    overflow:hidden;
-
-    /*
+  /*
         Paper / notebook style
     */
 
-    background-color:#FBF8F1;
+  background-color: #fbf8f1;
 
-    background-image:
+  background-image: radial-gradient(#ddd3c7 0.8px, transparent 0.8px);
 
-        radial-gradient(
-            #DDD3C7 0.8px,
-            transparent 0.8px
-        );
-
-    background-size:22px 22px;
-
+  background-size: 22px 22px;
 }
-
 
 /* ==========================
    SMALL PAPER DETAILS
@@ -155,105 +132,88 @@
    changing your layout.
 */
 
-.wall::after{
+.wall::after {
+  content: "";
 
-    content:"";
+  position: absolute;
 
-    position:absolute;
+  inset: 0;
 
-    inset:0;
+  pointer-events: none;
 
-    pointer-events:none;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.18),
+    rgba(255, 255, 255, 0.18)
+  );
 
-    background:
-        linear-gradient(
-            rgba(255,255,255,.18),
-            rgba(255,255,255,.18)
-        );
-
-    z-index:1;
-
+  z-index: 1;
 }
-
 
 /* ==========================
    PHOTO STRIPS
 ========================== */
 
-.strip{
+.strip {
+  position: absolute;
 
-    position:absolute;
+  width: 160px;
 
-    width:160px;
+  background: #fffdf8;
 
-    background:#FFFDF8;
+  padding: 10px;
 
-    padding:10px;
+  border-radius: 5px;
 
-    border-radius:5px;
+  border: 1px solid #ded5c9;
 
-    border:1px solid #DED5C9;
+  box-shadow:
+    0 10px 22px rgba(65, 50, 38, 0.14),
+    2px 4px 0 rgba(65, 50, 38, 0.04);
 
-    box-shadow:
-        0 10px 22px rgba(65,50,38,.14),
-        2px 4px 0 rgba(65,50,38,.04);
+  transition: 0.35s ease;
 
-    transition:.35s ease;
-
-    z-index:5;
-
+  z-index: 5;
 }
 
+.strip img {
+  width: 100%;
 
-.strip img{
+  display: block;
 
-    width:100%;
-
-    display:block;
-
-    border-radius:3px;
-
+  border-radius: 3px;
 }
 
+.strip:hover {
+  transform: scale(1.08) rotate(0deg);
 
-.strip:hover{
-
-    transform:scale(1.08) rotate(0deg);
-
-    z-index:100;
-
+  z-index: 100;
 }
-
 
 /* ==========================
    TAPE
 ========================== */
 
-.strip::before{
+.strip::before {
+  content: "";
 
-    content:"";
+  position: absolute;
 
-    position:absolute;
+  width: 58px;
 
-    width:58px;
+  height: 14px;
 
-    height:14px;
+  left: 50%;
 
-    left:50%;
+  top: -7px;
 
-    top:-7px;
+  transform: translateX(-50%) rotate(-4deg);
 
-    transform:translateX(-50%) rotate(-4deg);
+  background: rgba(244, 229, 178, 0.82);
 
-    background:rgba(244,229,178,.82);
+  border-radius: 2px;
 
-    border-radius:2px;
-
-    box-shadow:
-        0 1px 2px rgba(80,60,40,.08);
-
+  box-shadow: 0 1px 2px rgba(80, 60, 40, 0.08);
 }
-
 
 /* ==========================
    STRIP POSITIONS
@@ -261,327 +221,270 @@
    POSITIONS
 ========================== */
 
-.s1{
-    top:6%;
-    left:8%;
-    transform:rotate(-8deg);
+.s1 {
+  top: 6%;
+  left: 8%;
+  transform: rotate(-8deg);
 }
 
-.s2{
-    top:16%;
-    left:38%;
-    transform:rotate(6deg);
+.s2 {
+  top: 16%;
+  left: 38%;
+  transform: rotate(6deg);
 }
 
-.s3{
-    top:8%;
-    right:8%;
-    transform:rotate(-5deg);
+.s3 {
+  top: 8%;
+  right: 8%;
+  transform: rotate(-5deg);
 }
 
-.s4{
-    bottom:14%;
-    left:18%;
-    transform:rotate(7deg);
+.s4 {
+  bottom: 14%;
+  left: 18%;
+  transform: rotate(7deg);
 }
 
-.s5{
-    bottom:16%;
-    right:20%;
-    transform:rotate(-7deg);
+.s5 {
+  bottom: 16%;
+  right: 20%;
+  transform: rotate(-7deg);
 }
 
-.s6{
-    bottom:5%;
-    left:45%;
-    transform:rotate(4deg);
+.s6 {
+  bottom: 5%;
+  left: 45%;
+  transform: rotate(4deg);
 }
 
-.s7{
-    top:42%;
-    left:3%;
-    transform:rotate(-10deg);
+.s7 {
+  top: 42%;
+  left: 3%;
+  transform: rotate(-10deg);
 }
 
-.s8{
-    top:44%;
-    right:3%;
-    transform:rotate(9deg);
+.s8 {
+  top: 44%;
+  right: 3%;
+  transform: rotate(9deg);
 }
-
 
 /* ==========================
    RESET
 ========================== */
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-
-html{
-    scroll-behavior:smooth;
+html {
+  scroll-behavior: smooth;
 }
 
+body {
+  font-family: "Inter", sans-serif;
 
-body{
+  /* Same warm paper feeling */
 
-    font-family:'Inter',sans-serif;
+  background: #fbf8f1;
 
-    /* Same warm paper feeling */
+  color: #2b2926;
 
-    background:#FBF8F1;
+  min-height: 100vh;
 
-    color:#2B2926;
+  display: flex;
 
-    min-height:100vh;
+  flex-direction: column;
 
-    display:flex;
-
-    flex-direction:column;
-
-    overflow:hidden;
-
+  overflow: hidden;
 }
 
+a {
+  text-decoration: none;
 
-a{
-
-    text-decoration:none;
-
-    color:inherit;
-
+  color: inherit;
 }
-
 
 /* ==========================
    HEADER
 ========================== */
 
-header{
+header {
+  backdrop-filter: blur(15px);
 
-    backdrop-filter:blur(15px);
+  background: rgba(251, 248, 241, 0.88);
 
-    background:rgba(251,248,241,.88);
-
-    border-bottom:1px solid #DED6CB;
-
+  border-bottom: 1px solid #ded6cb;
 }
-
 
 /* ==========================
    FEATURE NAVBAR
 ========================== */
 
-.feature-header{
+.feature-header {
+  position: sticky;
 
-    position:sticky;
+  top: 0;
 
-    top:0;
+  z-index: 999;
 
-    z-index:999;
+  backdrop-filter: blur(18px);
 
-    backdrop-filter:blur(18px);
+  background: rgba(251, 248, 241, 0.9);
 
-    background:rgba(251,248,241,.90);
-
-    border-bottom:1px solid #DED6CB;
-
+  border-bottom: 1px solid #ded6cb;
 }
 
+.feature-navbar {
+  max-width: 1400px;
 
-.feature-navbar{
+  margin: auto;
 
-    max-width:1400px;
+  padding: 18px 45px;
 
-    margin:auto;
+  display: flex;
 
-    padding:18px 45px;
+  justify-content: space-between;
 
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
+  align-items: center;
 }
-
 
 /* ==========================
    LOGO
 ========================== */
 
-.logo{
+.logo {
+  font-family: "Poppins", sans-serif;
 
-    font-family:'Poppins',sans-serif;
+  font-size: 1.5rem;
 
-    font-size:1.5rem;
+  font-weight: 700;
 
-    font-weight:700;
+  color: #2b2926;
 
-    color:#2B2926;
-
-    transition:.25s;
-
+  transition: 0.25s;
 }
 
-
-.logo:hover{
-
-    opacity:.75;
-
+.logo:hover {
+  opacity: 0.75;
 }
-
 
 /* ==========================
    BUTTONS
 ========================== */
 
-.primary-btn{
+.primary-btn {
+  background: #302d29;
 
-    background:#302D29;
+  color: #fffdf8;
 
-    color:#FFFDF8;
+  padding: 12px 24px;
 
-    padding:12px 24px;
+  border-radius: 999px;
 
-    border-radius:999px;
-
-    transition:.3s;
-
+  transition: 0.3s;
 }
 
-
-.primary-btn:hover{
-
-    transform:translateY(-3px);
-
+.primary-btn:hover {
+  transform: translateY(-3px);
 }
 
+.secondary-btn {
+  border: 1px solid #d4cbc0;
 
-.secondary-btn{
+  padding: 12px 24px;
 
-    border:1px solid #D4CBC0;
+  border-radius: 999px;
 
-    padding:12px 24px;
+  background: #fffdf8;
 
-    border-radius:999px;
-
-    background:#FFFDF8;
-
-    transition:.3s;
-
+  transition: 0.3s;
 }
 
+.secondary-btn:hover {
+  background: #f3ede3;
 
-.secondary-btn:hover{
-
-    background:#F3EDE3;
-
-    transform:translateY(-3px);
-
+  transform: translateY(-3px);
 }
-
 
 /* ==========================
    HOME BUTTON
 ========================== */
 
-.home-btn{
+.home-btn {
+  padding: 11px 22px;
 
-    padding:11px 22px;
+  border: 1px solid #d4cbc0;
 
-    border:1px solid #D4CBC0;
+  border-radius: 999px;
 
-    border-radius:999px;
+  background: #fffdf8;
 
-    background:#FFFDF8;
+  color: #403b36;
 
-    color:#403B36;
+  font-size: 0.95rem;
 
-    font-size:.95rem;
+  transition: 0.25s;
 
-    transition:.25s;
+  display: flex;
 
-    display:flex;
+  align-items: center;
 
-    align-items:center;
+  gap: 8px;
 
-    gap:8px;
-
-    box-shadow:
-        0 5px 15px rgba(70,55,40,.07);
-
+  box-shadow: 0 5px 15px rgba(70, 55, 40, 0.07);
 }
 
+.home-btn:hover {
+  transform: translateY(-2px);
 
-.home-btn:hover{
+  background: #302d29;
 
-    transform:translateY(-2px);
-
-    background:#302D29;
-
-    color:#FFFDF8;
-
+  color: #fffdf8;
 }
-
 
 /* ==========================
    FOOTER
 ========================== */
 
-footer{
+footer {
+  background: #f1ebe1;
 
-    background:#F1EBE1;
+  border-top: 1px solid #ded6cb;
 
-    border-top:1px solid #DED6CB;
+  padding: 10px;
 
-    padding:10px;
+  text-align: center;
 
-    text-align:center;
-
-    margin-top:auto;
-
+  margin-top: auto;
 }
 
+.footer-links {
+  display: flex;
 
-.footer-links{
+  justify-content: center;
 
-    display:flex;
+  gap: 24px;
 
-    justify-content:center;
+  flex-wrap: wrap;
 
-    gap:24px;
-
-    flex-wrap:wrap;
-
-    margin-bottom:6px;
-
+  margin-bottom: 6px;
 }
 
+.footer-links a {
+  color: #514b45;
 
-.footer-links a{
-
-    color:#514B45;
-
-    transition:.2s;
-
+  transition: 0.2s;
 }
 
-
-.footer-links a:hover{
-
-    color:#A15F57;
-
+.footer-links a:hover {
+  color: #a15f57;
 }
 
+footer p {
+  color: #8a8177;
 
-footer p{
-
-    color:#8A8177;
-
-    font-size:.9rem;
-
+  font-size: 0.9rem;
 }

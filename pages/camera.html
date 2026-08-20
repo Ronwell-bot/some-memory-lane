@@ -1,300 +1,163 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Camera | Memory Lane</title>
-
 
     <!-- ==========================================
          CSS
     =========================================== -->
 
-    <link
-        rel="stylesheet"
-        href="../css/camera.css"
-    >
-
+    <link rel="stylesheet" href="../css/camera.css" />
 
     <!-- ==========================================
          FONTS
     =========================================== -->
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
-        rel="stylesheet"
-    >
-
-</head>
-
-
-<body>
-
-
+  <body>
     <!-- ==========================================
          HEADER
     =========================================== -->
 
     <header>
+      <nav class="navbar">
+        <div class="logo">
+          <span> Memory Lane </span>
+        </div>
 
-        <nav class="navbar">
-
-            <div class="logo">
-
-                <span>
-                    Memory Lane
-                </span>
-
-            </div>
-
-
-            <a
-                href="../pages/start.html"
-                class="start-btn"
-            >
-                ← Back
-            </a>
-
-        </nav>
-
+        <a href="../pages/start.html" class="start-btn"> ← Back </a>
+      </nav>
     </header>
-
-
 
     <!-- ==========================================
          CAMERA PAGE
     =========================================== -->
 
     <section class="camera-page">
-
-
-        <!-- ======================================
+      <!-- ======================================
              SESSION INFORMATION
         ======================================= -->
 
-        <div class="session-info">
+      <div class="session-info">
+        <!-- Selected Layout -->
 
+        <div>
+          <h2 id="layoutName">Classic Strip</h2>
 
-            <!-- Selected Layout -->
-
-            <div>
-
-                <h2 id="layoutName">
-                    Classic Strip
-                </h2>
-
-
-                <p id="captureInfo">
-                    4 Photos Required
-                </p>
-
-            </div>
-
-
-            <!-- Camera Status -->
-
-            <div class="status">
-
-                <div
-                    class="light red"
-                    id="statusLight"
-                ></div>
-
-
-                <span id="statusText">
-                    Camera Off
-                </span>
-
-            </div>
-
+          <p id="captureInfo">4 Photos Required</p>
         </div>
 
+        <!-- Camera Status -->
 
+        <div class="status">
+          <div class="light red" id="statusLight"></div>
 
-        <!-- ======================================
+          <span id="statusText"> Camera Off </span>
+        </div>
+      </div>
+
+      <!-- ======================================
              CAMERA CONTROLS
         ======================================= -->
 
-        <div class="camera-power">
-
-
-            <div class="camera-power-copy">
-
-                <p class="camera-power-label">
-                    Camera Controls
-                </p>
-
-            </div>
-
-
-            <div class="camera-power-request">
-
-                <div class="camera-power-buttons">
-
-
-                    <!-- Request Permission -->
-
-                    <button
-                        id="requestCamera"
-                        class="power-btn primary-power-btn"
-                        type="button"
-                    >
-                        Request Camera Access
-                    </button>
-
-
-                    <!-- Turn On -->
-
-                    <button
-                        id="turnOnCamera"
-                        class="power-btn"
-                        type="button"
-                    >
-                        Turn Camera On
-                    </button>
-
-
-                    <!-- Turn Off -->
-
-                    <button
-                        id="turnOffCamera"
-                        class="power-btn"
-                        type="button"
-                    >
-                        Turn Camera Off
-                    </button>
-
-                </div>
-
-            </div>
-
+      <div class="camera-power">
+        <div class="camera-power-copy">
+          <p class="camera-power-label">Camera Controls</p>
         </div>
 
+        <div class="camera-power-request">
+          <div class="camera-power-buttons">
+            <!-- Request Permission -->
 
+            <button
+              id="requestCamera"
+              class="power-btn primary-power-btn"
+              type="button"
+            >
+              Request Camera Access
+            </button>
 
-        <!-- ======================================
+            <!-- Turn On -->
+
+            <button id="turnOnCamera" class="power-btn" type="button">
+              Turn Camera On
+            </button>
+
+            <!-- Turn Off -->
+
+            <button id="turnOffCamera" class="power-btn" type="button">
+              Turn Camera Off
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================
              CAMERA PREVIEW
         ======================================= -->
 
-        <div class="camera-container">
+      <div class="camera-container">
+        <!-- Camera -->
 
+        <video id="video" autoplay playsinline muted></video>
 
-            <!-- Camera -->
+        <!-- Flash Effect -->
 
-            <video
-                id="video"
-                autoplay
-                playsinline
-                muted
-            ></video>
+        <div id="flash"></div>
 
+        <!-- Countdown -->
 
-            <!-- Flash Effect -->
+        <div id="countdown">3</div>
 
-            <div id="flash"></div>
+        <!-- Camera Overlay -->
 
+        <div class="camera-overlay">
+          <div class="photo-progress">
+            Photo
 
-            <!-- Countdown -->
+            <span id="currentPhoto"> 1 </span>
 
-            <div id="countdown">
-                3
-            </div>
+            /
 
-
-            <!-- Camera Overlay -->
-
-            <div class="camera-overlay">
-
-
-                <div class="photo-progress">
-
-                    Photo
-
-                    <span id="currentPhoto">
-                        1
-                    </span>
-
-                    /
-
-                    <span id="totalPhotos">
-                        4
-                    </span>
-
-                </div>
-
-
-            </div>
-
+            <span id="totalPhotos"> 4 </span>
+          </div>
         </div>
+      </div>
 
-
-
-        <!-- ======================================
+      <!-- ======================================
              CAPTURE CONTROLS
         ======================================= -->
 
-        <div class="controls">
+      <div class="controls">
+        <button id="startCapture" type="button">📸 Start Countdown</button>
 
+        <button id="retakeSession" type="button">↺ Restart Session</button>
+      </div>
 
-            <button
-                id="startCapture"
-                type="button"
-            >
-                📸 Start Countdown
-            </button>
-
-
-            <button
-                id="retakeSession"
-                type="button"
-            >
-                ↺ Restart Session
-            </button>
-
-
-        </div>
-
-
-
-        <!-- ======================================
+      <!-- ======================================
              HIDDEN CANVAS
         ======================================= -->
 
-        <canvas
-            id="canvas"
-            style="display: none;"
-        ></canvas>
-
-
+      <canvas id="canvas" style="display: none"></canvas>
     </section>
-
-
 
     <!-- ==========================================
          JAVASCRIPT
     =========================================== -->
 
     <script src="../js/camera.js"></script>
-
-
-</body>
-
+  </body>
 </html>

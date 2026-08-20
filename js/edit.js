@@ -4,62 +4,44 @@
    FIXED VERSION
 ========================================== */
 
-
 /* ==========================================
    ELEMENTS
 ========================================== */
 
-const developingScreen =
-    document.getElementById("developingScreen");
+const developingScreen = document.getElementById("developingScreen");
 
-const resultScreen =
-    document.getElementById("resultScreen");
+const resultScreen = document.getElementById("resultScreen");
 
-const finalStrip =
-    document.getElementById("finalStrip");
+const finalStrip = document.getElementById("finalStrip");
 
-const developingProgress =
-    document.getElementById("developingProgress");
+const developingProgress = document.getElementById("developingProgress");
 
-const developingStatus =
-    document.getElementById("developingStatus");
+const developingStatus = document.getElementById("developingStatus");
 
-const resultLayout =
-    document.getElementById("resultLayout");
+const resultLayout = document.getElementById("resultLayout");
 
-const resultDesign =
-    document.getElementById("resultDesign");
+const resultDesign = document.getElementById("resultDesign");
 
-const downloadButton =
-    document.getElementById("downloadButton");
+const downloadButton = document.getElementById("downloadButton");
 
-const printButton =
-    document.getElementById("printButton");
+const printButton = document.getElementById("printButton");
 
-const finishButton =
-    document.getElementById("finishButton");
-
+const finishButton = document.getElementById("finishButton");
 
 /* ==========================================
    LOAD SESSION
 ========================================== */
 
 const savedSession =
-    JSON.parse(
-        sessionStorage.getItem("memoryLaneSession")
-    ) || {};
-
+  JSON.parse(sessionStorage.getItem("memoryLaneSession")) || {};
 
 /* ==========================================
    USER SELECTION
 ========================================== */
 
-const layout =
-    savedSession.layout || "Layout 1";
+const layout = savedSession.layout || "Layout 1";
 
-const design =
-    savedSession.design || "Design 1";
-
+const design = savedSession.design || "Design 1";
 
 /*
     Normal value:
@@ -71,17 +53,13 @@ const design =
         blue-pattern-4xs.jpeg
 */
 
-const savedStrip =
-    savedSession.strip || "layout1-design1";
-
+const savedStrip = savedSession.strip || "layout1-design1";
 
 /* ==========================================
    LOAD PHOTOS
 ========================================== */
 
-let photos =
-    savedSession.photos || [];
-
+let photos = savedSession.photos || [];
 
 /*
     Fallback:
@@ -89,1882 +67,1632 @@ let photos =
     get them from localStorage.
 */
 
-if(photos.length === 0){
-
-    photos =
-        JSON.parse(
-            localStorage.getItem("memoryLanePhotos")
-            || "[]"
-        );
-
+if (photos.length === 0) {
+  photos = JSON.parse(localStorage.getItem("memoryLanePhotos") || "[]");
 }
-
 
 /* ==========================================
    DEBUG
 ========================================== */
 
-console.log(
-    "Memory Lane Session:",
-    savedSession
-);
+console.log("Memory Lane Session:", savedSession);
 
-console.log(
-    "Saved Strip Value:",
-    savedStrip
-);
+console.log("Saved Strip Value:", savedStrip);
 
-console.log(
-    "Photos:",
-    photos.length
-);
-
+console.log("Photos:", photos.length);
 
 /* ==========================================
    STRIP TEMPLATES
 ========================================== */
 
 const stripTemplates = {
-
-
-    /* ======================================
+  /* ======================================
        LAYOUT 1 — DESIGN 1
        4 STRAIGHT PHOTOS
     ====================================== */
 
-    "layout1-design1": {
+  "layout1-design1": {
+    image: "../assets/strip design/blue-pattern-4xs.jpeg",
 
-        image:
-            "../assets/strip design/blue-pattern-4xs.jpeg",
+    width: 426,
 
-        width: 426,
+    height: 1332,
 
-        height: 1332,
+    slots: [
+      /* PHOTO 1 */
 
-        slots: [
+      {
+        photoIndex: 0,
 
-            /* PHOTO 1 */
+        x: 47,
+        y: 53,
+        width: 332,
+        height: 272,
+      },
 
-            {
-                photoIndex: 0,
+      /* PHOTO 2 */
 
-                x: 47,
-                y: 53,
-                width: 332,
-                height: 272
-            },
+      {
+        photoIndex: 1,
 
+        x: 47,
+        y: 347,
+        width: 332,
+        height: 275,
+      },
 
-            /* PHOTO 2 */
+      /* PHOTO 3 */
 
-            {
-                photoIndex: 1,
+      {
+        photoIndex: 2,
 
-                x: 47,
-                y: 347,
-                width: 332,
-                height: 275
-            },
+        x: 47,
+        y: 645,
+        width: 332,
+        height: 273,
+      },
 
+      /* PHOTO 4 */
 
-            /* PHOTO 3 */
+      {
+        photoIndex: 3,
 
-            {
-                photoIndex: 2,
+        x: 47,
+        y: 943,
+        width: 332,
+        height: 272,
+      },
+    ],
+  },
 
-                x: 47,
-                y: 645,
-                width: 332,
-                height: 273
-            },
-
-
-            /* PHOTO 4 */
-
-            {
-                photoIndex: 3,
-
-                x: 47,
-                y: 943,
-                width: 332,
-                height: 272
-            }
-
-        ]
-
-    },
-
-
-    /* ======================================
+  /* ======================================
        LAYOUT 1 — DESIGN 2
        4 STRAIGHT PHOTOS
     ====================================== */
 
-    "layout1-design2": {
+  "layout1-design2": {
+    image: "../assets/strip design/green-pattern-4xs.jpeg",
 
-        image:
-            "../assets/strip design/green-pattern-4xs.jpeg",
+    width: 424,
 
-        width: 424,
+    height: 1313,
 
-        height: 1313,
+    slots: [
+      /* PHOTO 1 */
 
-        slots: [
+      {
+        photoIndex: 0,
 
-            /* PHOTO 1 */
+        x: 54,
+        y: 67,
+        width: 323,
+        height: 265,
+      },
 
-            {
-                photoIndex: 0,
+      /* PHOTO 2 */
 
-                x: 54,
-                y: 67,
-                width: 323,
-                height: 265
-            },
+      {
+        photoIndex: 1,
 
+        x: 54,
+        y: 353,
+        width: 323,
+        height: 265,
+      },
 
-            /* PHOTO 2 */
+      /* PHOTO 3 */
 
-            {
-                photoIndex: 1,
+      {
+        photoIndex: 2,
 
-                x: 54,
-                y: 353,
-                width: 323,
-                height: 265
-            },
+        x: 58,
+        y: 645,
+        width: 323,
+        height: 255,
+      },
 
+      /* PHOTO 4 */
 
-            /* PHOTO 3 */
+      {
+        photoIndex: 3,
 
-            {
-                photoIndex: 2,
+        x: 54,
+        y: 931,
+        width: 323,
+        height: 264,
+      },
+    ],
+  },
 
-                x: 58,
-                y: 645,
-                width: 323,
-                height: 255
-            },
-
-
-            /* PHOTO 4 */
-
-            {
-                photoIndex: 3,
-
-                x: 54,
-                y: 931,
-                width: 323,
-                height: 264
-            }
-
-        ]
-
-    },
-
-
-    /* ======================================
+  /* ======================================
        LAYOUT 1 — DESIGN 3
        4 STRAIGHT PHOTOS
     ====================================== */
 
-    "layout1-design3": {
+  "layout1-design3": {
+    image: "../assets/strip design/red-pattern-4xs.jpeg",
 
-        image:
-            "../assets/strip design/red-pattern-4xs.jpeg",
+    width: 430,
 
-        width: 430,
+    height: 1313,
 
-        height: 1313,
+    slots: [
+      /* PHOTO 1 */
 
-        slots: [
+      {
+        photoIndex: 0,
 
-            /* PHOTO 1 */
+        x: 54,
+        y: 67,
+        width: 323,
+        height: 265,
+      },
 
-            {
-                photoIndex: 0,
+      /* PHOTO 2 */
 
-                x: 54,
-                y: 67,
-                width: 323,
-                height: 265
-            },
+      {
+        photoIndex: 1,
 
+        x: 54,
+        y: 353,
+        width: 323,
+        height: 265,
+      },
 
-            /* PHOTO 2 */
+      /* PHOTO 3 */
 
-            {
-                photoIndex: 1,
+      {
+        photoIndex: 2,
 
-                x: 54,
-                y: 353,
-                width: 323,
-                height: 265
-            },
+        x: 55,
+        y: 640,
+        width: 323,
+        height: 255,
+      },
 
+      /* PHOTO 4 */
 
-            /* PHOTO 3 */
+      {
+        photoIndex: 3,
 
-            {
-                photoIndex: 2,
+        x: 54,
+        y: 931,
+        width: 323,
+        height: 264,
+      },
+    ],
+  },
 
-                x: 55,
-                y: 640,
-                width: 323,
-                height: 255
-            },
-
-
-            /* PHOTO 4 */
-
-            {
-                photoIndex: 3,
-
-                x: 54,
-                y: 931,
-                width: 323,
-                height: 264
-            }
-
-        ]
-
-    },
-
-
-    /* ======================================
+  /* ======================================
        LAYOUT 1 — DESIGN 4
        4 STRAIGHT PHOTOS
     ====================================== */
 
-    "layout1-design4": {
+  "layout1-design4": {
+    image: "../assets/strip design/yellow-pattern-4xs.jpeg",
 
-        image:
-            "../assets/strip design/yellow-pattern-4xs.jpeg",
+    width: 475,
 
-        width: 475,
+    height: 1330,
 
-        height: 1330,
+    slots: [
+      /* PHOTO 1 */
 
-        slots: [
+      {
+        photoIndex: 0,
 
-            /* PHOTO 1 */
+        x: 65,
+        y: 80,
+        width: 323,
+        height: 265,
+      },
 
-            {
-                photoIndex: 0,
+      /* PHOTO 2 */
 
-                x: 65,
-                y: 80,
-                width: 323,
-                height: 265
-            },
+      {
+        photoIndex: 1,
 
+        x: 68,
+        y: 371,
+        width: 323,
+        height: 265,
+      },
 
-            /* PHOTO 2 */
+      /* PHOTO 3 */
 
-            {
-                photoIndex: 1,
+      {
+        photoIndex: 2,
 
-                x: 68,
-                y: 371,
-                width: 323,
-                height: 265
-            },
+        x: 68,
+        y: 664,
+        width: 323,
+        height: 260,
+      },
 
+      /* PHOTO 4 */
 
-            /* PHOTO 3 */
+      {
+        photoIndex: 3,
 
-            {
-                photoIndex: 2,
+        x: 67,
+        y: 950,
+        width: 323,
+        height: 264,
+      },
+    ],
+  },
 
-                x: 68,
-                y: 664,
-                width: 323,
-                height: 260
-            },
-
-
-            /* PHOTO 4 */
-
-            {
-                photoIndex: 3,
-
-                x: 67,
-                y: 950,
-                width: 323,
-                height: 264
-            }
-
-        ]
-
-    },
-
-
-    /* ======================================
+  /* ======================================
        LAYOUT 1 — DESIGN 5
        4 STRAIGHT PHOTOS
     ====================================== */
 
-    "layout1-design5": {
+  "layout1-design5": {
+    image: "../assets/strip design/red-simple-4xs.jpeg",
 
-        image:
-            "../assets/strip design/red-simple-4xs.jpeg",
+    width: 430,
 
-        width: 430,
+    height: 1330,
 
-        height: 1330,
+    slots: [
+      /* PHOTO 1 */
 
-        slots: [
+      {
+        photoIndex: 0,
 
-            /* PHOTO 1 */
+        x: 45,
+        y: 50,
+        width: 345,
+        height: 265,
+      },
 
-            {
-                photoIndex: 0,
+      /* PHOTO 2 */
 
-                x: 45,
-                y: 50,
-                width: 345,
-                height: 265
-            },
+      {
+        photoIndex: 1,
 
+        x: 45,
+        y: 345,
+        width: 340,
+        height: 270,
+      },
 
-            /* PHOTO 2 */
+      /* PHOTO 3 */
 
-            {
-                photoIndex: 1,
+      {
+        photoIndex: 2,
 
-                x: 45,
-                y: 345,
-                width: 340,
-                height: 270
-            },
+        x: 45,
+        y: 645,
+        width: 340,
+        height: 270,
+      },
 
+      /* PHOTO 4 */
 
-            /* PHOTO 3 */
+      {
+        photoIndex: 3,
 
-            {
-                photoIndex: 2,
+        x: 45,
+        y: 945,
+        width: 340,
+        height: 270,
+      },
+    ],
+  },
 
-                x: 45,
-                y: 645,
-                width: 340,
-                height: 270
-            },
+  "layout1-design6": {
+    image: "../assets/strip design/cat-4xs.jpg",
 
+    width: 430,
 
-            /* PHOTO 4 */
+    height: 1330,
 
-            {
-                photoIndex: 3,
+    slots: [
+      /* PHOTO 1 */
 
-                x: 45,
-                y: 945,
-                width: 340,
-                height: 270
-            }
+      {
+        photoIndex: 0,
 
-        ]
+        x: 35,
+        y: 45,
+        width: 360,
+        height: 265,
+      },
 
-    },
+      /* PHOTO 2 */
 
-    "layout1-design6": {
+      {
+        photoIndex: 1,
 
-        image:
-            "../assets/strip design/cat-4xs.jpg",
+        x: 35,
+        y: 335,
+        width: 365,
+        height: 265,
+      },
 
-        width: 430,
+      /* PHOTO 3 */
 
-        height: 1330,
+      {
+        photoIndex: 2,
 
-        slots: [
+        x: 35,
+        y: 630,
+        width: 365,
+        height: 265,
+      },
 
-            /* PHOTO 1 */
+      /* PHOTO 4 */
 
-            {
-                photoIndex: 0,
+      {
+        photoIndex: 3,
 
-                x: 35,
-                y: 45,
-                width: 360,
-                height: 265
-            },
+        x: 35,
+        y: 925,
+        width: 365,
+        height: 265,
+      },
+    ],
+  },
 
+  "layout1-design7": {
+    image: "../assets/strip design/cat2-4xs.jpg",
 
-            /* PHOTO 2 */
+    width: 430,
 
-            {
-                photoIndex: 1,
+    height: 1330,
 
-                x: 35,
-                y: 335,
-                width: 365,
-                height: 265
-            },
+    slots: [
+      /* PHOTO 1 */
 
+      {
+        photoIndex: 0,
 
-            /* PHOTO 3 */
+        x: 34,
+        y: 163,
+        width: 362,
+        height: 262,
+      },
 
-            {
-                photoIndex: 2,
+      /* PHOTO 2 */
 
-                x: 35,
-                y: 630,
-                width: 365,
-                height: 265
-            },
+      {
+        photoIndex: 1,
 
+        x: 34,
+        y: 454,
+        width: 362,
+        height: 262,
+      },
 
-            /* PHOTO 4 */
+      /* PHOTO 3 */
 
-            {
-                photoIndex: 3,
+      {
+        photoIndex: 2,
 
-                x: 35,
-                y: 925,
-                width: 365,
-                height: 265
-            }
+        x: 34,
+        y: 746,
+        width: 362,
+        height: 262,
+      },
 
-        ]
+      /* PHOTO 4 */
 
-    },
+      {
+        photoIndex: 3,
 
-    "layout1-design7": {
+        x: 34,
+        y: 1041,
+        width: 362,
+        height: 262,
+      },
+    ],
+  },
 
-        image:
-            "../assets/strip design/cat2-4xs.jpg",
-
-        width: 430,
-
-        height: 1330,
-
-        slots: [
-
-            /* PHOTO 1 */
-
-            {
-                photoIndex: 0,
-
-                x: 34,
-                y: 163,
-                width: 362,
-                height: 262
-            },
-
-
-            /* PHOTO 2 */
-
-            {
-                photoIndex: 1,
-
-                x: 34,
-                y: 454,
-                width: 362,
-                height: 262
-            },
-
-
-            /* PHOTO 3 */
-
-            {
-                photoIndex: 2,
-
-                x: 34,
-                y: 746,
-                width: 362,
-                height: 262
-            },
-
-
-            /* PHOTO 4 */
-
-            {
-                photoIndex: 3,
-
-                x: 34,
-                y: 1041,
-                width: 362,
-                height: 262
-            }
-
-        ]
-
-    },
-
-
-
-    "layout2-design1": {
-
-    image:
-        "../assets/strip design/blue-pattern-8xs.jpeg",
+  "layout2-design1": {
+    image: "../assets/strip design/blue-pattern-8xs.jpeg",
 
     width: 600,
 
     height: 1200,
 
     slots: [
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — LEFT
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 30,
-            y: 40,
-            width: 250,
-            height: 234
-        },
+        x: 30,
+        y: 40,
+        width: 250,
+        height: 234,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — RIGHT
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 320,
-            y: 40,
-            width: 250,
-            height: 234
-        },
+        x: 320,
+        y: 40,
+        width: 250,
+        height: 234,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 2 — LEFT
         ================================== */
 
-        {
-            photoIndex: 1,
+      {
+        photoIndex: 1,
 
-            x: 30,
-            y: 300,
-            width: 250,
-            height: 232
-        },
+        x: 30,
+        y: 300,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 2 — RIGHT
         ================================== */
 
-        {
-            photoIndex: 1,
+      {
+        photoIndex: 1,
 
-            x: 320,
-            y: 300,
-            width: 250,
-            height: 232
-        },
+        x: 320,
+        y: 300,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 3 — LEFT
         ================================== */
 
-        {
-            photoIndex: 2,
+      {
+        photoIndex: 2,
 
-            x: 35,
-            y: 560,
-            width: 250,
-            height: 232
-        },
+        x: 35,
+        y: 560,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 3 — RIGHT
         ================================== */
 
-        {
-            photoIndex: 2,
+      {
+        photoIndex: 2,
 
-            x: 320,
-            y: 560,
-            width: 250,
-            height: 232
-        },
+        x: 320,
+        y: 560,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 4 — LEFT
         ================================== */
 
-        {
-            photoIndex: 3,
+      {
+        photoIndex: 3,
 
-            x: 35,
-            y: 820,
-            width: 250,
-            height: 232
-        },
+        x: 35,
+        y: 820,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 4 — RIGHT
         ================================== */
 
-        {
-            photoIndex: 3,
+      {
+        photoIndex: 3,
 
-            x: 320,
-            y: 820,
-            width: 250,
-            height: 232
-        }
+        x: 320,
+        y: 820,
+        width: 250,
+        height: 232,
+      },
+    ],
+  },
 
-    ]
-
-},
-
-
-
-    "layout2-design2": {
-
-    image:
-        "../assets/strip design/green-pattern-8xs.jpeg",
+  "layout2-design2": {
+    image: "../assets/strip design/green-pattern-8xs.jpeg",
 
     width: 600,
 
     height: 1200,
 
     slots: [
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — LEFT
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 30,
-            y: 40,
-            width: 250,
-            height: 234
-        },
+        x: 30,
+        y: 40,
+        width: 250,
+        height: 234,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — RIGHT
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 320,
-            y: 40,
-            width: 250,
-            height: 234
-        },
+        x: 320,
+        y: 40,
+        width: 250,
+        height: 234,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 2 — LEFT
         ================================== */
 
-        {
-            photoIndex: 1,
+      {
+        photoIndex: 1,
 
-            x: 30,
-            y: 300,
-            width: 250,
-            height: 232
-        },
+        x: 30,
+        y: 300,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 2 — RIGHT
         ================================== */
 
-        {
-            photoIndex: 1,
+      {
+        photoIndex: 1,
 
-            x: 320,
-            y: 300,
-            width: 250,
-            height: 232
-        },
+        x: 320,
+        y: 300,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 3 — LEFT
         ================================== */
 
-        {
-            photoIndex: 2,
+      {
+        photoIndex: 2,
 
-            x: 35,
-            y: 560,
-            width: 250,
-            height: 232
-        },
+        x: 35,
+        y: 560,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 3 — RIGHT
         ================================== */
 
-        {
-            photoIndex: 2,
+      {
+        photoIndex: 2,
 
-            x: 320,
-            y: 560,
-            width: 250,
-            height: 232
-        },
+        x: 320,
+        y: 560,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 4 — LEFT
         ================================== */
 
-        {
-            photoIndex: 3,
+      {
+        photoIndex: 3,
 
-            x: 35,
-            y: 820,
-            width: 250,
-            height: 232
-        },
+        x: 35,
+        y: 820,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 4 — RIGHT
         ================================== */
 
-        {
-            photoIndex: 3,
+      {
+        photoIndex: 3,
 
-            x: 320,
-            y: 820,
-            width: 250,
-            height: 232
-        }
+        x: 320,
+        y: 820,
+        width: 250,
+        height: 232,
+      },
+    ],
+  },
 
-    ]
-
-},
-
-
-
-    "layout2-design3": {
-
-    image:
-        "../assets/strip design/red-pattern-8xs.jpeg",
+  "layout2-design3": {
+    image: "../assets/strip design/red-pattern-8xs.jpeg",
 
     width: 600,
 
     height: 1200,
 
     slots: [
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — LEFT
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 30,
-            y: 50,
-            width: 250,
-            height: 234
-        },
+        x: 30,
+        y: 50,
+        width: 250,
+        height: 234,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — RIGHT
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 320,
-            y: 50,
-            width: 250,
-            height: 234
-        },
+        x: 320,
+        y: 50,
+        width: 250,
+        height: 234,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 2 — LEFT
         ================================== */
 
-        {
-            photoIndex: 1,
+      {
+        photoIndex: 1,
 
-            x: 30,
-            y: 310,
-            width: 250,
-            height: 232
-        },
+        x: 30,
+        y: 310,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 2 — RIGHT
         ================================== */
 
-        {
-            photoIndex: 1,
+      {
+        photoIndex: 1,
 
-            x: 320,
-            y: 310,
-            width: 250,
-            height: 232
-        },
+        x: 320,
+        y: 310,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 3 — LEFT
         ================================== */
 
-        {
-            photoIndex: 2,
+      {
+        photoIndex: 2,
 
-            x: 35,
-            y: 570,
-            width: 250,
-            height: 232
-        },
+        x: 35,
+        y: 570,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 3 — RIGHT
         ================================== */
 
-        {
-            photoIndex: 2,
+      {
+        photoIndex: 2,
 
-            x: 320,
-            y: 570,
-            width: 250,
-            height: 232
-        },
+        x: 320,
+        y: 570,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 4 — LEFT
         ================================== */
 
-        {
-            photoIndex: 3,
+      {
+        photoIndex: 3,
 
-            x: 35,
-            y: 830,
-            width: 250,
-            height: 232
-        },
+        x: 35,
+        y: 830,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 4 — RIGHT
         ================================== */
 
-        {
-            photoIndex: 3,
+      {
+        photoIndex: 3,
 
-            x: 320,
-            y: 830,
-            width: 250,
-            height: 232
-        }
+        x: 320,
+        y: 830,
+        width: 250,
+        height: 232,
+      },
+    ],
+  },
 
-    ]
-
-},
-
-
-
-    "layout2-design4": {
-
-    image:
-        "../assets/strip design/yellow-pattern-8xs.jpeg",
+  "layout2-design4": {
+    image: "../assets/strip design/yellow-pattern-8xs.jpeg",
 
     width: 600,
 
     height: 1200,
 
     slots: [
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — LEFT
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 33,
-            y: 45,
-            width: 250,
-            height: 234
-        },
+        x: 33,
+        y: 45,
+        width: 250,
+        height: 234,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — RIGHT
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 320,
-            y: 45,
-            width: 250,
-            height: 234
-        },
+        x: 320,
+        y: 45,
+        width: 250,
+        height: 234,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 2 — LEFT
         ================================== */
 
-        {
-            photoIndex: 1,
+      {
+        photoIndex: 1,
 
-            x: 33,
-            y: 305,
-            width: 250,
-            height: 232
-        },
+        x: 33,
+        y: 305,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 2 — RIGHT
         ================================== */
 
-        {
-            photoIndex: 1,
+      {
+        photoIndex: 1,
 
-            x: 320,
-            y: 305,
-            width: 250,
-            height: 232
-        },
+        x: 320,
+        y: 305,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 3 — LEFT
         ================================== */
 
-        {
-            photoIndex: 2,
+      {
+        photoIndex: 2,
 
-            x: 33,
-            y: 560,
-            width: 250,
-            height: 232
-        },
+        x: 33,
+        y: 560,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 3 — RIGHT
         ================================== */
 
-        {
-            photoIndex: 2,
+      {
+        photoIndex: 2,
 
-            x: 320,
-            y: 560,
-            width: 250,
-            height: 232
-        },
+        x: 320,
+        y: 560,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 4 — LEFT
         ================================== */
 
-        {
-            photoIndex: 3,
+      {
+        photoIndex: 3,
 
-            x: 33,
-            y: 820,
-            width: 250,
-            height: 232
-        },
+        x: 33,
+        y: 820,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 4 — RIGHT
         ================================== */
 
-        {
-            photoIndex: 3,
+      {
+        photoIndex: 3,
 
-            x: 320,
-            y: 820,
-            width: 250,
-            height: 232
-        }
+        x: 320,
+        y: 820,
+        width: 250,
+        height: 232,
+      },
+    ],
+  },
 
-    ]
-
-},
-
-
-
-    "layout2-design5": {
-
-    image:
-        "../assets/strip design/red-simple-8xs.jpeg",
+  "layout2-design5": {
+    image: "../assets/strip design/red-simple-8xs.jpeg",
 
     width: 600,
 
     height: 1200,
 
     slots: [
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — LEFT
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 30,
-            y: 40,
-            width: 250,
-            height: 234
-        },
+        x: 30,
+        y: 40,
+        width: 250,
+        height: 234,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — RIGHT
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 320,
-            y: 40,
-            width: 250,
-            height: 234
-        },
+        x: 320,
+        y: 40,
+        width: 250,
+        height: 234,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 2 — LEFT
         ================================== */
 
-        {
-            photoIndex: 1,
+      {
+        photoIndex: 1,
 
-            x: 30,
-            y: 300,
-            width: 250,
-            height: 232
-        },
+        x: 30,
+        y: 300,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 2 — RIGHT
         ================================== */
 
-        {
-            photoIndex: 1,
+      {
+        photoIndex: 1,
 
-            x: 320,
-            y: 300,
-            width: 250,
-            height: 232
-        },
+        x: 320,
+        y: 300,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 3 — LEFT
         ================================== */
 
-        {
-            photoIndex: 2,
+      {
+        photoIndex: 2,
 
-            x: 35,
-            y: 560,
-            width: 250,
-            height: 232
-        },
+        x: 35,
+        y: 560,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 3 — RIGHT
         ================================== */
 
-        {
-            photoIndex: 2,
+      {
+        photoIndex: 2,
 
-            x: 320,
-            y: 560,
-            width: 250,
-            height: 232
-        },
+        x: 320,
+        y: 560,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 4 — LEFT
         ================================== */
 
-        {
-            photoIndex: 3,
+      {
+        photoIndex: 3,
 
-            x: 35,
-            y: 820,
-            width: 250,
-            height: 232
-        },
+        x: 35,
+        y: 820,
+        width: 250,
+        height: 232,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 4 — RIGHT
         ================================== */
 
-        {
-            photoIndex: 3,
+      {
+        photoIndex: 3,
 
-            x: 320,
-            y: 820,
-            width: 250,
-            height: 232
-        }
+        x: 320,
+        y: 820,
+        width: 250,
+        height: 232,
+      },
+    ],
+  },
 
-    ]
-
-},
-
-
-
-"layout3-design1": {
-
-    image:
-        "../assets/strip design/blue-pattern-4xg.jpeg",
+  "layout3-design1": {
+    image: "../assets/strip design/blue-pattern-4xg.jpeg",
 
     width: 650,
 
     height: 650,
 
     slots: [
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — TOP LEFT
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 35,
-            y: 35,
+        x: 35,
+        y: 35,
 
-            width: 280,
-            height: 265
-        },
+        width: 280,
+        height: 265,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 2 — TOP RIGHT
         ================================== */
 
-        {
-            photoIndex: 1,
+      {
+        photoIndex: 1,
 
-            x: 330,
-            y: 35,
+        x: 330,
+        y: 35,
 
-            width: 280,
-            height: 265
-        },
+        width: 280,
+        height: 265,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 3 — BOTTOM LEFT
         ================================== */
 
-        {
-            photoIndex: 2,
+      {
+        photoIndex: 2,
 
-            x: 35,
-            y: 315,
+        x: 35,
+        y: 315,
 
-            width: 280,
-            height: 265
-        },
+        width: 280,
+        height: 265,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 4 — BOTTOM RIGHT
         ================================== */
 
-        {
-            photoIndex: 3,
+      {
+        photoIndex: 3,
 
-            x: 330,
-            y: 315,
+        x: 330,
+        y: 315,
 
-            width: 280,
-            height: 265
-        }
+        width: 280,
+        height: 265,
+      },
+    ],
+  },
 
-    ]
-
-},
-
-
-
-"layout3-design2": {
-
-    image:
-        "../assets/strip design/green-pattern-4xg.jpeg",
+  "layout3-design2": {
+    image: "../assets/strip design/green-pattern-4xg.jpeg",
 
     width: 650,
 
     height: 650,
 
     slots: [
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — TOP LEFT
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 35,
-            y: 35,
+        x: 35,
+        y: 35,
 
-            width: 280,
-            height: 265
-        },
+        width: 280,
+        height: 265,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 2 — TOP RIGHT
         ================================== */
 
-        {
-            photoIndex: 1,
+      {
+        photoIndex: 1,
 
-            x: 330,
-            y: 35,
+        x: 330,
+        y: 35,
 
-            width: 280,
-            height: 265
-        },
+        width: 280,
+        height: 265,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 3 — BOTTOM LEFT
         ================================== */
 
-        {
-            photoIndex: 2,
+      {
+        photoIndex: 2,
 
-            x: 35,
-            y: 315,
+        x: 35,
+        y: 315,
 
-            width: 280,
-            height: 265
-        },
+        width: 280,
+        height: 265,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 4 — BOTTOM RIGHT
         ================================== */
 
-        {
-            photoIndex: 3,
+      {
+        photoIndex: 3,
 
-            x: 330,
-            y: 315,
+        x: 330,
+        y: 315,
 
-            width: 280,
-            height: 265
-        }
+        width: 280,
+        height: 265,
+      },
+    ],
+  },
 
-    ]
-
-},
-
-
-
-"layout3-design3": {
-
-    image:
-        "../assets/strip design/red-pattern-4xg.jpeg",
+  "layout3-design3": {
+    image: "../assets/strip design/red-pattern-4xg.jpeg",
 
     width: 650,
 
     height: 650,
 
     slots: [
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — TOP LEFT
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 35,
-            y: 35,
+        x: 35,
+        y: 35,
 
-            width: 280,
-            height: 265
-        },
+        width: 280,
+        height: 265,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 2 — TOP RIGHT
         ================================== */
 
-        {
-            photoIndex: 1,
+      {
+        photoIndex: 1,
 
-            x: 330,
-            y: 35,
+        x: 330,
+        y: 35,
 
-            width: 280,
-            height: 265
-        },
+        width: 280,
+        height: 265,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 3 — BOTTOM LEFT
         ================================== */
 
-        {
-            photoIndex: 2,
+      {
+        photoIndex: 2,
 
-            x: 35,
-            y: 315,
+        x: 35,
+        y: 315,
 
-            width: 280,
-            height: 265
-        },
+        width: 280,
+        height: 265,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 4 — BOTTOM RIGHT
         ================================== */
 
-        {
-            photoIndex: 3,
+      {
+        photoIndex: 3,
 
-            x: 330,
-            y: 315,
+        x: 330,
+        y: 315,
 
-            width: 280,
-            height: 265
-        }
+        width: 280,
+        height: 265,
+      },
+    ],
+  },
 
-    ]
-
-},
-
-
-
-"layout3-design4": {
-
-    image:
-        "../assets/strip design/yellow-pattern-4xg.jpeg",
+  "layout3-design4": {
+    image: "../assets/strip design/yellow-pattern-4xg.jpeg",
 
     width: 650,
 
     height: 650,
 
     slots: [
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — TOP LEFT
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 35,
-            y: 35,
+        x: 35,
+        y: 35,
 
-            width: 280,
-            height: 265
-        },
+        width: 280,
+        height: 265,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 2 — TOP RIGHT
         ================================== */
 
-        {
-            photoIndex: 1,
+      {
+        photoIndex: 1,
 
-            x: 330,
-            y: 35,
+        x: 330,
+        y: 35,
 
-            width: 280,
-            height: 265
-        },
+        width: 280,
+        height: 265,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 3 — BOTTOM LEFT
         ================================== */
 
-        {
-            photoIndex: 2,
+      {
+        photoIndex: 2,
 
-            x: 35,
-            y: 315,
+        x: 35,
+        y: 315,
 
-            width: 280,
-            height: 265
-        },
+        width: 280,
+        height: 265,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 4 — BOTTOM RIGHT
         ================================== */
 
-        {
-            photoIndex: 3,
+      {
+        photoIndex: 3,
 
-            x: 330,
-            y: 315,
+        x: 330,
+        y: 315,
 
-            width: 280,
-            height: 265
-        }
+        width: 280,
+        height: 265,
+      },
+    ],
+  },
 
-    ]
-
-},
-
-
-
-"layout3-design5": {
-
-    image:
-        "../assets/strip design/red-simple-4xg.jpeg",
+  "layout3-design5": {
+    image: "../assets/strip design/red-simple-4xg.jpeg",
 
     width: 650,
 
     height: 650,
 
     slots: [
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — TOP LEFT
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 35,
-            y: 35,
+        x: 35,
+        y: 35,
 
-            width: 280,
-            height: 265
-        },
+        width: 280,
+        height: 265,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 2 — TOP RIGHT
         ================================== */
 
-        {
-            photoIndex: 1,
+      {
+        photoIndex: 1,
 
-            x: 330,
-            y: 35,
+        x: 330,
+        y: 35,
 
-            width: 280,
-            height: 265
-        },
+        width: 280,
+        height: 265,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 3 — BOTTOM LEFT
         ================================== */
 
-        {
-            photoIndex: 2,
+      {
+        photoIndex: 2,
 
-            x: 35,
-            y: 315,
+        x: 35,
+        y: 315,
 
-            width: 280,
-            height: 265
-        },
+        width: 280,
+        height: 265,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 4 — BOTTOM RIGHT
         ================================== */
 
-        {
-            photoIndex: 3,
+      {
+        photoIndex: 3,
 
-            x: 330,
-            y: 315,
+        x: 330,
+        y: 315,
 
-            width: 280,
-            height: 265
-        }
+        width: 280,
+        height: 265,
+      },
+    ],
+  },
 
-    ]
-
-},
-
-"layout4-design1": {
-
-    image:
-        "../assets/strip design/blue-pattern-3xs.jpeg",
+  "layout4-design1": {
+    image: "../assets/strip design/blue-pattern-3xs.jpeg",
 
     width: 350,
 
     height: 1050,
 
     slots: [
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — TOP
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 30,
-            y: 45,
+        x: 30,
+        y: 45,
 
-            width: 290,
-            height: 275
-        },
+        width: 290,
+        height: 275,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 2 — MIDDLE
         ================================== */
 
-        {
-            photoIndex: 1,
+      {
+        photoIndex: 1,
 
-            x: 30,
-            y: 350,
+        x: 30,
+        y: 350,
 
-            width: 290,
-            height: 275
-        },
+        width: 290,
+        height: 275,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 3 — BOTTOM
         ================================== */
 
-        {
-            photoIndex: 2,
+      {
+        photoIndex: 2,
 
-            x: 30,
-            y: 655,
+        x: 30,
+        y: 655,
 
-            width: 290,
-            height: 275
-        }
+        width: 290,
+        height: 275,
+      },
+    ],
+  },
 
-    ]
-
-},
-
-"layout4-design2": {
-
-    image:
-        "../assets/strip design/green-pattern-3xs.jpeg",
+  "layout4-design2": {
+    image: "../assets/strip design/green-pattern-3xs.jpeg",
 
     width: 350,
 
     height: 1050,
 
     slots: [
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — TOP
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 35,
-            y: 45,
+        x: 35,
+        y: 45,
 
-            width: 280,
-            height: 275
-        },
+        width: 280,
+        height: 275,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 2 — MIDDLE
         ================================== */
 
-        {
-            photoIndex: 1,
+      {
+        photoIndex: 1,
 
-            x: 35,
-            y: 345,
+        x: 35,
+        y: 345,
 
-            width: 285,
-            height: 275
-        },
+        width: 285,
+        height: 275,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 3 — BOTTOM
         ================================== */
 
-        {
-            photoIndex: 2,
+      {
+        photoIndex: 2,
 
-            x: 35,
-            y: 650,
+        x: 35,
+        y: 650,
 
-            width: 285,
-            height: 275
-        }
+        width: 285,
+        height: 275,
+      },
+    ],
+  },
 
-    ]
-
-},
-
-"layout4-design3": {
-
-    image:
-        "../assets/strip design/red-pattern-3xs.jpeg",
+  "layout4-design3": {
+    image: "../assets/strip design/red-pattern-3xs.jpeg",
 
     width: 350,
 
     height: 1050,
 
     slots: [
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — TOP
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 30,
-            y: 45,
+        x: 30,
+        y: 45,
 
-            width: 290,
-            height: 275
-        },
+        width: 290,
+        height: 275,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 2 — MIDDLE
         ================================== */
 
-        {
-            photoIndex: 1,
+      {
+        photoIndex: 1,
 
-            x: 30,
-            y: 350,
+        x: 30,
+        y: 350,
 
-            width: 290,
-            height: 275
-        },
+        width: 290,
+        height: 275,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 3 — BOTTOM
         ================================== */
 
-        {
-            photoIndex: 2,
+      {
+        photoIndex: 2,
 
-            x: 30,
-            y: 655,
+        x: 30,
+        y: 655,
 
-            width: 290,
-            height: 275
-        }
+        width: 290,
+        height: 275,
+      },
+    ],
+  },
 
-    ]
-
-},
-
-"layout4-design5": {
-
-    image:
-        "../assets/strip design/red-simple-3xs.jpeg",
+  "layout4-design5": {
+    image: "../assets/strip design/red-simple-3xs.jpeg",
 
     width: 350,
 
     height: 1050,
 
     slots: [
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — TOP
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 30,
-            y: 45,
+        x: 30,
+        y: 45,
 
-            width: 290,
-            height: 275
-        },
+        width: 290,
+        height: 275,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 2 — MIDDLE
         ================================== */
 
-        {
-            photoIndex: 1,
+      {
+        photoIndex: 1,
 
-            x: 30,
-            y: 350,
+        x: 30,
+        y: 350,
 
-            width: 290,
-            height: 275
-        },
+        width: 290,
+        height: 275,
+      },
 
-
-        /* ==================================
+      /* ==================================
            PHOTO 3 — BOTTOM
         ================================== */
 
-        {
-            photoIndex: 2,
+      {
+        photoIndex: 2,
 
-            x: 30,
-            y: 655,
+        x: 30,
+        y: 655,
 
-            width: 290,
-            height: 275
-        }
+        width: 290,
+        height: 275,
+      },
+    ],
+  },
 
-    ]
-
-},
-
-"layout5-design1": {
-
-    image:
-        "../assets/strip design/blue-pattern-instax.jpeg",
+  "layout5-design1": {
+    image: "../assets/strip design/blue-pattern-instax.jpeg",
 
     width: 970,
 
     height: 1139,
 
     slots: [
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — INSTAX PHOTO AREA
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 60,
-            y: 55,
+        x: 60,
+        y: 55,
 
-            width: 840,
-            height: 960
-        }
+        width: 840,
+        height: 960,
+      },
+    ],
+  },
 
-    ]
-
-},
-
-"layout5-design2": {
-
-    image:
-        "../assets/strip design/green-pattern-instax.jpeg",
+  "layout5-design2": {
+    image: "../assets/strip design/green-pattern-instax.jpeg",
 
     width: 970,
 
     height: 1139,
 
     slots: [
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — INSTAX PHOTO AREA
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 60,
-            y: 55,
+        x: 60,
+        y: 55,
 
-            width: 840,
-            height: 960
-        }
+        width: 840,
+        height: 960,
+      },
+    ],
+  },
 
-    ]
-
-},
-
-"layout5-design3": {
-
-    image:
-        "../assets/strip design/red-pattern-instax.jpeg",
+  "layout5-design3": {
+    image: "../assets/strip design/red-pattern-instax.jpeg",
 
     width: 970,
 
     height: 1139,
 
     slots: [
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — INSTAX PHOTO AREA
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 60,
-            y: 55,
+        x: 60,
+        y: 55,
 
-            width: 840,
-            height: 955
-        }
+        width: 840,
+        height: 955,
+      },
+    ],
+  },
 
-    ]
-
-},
-
-"layout5-design4": {
-
-    image:
-        "../assets/strip design/yellow-pattern-instax.jpeg",
+  "layout5-design4": {
+    image: "../assets/strip design/yellow-pattern-instax.jpeg",
 
     width: 970,
 
     height: 1139,
 
     slots: [
-
-        /* ==================================
+      /* ==================================
            PHOTO 1 — INSTAX PHOTO AREA
         ================================== */
 
-        {
-            photoIndex: 0,
+      {
+        photoIndex: 0,
 
-            x: 60,
-            y: 55,
+        x: 60,
+        y: 55,
 
-            width: 840,
-            height: 955
-        }
-
-    ]
-
-},  
-
-
+        width: 840,
+        height: 955,
+      },
+    ],
+  },
 };
-
 
 /* ==========================================
    FIND TEMPLATE
@@ -1979,9 +1707,7 @@ const stripTemplates = {
         layout2-design1
 */
 
-let template =
-    stripTemplates[savedStrip];
-
+let template = stripTemplates[savedStrip];
 
 /*
     Fallback:
@@ -1994,142 +1720,83 @@ let template =
     matches that filename.
 */
 
-if(!template){
+if (!template) {
+  template = Object.values(stripTemplates).find((item) => {
+    const filename = item.image.split("/").pop();
 
-    template =
-        Object.values(
-            stripTemplates
-        ).find(
-
-            item => {
-
-                const filename =
-                    item.image
-                        .split("/")
-                        .pop();
-
-                return filename === savedStrip;
-
-            }
-
-        );
-
+    return filename === savedStrip;
+  });
 }
-
 
 /* ==========================================
    FIND TEMPLATE KEY
 ========================================== */
 
-let selectedTemplateKey =
-    Object.keys(
-        stripTemplates
-    ).find(
-
-        key =>
-            stripTemplates[key] === template
-
-    );
-
-
-console.log(
-    "Selected Template:",
-    selectedTemplateKey || "Not Found"
+let selectedTemplateKey = Object.keys(stripTemplates).find(
+  (key) => stripTemplates[key] === template,
 );
 
-console.log(
-    "Selected Template Data:",
-    template
-);
+console.log("Selected Template:", selectedTemplateKey || "Not Found");
 
+console.log("Selected Template Data:", template);
 
 /* ==========================================
    DEVELOPING SCREEN
 ========================================== */
 
-function showPrinting(){
-
-    /*
+function showPrinting() {
+  /*
        Show developing screen.
     */
 
-    if(developingScreen){
+  if (developingScreen) {
+    developingScreen.style.display = "flex";
+  }
 
-        developingScreen.style.display =
-            "flex";
-
-    }
-
-
-    /*
+  /*
        Hide result screen.
     */
 
-    if(resultScreen){
+  if (resultScreen) {
+    resultScreen.style.display = "none";
+  }
 
-        resultScreen.style.display =
-            "none";
-
-    }
-
-
-    /*
+  /*
        Reset progress.
     */
 
-    if(developingProgress){
+  if (developingProgress) {
+    developingProgress.style.width = "10%";
+  }
 
-        developingProgress.style.width =
-            "10%";
-
-    }
-
-
-    if(developingStatus){
-
-        developingStatus.textContent =
-            "Preparing your photos...";
-
-    }
-
+  if (developingStatus) {
+    developingStatus.textContent = "Preparing your photos...";
+  }
 }
-
 
 /* ==========================================
    ERROR SCREEN
 ========================================== */
 
-function showError(message){
+function showError(message) {
+  console.error("Memory Lane:", message);
 
-    console.error(
-        "Memory Lane:",
-        message
-    );
-
-
-    /*
+  /*
        Hide developing screen.
     */
 
-    if(developingScreen){
+  if (developingScreen) {
+    developingScreen.style.display = "none";
+  }
 
-        developingScreen.style.display =
-            "none";
-
-    }
-
-
-    /*
+  /*
        Show error.
     */
 
-    if(resultScreen){
+  if (resultScreen) {
+    resultScreen.style.display = "flex";
 
-        resultScreen.style.display =
-            "flex";
-
-
-        resultScreen.innerHTML = `
+    resultScreen.innerHTML = `
 
             <div class="result-header">
 
@@ -2161,205 +1828,112 @@ function showError(message){
             </div>
 
         `;
-
-    }
-
+  }
 }
-
 
 /* ==========================================
    LOAD IMAGE
 ========================================== */
 
-function loadImage(src){
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    if (!src) {
+      reject(new Error("Image source is empty."));
 
-    return new Promise(
+      return;
+    }
 
-        (resolve, reject) => {
+    const image = new Image();
 
-            if(!src){
+    image.onload = () => {
+      console.log("Image loaded successfully:", src);
 
-                reject(
+      resolve(image);
+    };
 
-                    new Error(
-                        "Image source is empty."
-                    )
+    image.onerror = () => {
+      reject(new Error("Could not load image: " + src));
+    };
 
-                );
-
-                return;
-
-            }
-
-
-            const image =
-                new Image();
-
-
-            image.onload =
-                () => {
-
-                    console.log(
-                        "Image loaded successfully:",
-                        src
-                    );
-
-                    resolve(image);
-
-                };
-
-
-            image.onerror =
-                () => {
-
-                    reject(
-
-                        new Error(
-                            "Could not load image: " + src
-                        )
-
-                    );
-
-                };
-
-
-            image.src =
-                src;
-
-        }
-
-    );
-
+    image.src = src;
+  });
 }
-
 
 /* ==========================================
    DRAW PHOTO INTO SLOT
 ========================================== */
 
-function drawImageCover(
+function drawImageCover(ctx, image, slot) {
+  const imageRatio = image.width / image.height;
 
-    ctx,
-    image,
-    slot
+  const slotRatio = slot.width / slot.height;
 
-){
+  let sourceWidth = image.width;
 
-    const imageRatio =
-        image.width /
-        image.height;
+  let sourceHeight = image.height;
 
-    const slotRatio =
-        slot.width /
-        slot.height;
+  let sourceX = 0;
 
+  let sourceY = 0;
 
-    let sourceWidth =
-        image.width;
-
-    let sourceHeight =
-        image.height;
-
-    let sourceX =
-        0;
-
-    let sourceY =
-        0;
-
-
-    /* ======================================
+  /* ======================================
        CROP LEFT / RIGHT
     ====================================== */
 
-    if(imageRatio > slotRatio){
+  if (imageRatio > slotRatio) {
+    sourceWidth = image.height * slotRatio;
 
-        sourceWidth =
-            image.height *
-            slotRatio;
+    sourceX = (image.width - sourceWidth) / 2;
+  } else if (imageRatio < slotRatio) {
 
-        sourceX =
-            (
-                image.width -
-                sourceWidth
-            ) / 2;
-
-    }
-
-
-    /* ======================================
+  /* ======================================
        CROP TOP / BOTTOM
     ====================================== */
+    sourceHeight = image.width / slotRatio;
 
-    else if(imageRatio < slotRatio){
+    sourceY = (image.height - sourceHeight) / 2;
+  }
 
-        sourceHeight =
-            image.width /
-            slotRatio;
-
-        sourceY =
-            (
-                image.height -
-                sourceHeight
-            ) / 2;
-
-    }
-
-
-    /* ======================================
+  /* ======================================
        DRAW
     ====================================== */
 
-    ctx.drawImage(
+  ctx.drawImage(
+    image,
 
-        image,
+    sourceX,
+    sourceY,
 
-        sourceX,
-        sourceY,
+    sourceWidth,
+    sourceHeight,
 
-        sourceWidth,
-        sourceHeight,
-
-        slot.x,
-        slot.y,
-        slot.width,
-        slot.height
-
-    );
-
+    slot.x,
+    slot.y,
+    slot.width,
+    slot.height,
+  );
 }
-
 
 /* ==========================================
    CREATE STRIP
 ========================================== */
 
-async function createStrip(){
+async function createStrip() {
+  console.log("Creating strip...");
 
-    console.log(
-        "Creating strip..."
-    );
-
-
-    /* ======================================
+  /* ======================================
        CHECK TEMPLATE
     ====================================== */
 
-    if(!template){
+  if (!template) {
+    throw new Error(`Template "${savedStrip}" has not been configured yet.`);
+  }
 
-        throw new Error(
-
-            `Template "${savedStrip}" has not been configured yet.`
-
-        );
-
-    }
-
-
-    /* ======================================
+  /* ======================================
        DETERMINE REQUIRED PHOTOS
     ====================================== */
 
-    /*
+  /*
        Important:
 
        The number of slots is NOT necessarily
@@ -2381,129 +1955,72 @@ async function createStrip(){
        This still only requires 4 photos.
     */
 
-    const requiredPhotos =
-        template.slots.reduce(
+  const requiredPhotos = template.slots.reduce(
+    (highest, slot) => {
+      const photoIndex = slot.photoIndex !== undefined ? slot.photoIndex : 0;
 
-            (highest, slot) => {
+      return Math.max(highest, photoIndex + 1);
+    },
 
-                const photoIndex =
-                    slot.photoIndex !== undefined
-                        ? slot.photoIndex
-                        : 0;
+    0,
+  );
 
-                return Math.max(
-                    highest,
-                    photoIndex + 1
-                );
+  console.log("Required Photos:", requiredPhotos);
 
-            },
-
-            0
-
-        );
-
-
-    console.log(
-        "Required Photos:",
-        requiredPhotos
-    );
-
-
-    /* ======================================
+  /* ======================================
        CHECK PHOTOS
     ====================================== */
 
-    if(
-        photos.length <
-        requiredPhotos
-    ){
+  if (photos.length < requiredPhotos) {
+    throw new Error(
+      `This design needs ${requiredPhotos} photos, ` +
+        `but only ${photos.length} were found.`,
+    );
+  }
 
-        throw new Error(
-
-            `This design needs ${requiredPhotos} photos, ` +
-            `but only ${photos.length} were found.`
-
-        );
-
-    }
-
-
-    /* ======================================
+  /* ======================================
        CREATE CANVAS
     ====================================== */
 
-    const canvas =
-        document.createElement("canvas");
+  const canvas = document.createElement("canvas");
 
+  canvas.width = template.width;
 
-    canvas.width =
-        template.width;
+  canvas.height = template.height;
 
-    canvas.height =
-        template.height;
+  const ctx = canvas.getContext("2d");
 
+  if (!ctx) {
+    throw new Error("Could not create canvas context.");
+  }
 
-    const ctx =
-        canvas.getContext("2d");
-
-
-    if(!ctx){
-
-        throw new Error(
-            "Could not create canvas context."
-        );
-
-    }
-
-
-    /* ======================================
+  /* ======================================
        WHITE BACKGROUND
     ====================================== */
 
-    ctx.fillStyle =
-        "#ffffff";
+  ctx.fillStyle = "#ffffff";
 
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillRect(
-
-        0,
-        0,
-        canvas.width,
-        canvas.height
-
-    );
-
-
-    /* ======================================
+  /* ======================================
        UPDATE PROGRESS
     ====================================== */
 
-    if(developingProgress){
+  if (developingProgress) {
+    developingProgress.style.width = "30%";
+  }
 
-        developingProgress.style.width =
-            "30%";
+  if (developingStatus) {
+    developingStatus.textContent = "Loading your photos...";
+  }
 
-    }
-
-
-    if(developingStatus){
-
-        developingStatus.textContent =
-            "Loading your photos...";
-
-    }
-
-
-    /* ======================================
+  /* ======================================
        LOAD PHOTOS
     ====================================== */
 
-    console.log(
-        "Loading captured photos..."
-    );
+  console.log("Loading captured photos...");
 
-
-    /*
+  /*
        Load photos according to
        photoIndex.
 
@@ -2517,119 +2034,65 @@ async function createStrip(){
        Both use Photo 1.
     */
 
-    const loadedPhotos =
-        await Promise.all(
+  const loadedPhotos = await Promise.all(
+    template.slots.map((slot) => {
+      const photoIndex = slot.photoIndex !== undefined ? slot.photoIndex : 0;
 
-            template.slots.map(
+      return loadImage(photos[photoIndex]);
+    }),
+  );
 
-                slot => {
+  console.log("All photos loaded.");
 
-                    const photoIndex =
-                        slot.photoIndex !== undefined
-                            ? slot.photoIndex
-                            : 0;
-
-                    return loadImage(
-                        photos[photoIndex]
-                    );
-
-                }
-
-            )
-
-        );
-
-
-    console.log(
-        "All photos loaded."
-    );
-
-
-    /* ======================================
+  /* ======================================
        UPDATE PROGRESS
     ====================================== */
 
-    if(developingProgress){
+  if (developingProgress) {
+    developingProgress.style.width = "60%";
+  }
 
-        developingProgress.style.width =
-            "60%";
+  if (developingStatus) {
+    developingStatus.textContent = "Putting your memories together...";
+  }
 
-    }
-
-
-    if(developingStatus){
-
-        developingStatus.textContent =
-            "Putting your memories together...";
-
-    }
-
-
-    /* ======================================
+  /* ======================================
        DRAW PHOTOS
     ====================================== */
 
-    loadedPhotos.forEach(
+  loadedPhotos.forEach((photo, index) => {
+    drawImageCover(
+      ctx,
 
-        (photo, index) => {
+      photo,
 
-            drawImageCover(
-
-                ctx,
-
-                photo,
-
-                template.slots[index]
-
-            );
-
-        }
-
+      template.slots[index],
     );
+  });
 
-
-    /* ======================================
+  /* ======================================
        LOAD TEMPLATE IMAGE
     ====================================== */
 
-    console.log(
-        "Loading strip template:",
-        template.image
-    );
+  console.log("Loading strip template:", template.image);
 
+  if (developingProgress) {
+    developingProgress.style.width = "75%";
+  }
 
-    if(developingProgress){
+  if (developingStatus) {
+    developingStatus.textContent = "Adding your strip design...";
+  }
 
-        developingProgress.style.width =
-            "75%";
+  const templateImage = await loadImage(template.image);
 
-    }
+  console.log("Strip template loaded.");
 
-
-    if(developingStatus){
-
-        developingStatus.textContent =
-            "Adding your strip design...";
-
-    }
-
-
-    const templateImage =
-        await loadImage(
-            template.image
-        );
-
-
-    console.log(
-        "Strip template loaded."
-    );
-
-
-    /* ======================================
+  /* ======================================
        DRAW TEMPLATE
     ====================================== */
 
-    /*
+  /*
        The template contains the
        decorative design.
 
@@ -2638,102 +2101,65 @@ async function createStrip(){
        with the photos underneath.
     */
 
-    ctx.globalCompositeOperation =
-        "multiply";
+  ctx.globalCompositeOperation = "multiply";
 
+  ctx.drawImage(
+    templateImage,
 
-    ctx.drawImage(
+    0,
+    0,
 
-        templateImage,
+    template.width,
+    template.height,
+  );
 
-        0,
-        0,
+  ctx.globalCompositeOperation = "source-over";
 
-        template.width,
-        template.height
-
-    );
-
-
-    ctx.globalCompositeOperation =
-        "source-over";
-
-
-    /* ======================================
+  /* ======================================
        COMPLETE PROGRESS
     ====================================== */
 
-    if(developingProgress){
+  if (developingProgress) {
+    developingProgress.style.width = "90%";
+  }
 
-        developingProgress.style.width =
-            "90%";
+  if (developingStatus) {
+    developingStatus.textContent = "Finishing your memory strip...";
+  }
 
-    }
+  console.log("Strip successfully created.");
 
-
-    if(developingStatus){
-
-        developingStatus.textContent =
-            "Finishing your memory strip...";
-
-    }
-
-
-    console.log(
-        "Strip successfully created."
-    );
-
-
-    return canvas;
-
+  return canvas;
 }
-
 
 /* ==========================================
    DISPLAY STRIP
 ========================================== */
 
-function displayStrip(canvas){
+function displayStrip(canvas) {
+  if (!finalStrip) {
+    console.error("Final strip container was not found.");
 
-    if(!finalStrip){
+    return;
+  }
 
-        console.error(
-            "Final strip container was not found."
-        );
-
-        return;
-
-    }
-
-
-    /* ======================================
+  /* ======================================
        CLEAR OLD RESULT
     ====================================== */
 
-    finalStrip.innerHTML =
-        "";
+  finalStrip.innerHTML = "";
 
-
-    /* ======================================
+  /* ======================================
        CREATE IMAGE
     ====================================== */
 
-    const image =
-        document.createElement("img");
+  const image = document.createElement("img");
 
+  image.alt = "Some Memory Lane Photo Strip";
 
-    image.alt =
-        "Some Memory Lane Photo Strip";
+  image.src = canvas.toDataURL("image/jpeg", 0.95);
 
-
-    image.src =
-        canvas.toDataURL(
-            "image/jpeg",
-            0.95
-        );
-
-
-    /*
+  /*
        The image keeps the natural dimensions
        of the selected template.
 
@@ -2741,247 +2167,150 @@ function displayStrip(canvas){
        on the screen.
     */
 
-    image.style.width =
-        "100%";
+  image.style.width = "100%";
 
-    image.style.height =
-        "auto";
+  image.style.height = "auto";
 
-    image.style.display =
-        "block";
+  image.style.display = "block";
 
+  finalStrip.appendChild(image);
 
-    finalStrip.appendChild(
-        image
-    );
-
-
-    /* ======================================
+  /* ======================================
        SAVE FINAL STRIP
     ====================================== */
 
-    sessionStorage.setItem(
+  sessionStorage.setItem(
+    "memoryLaneFinalStrip",
 
-        "memoryLaneFinalStrip",
+    image.src,
+  );
 
-        image.src
-
-    );
-
-
-    /*
+  /*
        Also save the selected template
        dimensions for printing if needed.
     */
 
-    sessionStorage.setItem(
+  sessionStorage.setItem(
+    "memoryLaneFinalStripDimensions",
 
-        "memoryLaneFinalStripDimensions",
+    JSON.stringify({
+      width: template.width,
 
-        JSON.stringify({
+      height: template.height,
+    }),
+  );
 
-            width:
-                template.width,
+  console.log("Final strip saved.");
 
-            height:
-                template.height
-
-        })
-
-    );
-
-
-    console.log(
-        "Final strip saved."
-    );
-
-
-    /* ======================================
+  /* ======================================
        UPDATE RESULT DETAILS
     ====================================== */
 
-    if(resultLayout){
+  if (resultLayout) {
+    resultLayout.textContent = layout;
+  }
 
-        resultLayout.textContent =
-            layout;
+  if (resultDesign) {
+    resultDesign.textContent = design;
+  }
 
-    }
-
-
-    if(resultDesign){
-
-        resultDesign.textContent =
-            design;
-
-    }
-
-
-    /* ======================================
+  /* ======================================
        COMPLETE PROGRESS
     ====================================== */
 
-    if(developingProgress){
+  if (developingProgress) {
+    developingProgress.style.width = "100%";
+  }
 
-        developingProgress.style.width =
-            "100%";
+  if (developingStatus) {
+    developingStatus.textContent = "Your strip is ready!";
+  }
 
-    }
-
-
-    if(developingStatus){
-
-        developingStatus.textContent =
-            "Your strip is ready!";
-
-    }
-
-
-    /* ======================================
+  /* ======================================
        SWITCH TO RESULT SCREEN
     ====================================== */
 
-    setTimeout(
+  setTimeout(
+    () => {
+      if (developingScreen) {
+        developingScreen.style.display = "none";
+      }
 
-        () => {
+      if (resultScreen) {
+        resultScreen.style.display = "flex";
+      }
 
-            if(developingScreen){
+      console.log("Result screen displayed.");
+    },
 
-                developingScreen.style.display =
-                    "none";
-
-            }
-
-
-            if(resultScreen){
-
-                resultScreen.style.display =
-                    "flex";
-
-            }
-
-
-            console.log(
-                "Result screen displayed."
-            );
-
-        },
-
-        300
-
-    );
-
+    300,
+  );
 }
-
 
 /* ==========================================
    DOWNLOAD STRIP
 ========================================== */
 
-function downloadStrip(){
+function downloadStrip() {
+  const image = sessionStorage.getItem("memoryLaneFinalStrip");
 
-    const image =
-        sessionStorage.getItem(
-            "memoryLaneFinalStrip"
-        );
+  if (!image) {
+    alert("Your memory strip is not ready yet.");
 
+    return;
+  }
 
-    if(!image){
+  const link = document.createElement("a");
 
-        alert(
-            "Your memory strip is not ready yet."
-        );
+  link.href = image;
 
-        return;
+  link.download = "some-memory-lane-strip.jpg";
 
-    }
+  document.body.appendChild(link);
 
+  link.click();
 
-    const link =
-        document.createElement("a");
-
-
-    link.href =
-        image;
-
-
-    link.download =
-        "some-memory-lane-strip.jpg";
-
-
-    document.body.appendChild(
-        link
-    );
-
-
-    link.click();
-
-
-    link.remove();
-
+  link.remove();
 }
-
 
 /* ==========================================
    FINISH SESSION
 ========================================== */
 
-function finishSession(){
-
-    /*
+function finishSession() {
+  /*
         Clear current photo booth session.
     */
 
-    sessionStorage.removeItem(
-        "memoryLaneSession"
-    );
+  sessionStorage.removeItem("memoryLaneSession");
 
-    sessionStorage.removeItem(
-        "memoryLaneFinalStrip"
-    );
+  sessionStorage.removeItem("memoryLaneFinalStrip");
 
-    sessionStorage.removeItem(
-        "memoryLaneFinalStripDimensions"
-    );
+  sessionStorage.removeItem("memoryLaneFinalStripDimensions");
 
-    localStorage.removeItem(
-        "memoryLanePhotos"
-    );
+  localStorage.removeItem("memoryLanePhotos");
 
-
-    /*
+  /*
         Return to beginning.
     */
 
-    window.location.href =
-        "../index.html";
-
+  window.location.href = "../index.html";
 }
-
 
 /* ==========================================
    PRINT STRIP
 ========================================== */
 
-function printStrip(){
+function printStrip() {
+  const image = sessionStorage.getItem("memoryLaneFinalStrip");
 
-    const image =
-        sessionStorage.getItem(
-            "memoryLaneFinalStrip"
-        );
+  if (!image) {
+    alert("Your memory strip is not ready yet.");
 
+    return;
+  }
 
-    if(!image){
-
-        alert(
-            "Your memory strip is not ready yet."
-        );
-
-        return;
-
-    }
-
-
-    /*
+  /*
        Get dimensions of the selected
        template.
 
@@ -2990,40 +2319,23 @@ function printStrip(){
        dimensions.
     */
 
-    let printWidth =
-        template
-            ? template.width
-            : 426;
+  let printWidth = template ? template.width : 426;
 
-    let printHeight =
-        template
-            ? template.height
-            : 1332;
+  let printHeight = template ? template.height : 1332;
 
-
-    /*
+  /*
        Create temporary print window.
     */
 
-    const printWindow =
-        window.open(
-            "",
-            "_blank"
-        );
+  const printWindow = window.open("", "_blank");
 
+  if (!printWindow) {
+    alert("Please allow pop-ups to print your strip.");
 
-    if(!printWindow){
+    return;
+  }
 
-        alert(
-            "Please allow pop-ups to print your strip."
-        );
-
-        return;
-
-    }
-
-
-    printWindow.document.write(`
+  printWindow.document.write(`
 
         <!DOCTYPE html>
 
@@ -3096,129 +2408,81 @@ function printStrip(){
 
     `);
 
+  printWindow.document.close();
 
-    printWindow.document.close();
-
-
-    /*
+  /*
        Wait for the image to load
        before opening print dialog.
     */
 
-    printWindow.onload =
-        () => {
+  printWindow.onload = () => {
+    printWindow.focus();
 
-            printWindow.focus();
-
-            printWindow.print();
-
-        };
-
+    printWindow.print();
+  };
 }
-
 
 /* ==========================================
    BUTTON EVENTS
 ========================================== */
 
-if(downloadButton){
+if (downloadButton) {
+  downloadButton.addEventListener(
+    "click",
 
-    downloadButton.addEventListener(
-
-        "click",
-
-        downloadStrip
-
-    );
-
+    downloadStrip,
+  );
 }
 
+if (printButton) {
+  printButton.addEventListener(
+    "click",
 
-if(printButton){
-
-    printButton.addEventListener(
-
-        "click",
-
-        printStrip
-
-    );
-
+    printStrip,
+  );
 }
 
+if (finishButton) {
+  finishButton.addEventListener(
+    "click",
 
-if(finishButton){
-
-    finishButton.addEventListener(
-
-        "click",
-
-        finishSession
-
-    );
-
+    finishSession,
+  );
 }
-
 
 /* ==========================================
    MAIN
 ========================================== */
 
-async function generateStrip(){
+async function generateStrip() {
+  console.log("Starting strip generation...");
 
-    console.log(
-        "Starting strip generation..."
-    );
-
-
-    /* ======================================
+  /* ======================================
        SHOW DEVELOPING SCREEN
     ====================================== */
 
-    showPrinting();
+  showPrinting();
 
-
-    /* ======================================
+  /* ======================================
        CREATE STRIP
     ====================================== */
 
-    try{
+  try {
+    const canvas = await createStrip();
 
-        const canvas =
-            await createStrip();
-
-
-        /* ==================================
+    /* ==================================
            DISPLAY RESULT
         ================================== */
 
-        displayStrip(
-            canvas
-        );
+    displayStrip(canvas);
 
+    console.log("Strip generation complete.");
+  } catch (error) {
+    console.error("STRIP GENERATION FAILED:", error);
 
-        console.log(
-            "Strip generation complete."
-        );
-
-    }
-
-    catch(error){
-
-        console.error(
-            "STRIP GENERATION FAILED:",
-            error
-        );
-
-
-        showError(
-            error.message
-        );
-
-    }
-
+    showError(error.message);
+  }
 }
-
 
 /* ==========================================
    START

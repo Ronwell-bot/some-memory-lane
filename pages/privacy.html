@@ -1,559 +1,122 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Privacy Policy | Memory Lane</title>
-
 
     <!-- ==============================
          FONTS
     =============================== -->
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;600;700&display=swap"
-        rel="stylesheet"
-    >
-
-
-    <!-- ==============================
-         CSS
-    =============================== -->
-
-    <style>
-
-        /* ==========================================
-           RESET
-        ========================================== */
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-        }
-
-
-        body {
-
-            font-family: 'Inter', sans-serif;
-
-            background: #F7F5F2;
-
-            color: #2B2B2B;
-
-            overflow: hidden;
-        }
-
-
-        /* ==========================================
-           PAGE
-        ========================================== */
-
-        .privacy-page {
-
-            width: 100%;
-            height: 100vh;
-
-            display: flex;
-            flex-direction: column;
-        }
-
-
-        /* ==========================================
-           HEADER
-        ========================================== */
-
-        header {
-
-            width: 100%;
-
-            padding: 28px 50px;
-        }
-
-
-        .navbar {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-        }
-
-
-        .logo {
-
-            font-family: 'Poppins', sans-serif;
-
-            font-size: 1.1rem;
-
-            font-weight: 600;
-
-            letter-spacing: -.02em;
-        }
-
-
-        /* ==========================================
-           MAIN
-        ========================================== */
-
-        main {
-
-            flex: 1;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            padding: 20px 50px;
-        }
-
-
-        .privacy-content {
-
-            width: min(900px, 100%);
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 25px;
-        }
-
-
-        /* ==========================================
-           TITLE
-        ========================================== */
-
-        .page-intro {
-
-            margin-bottom: 5px;
-        }
-
-
-        .section-label {
-
-            font-size: .7rem;
-
-            font-weight: 600;
-
-            letter-spacing: .18em;
-
-            color: #999;
-
-            margin-bottom: 8px;
-
-            text-transform: uppercase;
-        }
-
-
-        h1 {
-
-            font-family: 'Poppins', sans-serif;
-
-            font-size: 2.2rem;
-
-            line-height: 1.2;
-
-            margin-bottom: 7px;
-        }
-
-
-        .updated {
-
-            font-size: .75rem;
-
-            color: #999;
-        }
-
-
-        /* ==========================================
-           PRIVACY ITEMS
-        ========================================== */
-
-        .privacy-grid {
-
-            display: grid;
-
-            grid-template-columns: repeat(2, 1fr);
-
-            gap: 22px 50px;
-        }
-
-
-        .privacy-item {
-
-            padding-bottom: 15px;
-
-            border-bottom: 1px solid #E2DDD7;
-        }
-
-
-        .privacy-item h2 {
-
-            font-family: 'Poppins', sans-serif;
-
-            font-size: .95rem;
-
-            font-weight: 600;
-
-            margin-bottom: 6px;
-        }
-
-
-        .privacy-item p {
-
-            color: #777;
-
-            font-size: .78rem;
-
-            line-height: 1.55;
-        }
-
-
-        /* ==========================================
-           BACK HOME
-        ========================================== */
-
-        .back-home-btn {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            width: fit-content;
-
-            padding: 10px 18px;
-
-            border-radius: 999px;
-
-            border: 1px solid #D8D3CC;
-
-            background: white;
-
-            color: #555;
-
-            text-decoration: none;
-
-            font-size: .78rem;
-
-            transition:
-                background .2s ease,
-                color .2s ease,
-                transform .2s ease;
-        }
-
-
-        .back-home-btn:hover {
-
-            background: #2B2B2B;
-
-            color: white;
-
-            transform: translateY(-2px);
-        }
-
-
-        /* ==========================================
-           FOOTER
-        ========================================== */
-
-        footer {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            padding: 20px 50px;
-
-            border-top: 1px solid #E2DDD7;
-
-            color: #999;
-
-            font-size: .7rem;
-        }
-
-
-        .footer-logo {
-
-            font-family: 'Poppins', sans-serif;
-
-            font-weight: 600;
-
-            color: #555;
-        }
-
-
-        /* ==========================================
-           TABLET
-        ========================================== */
-
-        @media (max-width: 800px) {
-
-            body {
-                overflow-y: auto;
-            }
-
-
-            .privacy-page {
-                height: auto;
-                min-height: 100vh;
-            }
-
-
-            header {
-                padding: 25px;
-            }
-
-
-            main {
-                padding: 30px 25px;
-            }
-
-
-            .privacy-grid {
-                grid-template-columns: 1fr;
-            }
-
-
-            footer {
-                padding: 20px 25px;
-            }
-
-        }
-
-
-        /* ==========================================
-           MOBILE
-        ========================================== */
-
-        @media (max-width: 500px) {
-
-            h1 {
-                font-size: 1.8rem;
-            }
-
-
-            .privacy-content {
-                gap: 20px;
-            }
-
-
-            .privacy-item p {
-                font-size: .75rem;
-            }
-
-
-            footer {
-
-                flex-direction: column;
-
-                gap: 5px;
-
-                text-align: center;
-            }
-
-        }
-
-    </style>
-
-</head>
-
-
-<body>
-
-
-<div class="privacy-page">
-
-    <!-- ==============================
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../css/info.css" />
+  </head>
+
+  <body>
+    <div class="privacy-page">
+      <!-- ==============================
          MAIN
     =============================== -->
 
-    <main>
-
+      <main>
         <div class="privacy-content">
+          <!-- TITLE -->
 
+          <div class="page-intro">
+            <p class="section-label">SOME MEMORY LANE</p>
 
-            <!-- TITLE -->
+            <h1>Privacy Policy</h1>
 
-            <div class="page-intro">
+            <p class="updated">Last updated: July 2026</p>
+          </div>
 
-                <p class="section-label">
-                    SOME MEMORY LANE
-                </p>
+          <!-- PRIVACY CONTENT -->
 
-                <h1>
-                    Privacy Policy
-                </h1>
+          <div class="privacy-grid">
+            <div class="privacy-item">
+              <h2>Camera Access</h2>
 
-                <p class="updated">
-                    Last updated: July 2026
-                </p>
-
+              <p>
+                Some Memory Lane requests camera access when you choose to start
+                a photo session. Camera access is controlled by your browser and
+                requires your permission before the camera can be used. The
+                camera is stopped when the session is completed.
+              </p>
             </div>
 
+            <div class="privacy-item">
+              <h2>Photo Storage</h2>
 
-            <!-- PRIVACY CONTENT -->
-
-            <div class="privacy-grid">
-
-
-                <div class="privacy-item">
-
-                    <h2>
-                        Camera Access
-                    </h2>
-
-                    <p>
-                            Some Memory Lane requests camera access when you choose to start a photo session. 
-                            Camera access is controlled by your browser and requires your permission before the camera can be used. 
-                            The camera is stopped when the session is completed.
-
-                    </p>
-
-                </div>
-
-
-                <div class="privacy-item">
-
-                    <h2>
-                        Photo Storage
-                    </h2>
-
-                    <p>
-                        Photos are processed locally in your browser
-                        and are not uploaded to our servers unless
-                        future cloud-saving features are added and
-                        enabled by you.
-                    </p>
-
-                </div>
-
-
-                <div class="privacy-item">
-
-                    <h2>
-                        Personal Information
-                    </h2>
-
-                    <p>
-                        Some Memory Lane does not require personal
-                        information to use the basic site.
-                    </p>
-
-                </div>
-
-
-                <div class="privacy-item">
-
-                    <h2>
-                        Cookies & Local Storage
-                    </h2>
-
-                    <p>
-                        Basic browser storage may be used to remember
-                        preferences such as themes, music, or layout
-                        choices.
-                    </p>
-
-                </div>
-
-
-                <div class="privacy-item">
-
-                    <h2>
-                        Changes
-                    </h2>
-
-                    <p>
-                        This policy may be updated as the project
-                        grows. Any changes will be reflected on this
-                        page.
-                    </p>
-
-                </div>
-
-
-                <div class="privacy-item">
-
-                    <h2>
-                        Contact
-                    </h2>
-
-                    <p>
-                        If you have questions about this policy,
-                        please visit the <a href="../pages/about.html">About</a> page.
-                    </p>
-
-                </div>
-
-
+              <p>
+                Photos are processed locally in your browser and are not
+                uploaded to our servers unless future cloud-saving features are
+                added and enabled by you.
+              </p>
             </div>
 
+            <div class="privacy-item">
+              <h2>Personal Information</h2>
 
-            <!-- BACK BUTTON -->
+              <p>
+                Some Memory Lane does not require personal information to use
+                the basic site.
+              </p>
+            </div>
 
-            <a
-                href="../index.html"
-                class="back-home-btn"
-            >
-                ← Back Home
-            </a>
+            <div class="privacy-item">
+              <h2>Cookies & Local Storage</h2>
 
+              <p>
+                Basic browser storage may be used to remember preferences such
+                as themes, music, or layout choices.
+              </p>
+            </div>
 
+            <div class="privacy-item">
+              <h2>Changes</h2>
+
+              <p>
+                This policy may be updated as the project grows. Any changes
+                will be reflected on this page.
+              </p>
+            </div>
+
+            <div class="privacy-item">
+              <h2>Contact</h2>
+
+              <p>
+                If you have questions about this policy, please visit the
+                <a href="../pages/about.html">About</a> page.
+              </p>
+            </div>
+          </div>
+
+          <!-- BACK BUTTON -->
+
+          <a href="../index.html" class="back-home-btn"> ← Back Home </a>
         </div>
+      </main>
 
-    </main>
-
-
-    <!-- ==============================
+      <!-- ==============================
          FOOTER
     =============================== -->
 
-    <footer>
+      <footer>
+        <div class="footer-logo">Some Memory Lane</div>
 
-        <div class="footer-logo">
-            Some Memory Lane
-        </div>
-
-        <p>
-            © 2026 Some Memory Lane. All Rights Reserved.
-        </p>
-
-    </footer>
-
-
-</div>
-
-
-</body>
-
+        <p>© 2026 Some Memory Lane. All Rights Reserved.</p>
+      </footer>
+    </div>
+  </body>
 </html>

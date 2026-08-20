@@ -1,268 +1,148 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Memory | Some Memory Lane</title>
-
 
     <!-- ==========================================
          GOOGLE FONTS
     =========================================== -->
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
-
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- ==========================================
          CSS
     =========================================== -->
 
-    <link
-        rel="stylesheet"
-        href="../css/edit.css"
-    >
+    <link rel="stylesheet" href="../css/edit.css" />
+  </head>
 
-</head>
-
-
-<body>
-
-
-<!-- ==========================================
+  <body>
+    <!-- ==========================================
      MAIN
 ========================================== -->
 
-<main class="edit-page">
-
-
-    <!-- ==========================================
+    <main class="edit-page">
+      <!-- ==========================================
          DEVELOPING SCREEN
     =========================================== -->
 
-    <section
-        class="developing-screen"
-        id="developingScreen"
-    >
-
+      <section class="developing-screen" id="developingScreen">
         <div class="developing-content">
+          <!-- PHOTO ICON -->
 
-
-            <!-- PHOTO ICON -->
-
-            <div class="developing-icon">
-
-                <div class="photo-paper">
-
-                    <span></span>
-                    <span></span>
-                    <span></span>
-
-                </div>
-
+          <div class="developing-icon">
+            <div class="photo-paper">
+              <span></span>
+              <span></span>
+              <span></span>
             </div>
+          </div>
 
+          <!-- LABEL -->
 
-            <!-- LABEL -->
+          <p class="section-label">SOME MEMORY LANE</p>
 
-            <p class="section-label">
-                SOME MEMORY LANE
-            </p>
+          <!-- TITLE -->
 
+          <h1>Developing your memories...</h1>
 
-            <!-- TITLE -->
+          <!-- MESSAGE -->
 
-            <h1>
-                Developing your memories...
-            </h1>
+          <p class="developing-message">
+            We're putting your photos together into your memory strip.
+          </p>
 
+          <!-- LOADING DOTS -->
 
-            <!-- MESSAGE -->
+          <div class="loading-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
 
-            <p class="developing-message">
+          <!-- PROGRESS -->
 
-                We're putting your photos together
-                into your memory strip.
+          <div class="developing-progress">
+            <div class="developing-progress-fill" id="developingProgress"></div>
+          </div>
 
-            </p>
+          <!-- STATUS -->
 
-
-            <!-- LOADING DOTS -->
-
-            <div class="loading-dots">
-
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-
-            </div>
-
-
-            <!-- PROGRESS -->
-
-            <div class="developing-progress">
-
-                <div
-                    class="developing-progress-fill"
-                    id="developingProgress"
-                ></div>
-
-            </div>
-
-
-            <!-- STATUS -->
-
-            <p
-                class="developing-status"
-                id="developingStatus"
-            >
-                Preparing your photos...
-            </p>
-
-
+          <p class="developing-status" id="developingStatus">
+            Preparing your photos...
+          </p>
         </div>
+      </section>
 
-    </section>
-
-
-
-    <!-- ==========================================
+      <!-- ==========================================
          RESULT SCREEN
     =========================================== -->
 
-    <section
-        class="result-screen"
-        id="resultScreen"
-    >
-
-
+      <section class="result-screen" id="resultScreen">
         <!-- ======================================
              RESULT HEADER
         ======================================= -->
 
         <div class="result-header">
+          <p class="section-label">YOUR MEMORY</p>
 
-            <p class="section-label">
-                YOUR MEMORY
-            </p>
+          <h1>Your strip is ready!</h1>
 
-
-            <h1>
-                Your strip is ready!
-            </h1>
-
-
-            <p>
-                Your memories have been developed.
-            </p>
-
+          <p>Your memories have been developed.</p>
         </div>
-
-
 
         <!-- ======================================
              STRIP
         ======================================= -->
 
         <div class="strip-stage">
-
-            <div
-                class="final-strip"
-                id="finalStrip"
-            >
-
-                <!-- Generated by edit.js -->
-
-            </div>
-
+          <div class="final-strip" id="finalStrip">
+            <!-- Generated by edit.js -->
+          </div>
         </div>
-
-
 
         <!-- ======================================
              ACTIONS
         ======================================= -->
 
         <div class="result-actions">
+          <!-- DOWNLOAD -->
 
+          <button type="button" class="secondary-btn" id="downloadButton">
+            ↓ Download
+          </button>
 
-            <!-- DOWNLOAD -->
+          <!-- PRINT -->
 
-            <button
-                type="button"
-                class="secondary-btn"
-                id="downloadButton"
-            >
+          <button type="button" class="primary-btn" id="printButton">
+            Print Strip
+          </button>
 
-                ↓ Download
+          <!-- FINISH -->
 
-            </button>
-
-
-            <!-- PRINT -->
-
-            <button
-                type="button"
-                class="primary-btn"
-                id="printButton"
-            >
-
-                Print Strip
-
-            </button>
-
-
-            <!-- FINISH -->
-
-            <button
-                type="button"
-                class="secondary-btn"
-                id="finishButton"
-            >
-
-                Finish
-
-            </button>
-
-
+          <button type="button" class="secondary-btn" id="finishButton">
+            Finish
+          </button>
         </div>
+      </section>
+    </main>
 
-
-    </section>
-
-
-</main>
-
-
-
-<!-- ==========================================
+    <!-- ==========================================
      JAVASCRIPT
 ========================================== -->
 
-<script src="../js/edit.js"></script>
-
-
-</body>
-
+    <script src="../js/edit.js"></script>
+  </body>
 </html>
