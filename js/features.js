@@ -12,9 +12,6 @@
 const wall =
     document.getElementById("memoryWall");
 
-const shuffleButton =
-    document.getElementById("shuffleBtn");
-
 const strips =
     Array.from(
         document.querySelectorAll(".strip")
@@ -34,6 +31,8 @@ let draggedStrip = null;
 let dragOffsetX = 0;
 
 let dragOffsetY = 0;
+
+let lastTouchTapAt = 0;
 
 
 /* ==========================================
@@ -555,22 +554,9 @@ function shuffleMemories() {
     }
 
 
-    /*
-        Button animation.
-    */
-
-    shuffleButton.classList.add(
-        "is-spinning"
+    wall.classList.add(
+        "is-shuffling"
     );
-
-
-    setTimeout(() => {
-
-        shuffleButton.classList.remove(
-            "is-spinning"
-        );
-
-    }, 500);
 
 
     /*
@@ -670,18 +656,65 @@ function shuffleMemories() {
 
         });
 
+        wall.classList.remove(
+            "is-shuffling"
+        );
+
     }, 1100);
 
 }
 
 
 /* ==========================================
-   SHUFFLE BUTTON
+   SHUFFLE GESTURES
 ========================================== */
 
-shuffleButton.addEventListener(
-    "click",
-    shuffleMemories
+/* Desktop: double-click anywhere on the gallery board. */
+wall.addEventListener(
+    "dblclick",
+    event => {
+
+        event.preventDefault();
+
+        if(!stripWasDragged){
+
+            shuffleMemories();
+
+        }
+
+    }
+);
+
+
+/* Touch browsers do not reliably emit dblclick, so detect two quick taps. */
+wall.addEventListener(
+    "pointerup",
+    event => {
+
+        if(
+            event.pointerType !== "touch" ||
+            stripWasDragged ||
+            isDragging
+        ){
+
+            return;
+
+        }
+
+        const now = Date.now();
+
+        if(now - lastTouchTapAt < 350){
+
+            lastTouchTapAt = 0;
+            shuffleMemories();
+
+            return;
+
+        }
+
+        lastTouchTapAt = now;
+
+    }
 );
 
 

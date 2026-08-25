@@ -1,392 +1,291 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Featured Memories | Some Memory Lane</title>
-
 
     <!-- ==========================================
          FONTS
     =========================================== -->
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
-
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- ==========================================
          CSS
     =========================================== -->
 
-    <link
-        rel="stylesheet"
-        href="../css/features.css"
-    >
-
+    <link rel="stylesheet" href="../css/features.css" />
 
     <!-- ==========================================
          FAVICON
     =========================================== -->
 
-    <link
-        rel="icon"
-        href="../assets/icons/favicon1.png"
-        type="image/png"
-    >
+    <link rel="icon" href="../assets/icons/favicon1.png" type="image/png" />
+  </head>
 
-</head>
-
-
-<body>
-
-
+  <body>
     <!-- ==========================================
          HEADER
     =========================================== -->
 
     <header class="feature-header">
+      <nav class="feature-navbar">
+        <!-- LOGO -->
 
-        <nav class="feature-navbar">
+        <a href="../index.html" class="logo"> Some Memory Lane </a>
 
-
-            <!-- LOGO -->
-
-            <a
-                href="../index.html"
-                class="logo"
-            >
-                Some Memory Lane
-            </a>
-
-
-            <!-- NAV ACTIONS -->
-
-            <div class="nav-actions">
-
-                <button
-                    type="button"
-                    class="shuffle-btn"
-                    id="shuffleBtn"
-                >
-
-                    <span class="shuffle-icon">
-                        ⤨
-                    </span>
-
-                    Shuffle Memories
-
-                </button>
-
-
-                <a
-                    href="../index.html"
-                    class="home-btn"
-                >
-                    ← Exit Gallery
-                </a>
-
-            </div>
-
-
-        </nav>
-
+        <!-- NAV ACTIONS -->
+          <a href="../index.html" class="home-btn">Exit Gallery </a>
+        </div>
+      </nav>
     </header>
-
 
     <!-- ==========================================
          FEATURED WALL
     =========================================== -->
 
     <main class="featured-wall">
-
-
-        <!-- ======================================
+      <!-- ======================================
              TITLE
         ======================================= -->
 
-        <div class="wall-title">
+      <div class="wall-title">
+        <span class="title-pin"></span>
 
-            <span class="title-pin"></span>
+        <p class="title-label">SOME MEMORY LANE</p>
 
-            <p class="title-label">
-                SOME MEMORY LANE
-            </p>
+        <h1>Featured Wall</h1>
 
-            <h1>
-                Featured Wall
-            </h1>
+        <p class="title-description">A wall full of little moments.</p>
+      </div>
 
-            <p class="title-description">
-                A little collection of memories.
-            </p>
-
-        </div>
-
-
-        <!-- ======================================
+      <!-- ======================================
              WALL
         ======================================= -->
 
-        <section
-            class="wall"
-            id="memoryWall"
-            aria-label="Featured memories"
-        >
-
-
-            <!-- ==================================
+      <section
+        class="wall"
+        id="memoryWall"
+        aria-label="Featured memories"
+        aria-describedby="wallHint"
+      >
+        <!-- ==================================
                  MEMORY 1
             =================================== -->
 
-            <article
-                class="strip s1"
-                data-index="0"
-            >
+        <article class="strip s1" data-index="0">
+          <div class="strip-paper">
+            <img
+              src="../assets/images/strip5.png"
+              alt="Featured memory"
+              draggable="false"
+            />
+          </div>
 
-                <div class="strip-paper">
+          <span class="strip-label"> memory 01 </span>
+        </article>
 
-                    <img
-                        src="../assets/images/strip5.png"
-                        alt="Featured memory"
-                        draggable="false"
-                    >
-
-                </div>
-
-                <span class="strip-label">
-                    memory 01
-                </span>
-
-            </article>
-
-
-            <!-- ==================================
+        <!-- ==================================
                  MEMORY 2
             =================================== -->
 
-            <article
-                class="strip s2"
-                data-index="1"
-            >
+        <article class="strip s2" data-index="1">
+          <div class="strip-paper">
+            <img
+              src="../assets/images/strip4.png"
+              alt="Featured memory"
+              draggable="false"
+            />
+          </div>
 
-                <div class="strip-paper">
+          <span class="strip-label"> memory 02 </span>
+        </article>
 
-                    <img
-                        src="../assets/images/strip4.png"
-                        alt="Featured memory"
-                        draggable="false"
-                    >
-
-                </div>
-
-                <span class="strip-label">
-                    memory 02
-                </span>
-
-            </article>
-
-
-            <!-- ==================================
+        <!-- ==================================
                  MEMORY 3
             =================================== -->
 
-            <article
-                class="strip s3"
-                data-index="2"
-            >
+        <article class="strip s3" data-index="2">
+          <div class="strip-paper">
+            <img
+              src="../assets/images/strip6.jpg"
+              alt="Featured memory"
+              draggable="false"
+            />
+          </div>
 
-                <div class="strip-paper">
+          <span class="strip-label"> memory 03 </span>
+        </article>
 
-                    <img
-                        src="../assets/images/strip6.jpg"
-                        alt="Featured memory"
-                        draggable="false"
-                    >
-
-                </div>
-
-                <span class="strip-label">
-                    memory 03
-                </span>
-
-            </article>
-
-
-            <!-- ==================================
+        <!-- ==================================
                  MEMORY 4
             =================================== -->
 
-            <article
-                class="strip s4"
-                data-index="3"
-            >
+        <article class="strip s4" data-index="3">
+          <div class="strip-paper">
+            <img
+              src="../assets/images/strip8.jpg"
+              alt="Featured memory"
+              draggable="false"
+            />
+          </div>
 
-                <div class="strip-paper">
+          <span class="strip-label"> memory 04 </span>
+        </article>
 
-                    <img
-                        src="../assets/images/strip8.jpg"
-                        alt="Featured memory"
-                        draggable="false"
-                    >
-
-                </div>
-
-                <span class="strip-label">
-                    memory 04
-                </span>
-
-            </article>
-
-
-            <!-- ==================================
+        <!-- ==================================
                  MEMORY 5
             =================================== -->
 
-            <article
-                class="strip s5"
-                data-index="4"
-            >
+        <article class="strip s5" data-index="4">
+          <div class="strip-paper">
+            <img
+              src="../assets/images/strip7.jpeg"
+              alt="Featured memory"
+              draggable="false"
+            />
+          </div>
 
-                <div class="strip-paper">
+          <span class="strip-label"> memory 05 </span>
+        </article>
 
-                    <img
-                        src="../assets/images/strip7.jpeg"
-                        alt="Featured memory"
-                        draggable="false"
-                    >
-
-                </div>
-
-                <span class="strip-label">
-                    memory 05
-                </span>
-
-            </article>
-
-
-            <!-- ==================================
+        <!-- ==================================
                  MEMORY 6
             =================================== -->
 
-            <article
-                class="strip s6"
-                data-index="5"
-            >
+        <article class="strip s6" data-index="5">
+          <div class="strip-paper">
+            <img
+              src="../assets/images/strip5.png"
+              alt="Featured memory"
+              draggable="false"
+            />
+          </div>
 
-                <div class="strip-paper">
+          <span class="strip-label"> memory 06 </span>
+        </article>
 
-                    <img
-                        src="../assets/images/strip5.png"
-                        alt="Featured memory"
-                        draggable="false"
-                    >
-
-                </div>
-
-                <span class="strip-label">
-                    memory 06
-                </span>
-
-            </article>
-
-
-            <!-- ==================================
+        <!-- ==================================
                  MEMORY 7
             =================================== -->
 
-            <article
-                class="strip s7"
-                data-index="6"
-            >
+        <article class="strip s7" data-index="6">
+          <div class="strip-paper">
+            <img
+              src="../assets/images/strip2.png"
+              alt="Featured memory"
+              draggable="false"
+            />
+          </div>
 
-                <div class="strip-paper">
+          <span class="strip-label"> memory 07 </span>
+        </article>
 
-                    <img
-                        src="../assets/images/strip2.png"
-                        alt="Featured memory"
-                        draggable="false"
-                    >
-
-                </div>
-
-                <span class="strip-label">
-                    memory 07
-                </span>
-
-            </article>
-
-
-            <!-- ==================================
+        <!-- ==================================
                  MEMORY 8
             =================================== -->
 
-            <article
-                class="strip s8"
-                data-index="7"
-            >
+        <article class="strip s8" data-index="7">
+          <div class="strip-paper">
+            <img
+              src="../assets/images/strip4.png"
+              alt="Featured memory"
+              draggable="false"
+            />
+          </div>
 
-                <div class="strip-paper">
+          <span class="strip-label"> memory 08 </span>
+        </article>
 
-                    <img
-                        src="../assets/images/strip4.png"
-                        alt="Featured memory"
-                        draggable="false"
-                    >
+        <article class="strip s9" data-index="8">
+          <div class="strip-paper">
+            <img
+              src="../assets/images/strip1.png"
+              alt="Featured memory"
+              draggable="false"
+            />
+          </div>
+          <span class="strip-label">memory 09</span>
+        </article>
 
-                </div>
+        <article class="strip s11" data-index="10">
+          <div class="strip-paper">
+            <img
+              src="../assets/images/strip6.jpg"
+              alt="Featured memory"
+              draggable="false"
+            />
+          </div>
+          <span class="strip-label">memory 11</span>
+        </article>
 
-                <span class="strip-label">
-                    memory 08
-                </span>
+        <article class="strip s12" data-index="11">
+          <div class="strip-paper">
+            <img
+              src="../assets/images/strip8.jpg"
+              alt="Featured memory"
+              draggable="false"
+            />
+          </div>
+          <span class="strip-label">memory 12</span>
+        </article>
 
-            </article>
+        <article class="strip s13" data-index="12">
+          <div class="strip-paper">
+            <img
+              src="../assets/images/strip7.jpeg"
+              alt="Featured memory"
+              draggable="false"
+            />
+          </div>
+          <span class="strip-label">memory 13</span>
+        </article>
 
+        <article class="strip s14" data-index="13">
+          <div class="strip-paper">
+            <img
+              src="../assets/images/strip2.png"
+              alt="Featured memory"
+              draggable="false"
+            />
+          </div>
+          <span class="strip-label">memory 14</span>
+        </article>
 
-            <!-- ==================================
+        <!-- ==================================
                  WALL MESSAGE
             =================================== -->
 
-            <div class="wall-message">
+        <div class="wall-message">
+          <span class="wall-message-dot"></span>
 
-                <span class="wall-message-dot"></span>
+          <span>
+            Drag a strip to rearrange · double-click or double-tap the wall to
+            shuffle
+          </span>
+        </div>
 
-                <span>
-                    drag the memories around
-                </span>
-
-            </div>
-
-
-        </section>
-
-
+        <p class="sr-only" id="wallHint" aria-live="polite">
+          Drag a memory to rearrange it. Double-click or double-tap the wall to
+          shuffle the gallery.
+        </p>
+      </section>
     </main>
-
 
     <!-- ==========================================
          JAVASCRIPT
     =========================================== -->
 
     <script src="../js/features.js"></script>
-
-
-</body>
-
+  </body>
 </html>

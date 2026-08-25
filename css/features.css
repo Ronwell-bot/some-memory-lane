@@ -547,6 +547,9 @@ a {
     box-shadow:
         inset 0 0 0 1px rgba(210, 200, 188, .25);
 
+    cursor:
+        default;
+
 }
 
 
@@ -593,7 +596,7 @@ a {
         absolute;
 
     width:
-        145px;
+        clamp(92px, 10.8vw, 152px);
 
     padding:
         9px 9px 12px;
@@ -789,10 +792,10 @@ a {
 .s1 {
 
     top:
-        7%;
+        4%;
 
     left:
-        7%;
+        5%;
 
     --rotation:
         -8deg;
@@ -803,10 +806,10 @@ a {
 .s2 {
 
     top:
-        14%;
+        5%;
 
     left:
-        36%;
+        25%;
 
     --rotation:
         6deg;
@@ -817,10 +820,10 @@ a {
 .s3 {
 
     top:
-        7%;
+        3%;
 
     right:
-        8%;
+        10%;
 
     --rotation:
         -5deg;
@@ -831,10 +834,10 @@ a {
 .s4 {
 
     bottom:
-        13%;
+        10%;
 
     left:
-        17%;
+        43%;
 
     --rotation:
         7deg;
@@ -845,10 +848,10 @@ a {
 .s5 {
 
     bottom:
-        14%;
+        5%;
 
     right:
-        19%;
+        28%;
 
     --rotation:
         -7deg;
@@ -859,10 +862,10 @@ a {
 .s6 {
 
     bottom:
-        5%;
+        3%;
 
     left:
-        45%;
+        64%;
 
     --rotation:
         4deg;
@@ -873,10 +876,10 @@ a {
 .s7 {
 
     top:
-        43%;
+        34%;
 
     left:
-        3%;
+        4%;
 
     --rotation:
         -10deg;
@@ -887,15 +890,24 @@ a {
 .s8 {
 
     top:
-        43%;
+        39%;
 
     right:
-        3%;
+        12%;
 
     --rotation:
         9deg;
 
 }
+
+
+/* Extra layers make the board feel like a lived-in gallery wall. */
+.s9 { top: 27%; left: 21%; --rotation: 8deg; }
+.s10 { top: 30%; left: 47%; --rotation: -6deg; }
+.s11 { top: 26%; right: 9%; --rotation: 7deg; }
+.s12 { bottom: 4%; left: 6%; --rotation: 5deg; }
+.s13 { bottom: 3%; left: 28%; --rotation: -9deg; }
+.s14 { bottom: 4%; right: 6%; --rotation: -4deg; }
 
 
 /* ==========================================
@@ -985,6 +997,40 @@ a {
         left .65s cubic-bezier(.22, 1, .36, 1),
         top .65s cubic-bezier(.22, 1, .36, 1),
         transform .65s cubic-bezier(.22, 1, .36, 1);
+
+}
+
+
+.wall.is-shuffling::before {
+
+    content: "Shuffling memories…";
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    z-index: 80;
+    transform: translateX(-50%);
+    padding: 7px 12px;
+    border: 1px solid rgba(210, 200, 188, .8);
+    border-radius: 999px;
+    background: rgba(255, 253, 248, .9);
+    color: #766d63;
+    font-size: .62rem;
+    box-shadow: 0 4px 12px rgba(65, 50, 38, .1);
+
+}
+
+
+.sr-only {
+
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 
 }
 
