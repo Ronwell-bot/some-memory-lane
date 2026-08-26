@@ -3,1370 +3,887 @@
    FEATURED MEMORIES / MEMORY WALL
 ========================================== */
 
-
 /* ==========================================
    VARIABLES
 ========================================== */
 
 :root {
+  --paper: #fbf8f1;
 
-    --paper:
-        #fbf8f1;
+  --paper-light: #fffdf8;
 
-    --paper-light:
-        #fffdf8;
+  --paper-dark: #f1ebe1;
 
-    --paper-dark:
-        #f1ebe1;
+  --text: #2b2926;
 
-    --text:
-        #2b2926;
+  --text-light: #514b45;
 
-    --text-light:
-        #514b45;
+  --muted: #8a8177;
 
-    --muted:
-        #8a8177;
+  --border: #ded6cb;
 
-    --border:
-        #ded6cb;
-
-    --shadow:
-        rgba(65, 50, 38, .16);
-
+  --shadow: rgba(65, 50, 38, 0.16);
 }
-
 
 /* ==========================================
    RESET
 ========================================== */
 
 * {
+  margin: 0;
 
-    margin: 0;
+  padding: 0;
 
-    padding: 0;
-
-    box-sizing: border-box;
-
+  box-sizing: border-box;
 }
-
 
 html {
+  width: 100%;
 
-    width: 100%;
+  height: 100%;
 
-    height: 100%;
-
-    scroll-behavior: smooth;
-
+  scroll-behavior: smooth;
 }
-
 
 body {
+  width: 100%;
 
-    width: 100%;
+  min-height: 100%;
 
-    min-height: 100%;
+  font-family: "Inter", sans-serif;
 
-    font-family:
-        "Inter",
-        sans-serif;
+  background: var(--paper);
 
-    background:
-        var(--paper);
+  color: var(--text);
 
-    color:
-        var(--text);
-
-    overflow: hidden;
-
+  overflow: hidden;
 }
-
 
 button,
 a {
-
-    font: inherit;
-
+  font: inherit;
 }
-
 
 a {
+  text-decoration: none;
 
-    text-decoration: none;
-
-    color: inherit;
-
+  color: inherit;
 }
-
 
 /* ==========================================
    HEADER
 ========================================== */
 
 .feature-header {
+  position: relative;
 
-    position: relative;
+  z-index: 1000;
 
-    z-index: 1000;
+  width: 100%;
 
-    width: 100%;
+  background: rgba(251, 248, 241, 0.92);
 
-    background:
-        rgba(251, 248, 241, .92);
+  backdrop-filter: blur(18px);
 
-    backdrop-filter:
-        blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 
-    -webkit-backdrop-filter:
-        blur(18px);
-
-    border-bottom:
-        1px solid var(--border);
-
+  border-bottom: 1px solid var(--border);
 }
-
 
 .feature-navbar {
+  width: 100%;
 
-    width: 100%;
+  max-width: 1500px;
 
-    max-width: 1500px;
+  margin: auto;
 
-    margin: auto;
+  padding: 17px 45px;
 
-    padding:
-        17px 45px;
+  display: flex;
 
-    display: flex;
+  align-items: center;
 
-    align-items: center;
+  justify-content: space-between;
 
-    justify-content: space-between;
-
-    gap: 20px;
-
+  gap: 20px;
 }
-
 
 /* ==========================================
    LOGO
 ========================================== */
 
 .logo {
+  font-family: "Poppins", sans-serif;
 
-    font-family:
-        "Poppins",
-        sans-serif;
+  font-size: 1.25rem;
 
-    font-size:
-        1.25rem;
+  font-weight: 600;
 
-    font-weight:
-        600;
+  letter-spacing: -0.025em;
 
-    letter-spacing:
-        -.025em;
+  color: var(--text);
 
-    color:
-        var(--text);
-
-    transition:
-        opacity .25s ease;
-
+  transition: opacity 0.25s ease;
 }
-
 
 .logo:hover {
-
-    opacity: .65;
-
+  opacity: 0.65;
 }
-
 
 /* ==========================================
    NAV ACTIONS
 ========================================== */
 
 .nav-actions {
+  display: flex;
 
-    display: flex;
+  align-items: center;
 
-    align-items: center;
-
-    gap: 9px;
-
+  gap: 9px;
 }
-
 
 /* ==========================================
    SHUFFLE BUTTON
 ========================================== */
 
 .shuffle-btn {
+  display: inline-flex;
 
-    display: inline-flex;
+  align-items: center;
 
-    align-items: center;
+  justify-content: center;
 
-    justify-content: center;
+  gap: 8px;
 
-    gap: 8px;
+  padding: 10px 17px;
 
-    padding:
-        10px 17px;
+  border: 1px solid #d4cbc0;
 
-    border:
-        1px solid #d4cbc0;
+  border-radius: 999px;
 
-    border-radius:
-        999px;
+  background: var(--paper-light);
 
-    background:
-        var(--paper-light);
+  color: var(--text-light);
 
-    color:
-        var(--text-light);
+  font-size: 0.82rem;
 
-    font-size:
-        .82rem;
+  cursor: pointer;
 
-    cursor:
-        pointer;
-
-    transition:
-        background .25s ease,
-        color .25s ease,
-        transform .25s ease,
-        box-shadow .25s ease;
-
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
-
 
 .shuffle-btn:hover {
+  background: var(--text);
 
-    background:
-        var(--text);
+  color: white;
 
-    color:
-        white;
+  transform: translateY(-2px);
 
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 7px 18px rgba(60, 45, 35, .12);
-
+  box-shadow: 0 7px 18px rgba(60, 45, 35, 0.12);
 }
-
 
 .shuffle-btn:active {
-
-    transform:
-        translateY(0)
-        scale(.97);
-
+  transform: translateY(0) scale(0.97);
 }
-
 
 .shuffle-icon {
+  display: inline-block;
 
-    display: inline-block;
+  font-size: 1.05rem;
 
-    font-size:
-        1.05rem;
+  line-height: 1;
 
-    line-height:
-        1;
-
-    transition:
-        transform .45s ease;
-
+  transition: transform 0.45s ease;
 }
 
-
-.shuffle-btn.is-spinning
-.shuffle-icon {
-
-    transform:
-        rotate(360deg);
-
+.shuffle-btn.is-spinning .shuffle-icon {
+  transform: rotate(360deg);
 }
-
 
 /* ==========================================
    EXIT BUTTON
 ========================================== */
 
 .home-btn {
+  display: inline-flex;
 
-    display: inline-flex;
+  align-items: center;
 
-    align-items: center;
+  justify-content: center;
 
-    justify-content: center;
+  gap: 7px;
 
-    gap: 7px;
+  padding: 10px 17px;
 
-    padding:
-        10px 17px;
+  border: 1px solid #d4cbc0;
 
-    border:
-        1px solid #d4cbc0;
+  border-radius: 999px;
 
-    border-radius:
-        999px;
+  background: var(--paper-light);
 
-    background:
-        var(--paper-light);
+  color: var(--text-light);
 
-    color:
-        var(--text-light);
+  font-size: 0.82rem;
 
-    font-size:
-        .82rem;
+  box-shadow: 0 5px 15px rgba(70, 55, 40, 0.06);
 
-    box-shadow:
-        0 5px 15px rgba(70, 55, 40, .06);
-
-    transition:
-        background .25s ease,
-        color .25s ease,
-        transform .25s ease;
-
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
 }
-
 
 .home-btn:hover {
+  background: var(--text);
 
-    background:
-        var(--text);
+  color: white;
 
-    color:
-        white;
-
-    transform:
-        translateY(-2px);
-
+  transform: translateY(-2px);
 }
-
 
 /* ==========================================
    MAIN WALL AREA
 ========================================== */
 
 .featured-wall {
+  width: 100%;
 
-    width: 100%;
+  height: calc(100vh - 70px);
 
-    height:
-        calc(100vh - 70px);
+  display: flex;
 
-    display: flex;
+  flex-direction: column;
 
-    flex-direction: column;
+  padding: 14px 18px 18px;
 
-    padding:
-        14px 18px 18px;
-
-    background:
-        var(--paper);
-
+  background: var(--paper);
 }
-
 
 /* ==========================================
    TITLE
 ========================================== */
 
 .wall-title {
+  position: relative;
 
-    position: relative;
+  z-index: 100;
 
-    z-index: 100;
+  flex-shrink: 0;
 
-    flex-shrink: 0;
+  width: fit-content;
 
-    width:
-        fit-content;
+  min-width: 260px;
 
-    min-width:
-        260px;
+  margin: 5px auto 12px;
 
-    margin:
-        5px auto 12px;
+  padding: 13px 35px 14px;
 
-    padding:
-        13px 35px 14px;
+  background: var(--paper-light);
 
-    background:
-        var(--paper-light);
+  border: 1px solid #d9d0c4;
 
-    border:
-        1px solid #d9d0c4;
+  border-radius: 5px;
 
-    border-radius:
-        5px;
+  box-shadow:
+    0 8px 18px rgba(70, 55, 40, 0.08),
+    2px 3px 0 rgba(70, 55, 40, 0.035);
 
-    box-shadow:
-        0 8px 18px rgba(70, 55, 40, .08),
-        2px 3px 0 rgba(70, 55, 40, .035);
+  text-align: center;
 
-    text-align:
-        center;
-
-    transform:
-        rotate(-.8deg);
-
+  transform: rotate(-0.8deg);
 }
-
 
 .title-pin {
+  position: absolute;
 
-    position: absolute;
+  width: 13px;
 
-    width:
-        13px;
+  height: 13px;
 
-    height:
-        13px;
+  top: -7px;
 
-    top:
-        -7px;
+  left: 50%;
 
-    left:
-        50%;
+  transform: translateX(-50%);
 
-    transform:
-        translateX(-50%);
+  border-radius: 50%;
 
-    border-radius:
-        50%;
+  background: #d96b61;
 
-    background:
-        #d96b61;
-
-    box-shadow:
-        0 2px 6px rgba(70, 55, 40, .25);
-
+  box-shadow: 0 2px 6px rgba(70, 55, 40, 0.25);
 }
-
 
 .title-label {
+  font-size: 0.58rem;
 
-    font-size:
-        .58rem;
+  font-weight: 600;
 
-    font-weight:
-        600;
+  letter-spacing: 0.18em;
 
-    letter-spacing:
-        .18em;
+  color: #9b9186;
 
-    color:
-        #9b9186;
-
-    margin-bottom:
-        4px;
-
+  margin-bottom: 4px;
 }
-
 
 .wall-title h1 {
+  font-family: "Poppins", sans-serif;
 
-    font-family:
-        "Poppins",
-        sans-serif;
+  font-size: 2rem;
 
-    font-size:
-        2rem;
+  font-weight: 600;
 
-    font-weight:
-        600;
+  line-height: 1.1;
 
-    line-height:
-        1.1;
-
-    color:
-        var(--text);
-
+  color: var(--text);
 }
-
 
 .title-description {
+  margin-top: 4px;
 
-    margin-top:
-        4px;
+  color: #8b8177;
 
-    color:
-        #8b8177;
-
-    font-size:
-        .72rem;
-
+  font-size: 0.72rem;
 }
-
 
 /* ==========================================
    WALL
 ========================================== */
 
 .wall {
+  position: relative;
 
-    position:
-        relative;
+  flex: 1;
 
-    flex:
-        1;
+  width: 100%;
 
-    width:
-        100%;
+  min-height: 0;
 
-    min-height:
-        0;
+  overflow: hidden;
 
-    overflow:
-        hidden;
+  border-radius: 16px;
 
-    border-radius:
-        16px;
+  background-color: var(--paper);
 
-    background-color:
-        var(--paper);
+  background-image: radial-gradient(#ddd3c7 0.8px, transparent 0.8px);
 
-    background-image:
-        radial-gradient(
-            #ddd3c7 .8px,
-            transparent .8px
-        );
+  background-size: 22px 22px;
 
-    background-size:
-        22px 22px;
+  box-shadow: inset 0 0 0 1px rgba(210, 200, 188, 0.25);
 
-    box-shadow:
-        inset 0 0 0 1px rgba(210, 200, 188, .25);
-
-    cursor:
-        default;
-
+  cursor: default;
 }
-
-
-/* ==========================================
-   PAPER LIGHTING
-========================================== */
-
-.wall::after {
-
-    content:
-        "";
-
-    position:
-        absolute;
-
-    inset:
-        0;
-
-    pointer-events:
-        none;
-
-    background:
-        linear-gradient(
-            rgba(255, 255, 255, .18),
-            rgba(255, 255, 255, .18)
-        );
-
-    z-index:
-        50;
-
-}
-
 
 /* ==========================================
    STRIPS
 ========================================== */
 
 .strip {
+  --rotation: 0deg;
 
-    --rotation:
-        0deg;
+  position: absolute;
 
-    position:
-        absolute;
+  width: clamp(92px, 10.8vw, 152px);
 
-    width:
-        clamp(92px, 10.8vw, 152px);
+  padding: 9px 9px 12px;
 
-    padding:
-        9px 9px 12px;
+  background: var(--paper-light);
 
-    background:
-        var(--paper-light);
+  border: 1px solid #ded5c9;
 
-    border:
-        1px solid #ded5c9;
+  border-radius: 4px;
 
-    border-radius:
-        4px;
+  box-shadow:
+    0 12px 25px var(--shadow),
+    2px 4px 0 rgba(65, 50, 38, 0.035);
 
-    box-shadow:
-        0 12px 25px var(--shadow),
-        2px 4px 0 rgba(65, 50, 38, .035);
+  transform: translate3d(0, 0, 0) rotate(var(--rotation));
 
-    transform:
-        translate3d(0, 0, 0)
-        rotate(var(--rotation));
+  transform-origin: center center;
 
-    transform-origin:
-        center center;
+  cursor: grab;
 
-    cursor:
-        grab;
+  user-select: none;
 
-    user-select:
-        none;
+  touch-action: none;
 
-    touch-action:
-        none;
+  z-index: 5;
 
-    z-index:
-        5;
-
-    transition:
-        left .65s cubic-bezier(.22, 1, .36, 1),
-        top .65s cubic-bezier(.22, 1, .36, 1),
-        transform .4s cubic-bezier(.22, 1, .36, 1),
-        box-shadow .25s ease;
-
+  transition:
+    left 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    top 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s ease;
 }
-
 
 .strip:active {
-
-    cursor:
-        grabbing;
-
+  cursor: grabbing;
 }
-
 
 .strip:hover {
+  transform: translate3d(0, -6px, 0) rotate(0deg) scale(1.06);
 
-    transform:
-        translate3d(0, -6px, 0)
-        rotate(0deg)
-        scale(1.06);
+  filter: brightness(1.04);
 
-    box-shadow:
-        0 18px 35px rgba(65, 50, 38, .20),
-        2px 4px 0 rgba(65, 50, 38, .035);
+  box-shadow:
+    0 18px 35px rgba(65, 50, 38, 0.2),
+    2px 4px 0 rgba(65, 50, 38, 0.035);
 
-    z-index:
-        90;
-
+  z-index: 90;
 }
-
 
 /* ==========================================
    PHOTO
 ========================================== */
 
 .strip-paper {
+  width: 100%;
 
-    width:
-        100%;
+  background: #f5f2ec;
 
-    background:
-        #f5f2ec;
+  overflow: hidden;
 
-    overflow:
-        hidden;
-
-    border-radius:
-        2px;
-
+  border-radius: 2px;
 }
-
 
 .strip img {
+  display: block;
 
-    display:
-        block;
+  width: 100%;
 
-    width:
-        100%;
+  height: auto;
 
-    height:
-        auto;
+  border-radius: 2px;
 
-    border-radius:
-        2px;
-
-    pointer-events:
-        none;
-
+  pointer-events: none;
 }
-
 
 /* ==========================================
    STRIP LABEL
 ========================================== */
 
 .strip-label {
+  display: block;
 
-    display:
-        block;
+  padding-top: 7px;
 
-    padding-top:
-        7px;
+  text-align: center;
 
-    text-align:
-        center;
+  font-family: "Poppins", sans-serif;
 
-    font-family:
-        "Poppins",
-        sans-serif;
+  font-size: 0.48rem;
 
-    font-size:
-        .48rem;
+  letter-spacing: 0.1em;
 
-    letter-spacing:
-        .1em;
+  text-transform: uppercase;
 
-    text-transform:
-        uppercase;
-
-    color:
-        #aaa095;
-
+  color: #aaa095;
 }
-
 
 /* ==========================================
    TAPE
 ========================================== */
 
 .strip::before {
+  content: "";
 
-    content:
-        "";
+  position: absolute;
 
-    position:
-        absolute;
+  width: 54px;
 
-    width:
-        54px;
+  height: 13px;
 
-    height:
-        13px;
+  left: 50%;
 
-    left:
-        50%;
+  top: -7px;
 
-    top:
-        -7px;
+  transform: translateX(-50%) rotate(-4deg);
 
-    transform:
-        translateX(-50%)
-        rotate(-4deg);
+  background: rgba(244, 229, 178, 0.82);
 
-    background:
-        rgba(244, 229, 178, .82);
+  border-radius: 2px;
 
-    border-radius:
-        2px;
+  box-shadow: 0 1px 2px rgba(80, 60, 40, 0.08);
 
-    box-shadow:
-        0 1px 2px rgba(80, 60, 40, .08);
-
-    z-index:
-        2;
-
+  z-index: 2;
 }
-
 
 /* ==========================================
    INITIAL POSITIONS
 ========================================== */
 
 .s1 {
+  top: 4%;
 
-    top:
-        4%;
+  left: 5%;
 
-    left:
-        5%;
-
-    --rotation:
-        -8deg;
-
+  --rotation: -8deg;
 }
-
 
 .s2 {
+  top: 5%;
 
-    top:
-        5%;
+  left: 25%;
 
-    left:
-        25%;
-
-    --rotation:
-        6deg;
-
+  --rotation: 6deg;
 }
-
 
 .s3 {
+  top: 3%;
 
-    top:
-        3%;
+  right: 10%;
 
-    right:
-        10%;
-
-    --rotation:
-        -5deg;
-
+  --rotation: -5deg;
 }
-
 
 .s4 {
+  bottom: 10%;
 
-    bottom:
-        10%;
+  left: 43%;
 
-    left:
-        43%;
-
-    --rotation:
-        7deg;
-
+  --rotation: 7deg;
 }
-
 
 .s5 {
+  bottom: 5%;
 
-    bottom:
-        5%;
+  right: 28%;
 
-    right:
-        28%;
-
-    --rotation:
-        -7deg;
-
+  --rotation: -7deg;
 }
-
 
 .s6 {
+  bottom: 3%;
 
-    bottom:
-        3%;
+  left: 64%;
 
-    left:
-        64%;
-
-    --rotation:
-        4deg;
-
+  --rotation: 4deg;
 }
-
 
 .s7 {
+  top: 34%;
 
-    top:
-        34%;
+  left: 4%;
 
-    left:
-        4%;
-
-    --rotation:
-        -10deg;
-
+  --rotation: -10deg;
 }
-
 
 .s8 {
+  top: 39%;
 
-    top:
-        39%;
+  right: 12%;
 
-    right:
-        12%;
-
-    --rotation:
-        9deg;
-
+  --rotation: 9deg;
 }
 
-
 /* Extra layers make the board feel like a lived-in gallery wall. */
-.s9 { top: 27%; left: 21%; --rotation: 8deg; }
-.s10 { top: 30%; left: 47%; --rotation: -6deg; }
-.s11 { top: 26%; right: 9%; --rotation: 7deg; }
-.s12 { bottom: 4%; left: 6%; --rotation: 5deg; }
-.s13 { bottom: 3%; left: 28%; --rotation: -9deg; }
-.s14 { bottom: 4%; right: 6%; --rotation: -4deg; }
-
+.s9 {
+  top: 27%;
+  left: 21%;
+  --rotation: 8deg;
+}
+.s10 {
+  top: 30%;
+  left: 47%;
+  --rotation: -6deg;
+}
+.s11 {
+  top: 26%;
+  right: 9%;
+  --rotation: 7deg;
+}
+.s12 {
+  bottom: 4%;
+  left: 6%;
+  --rotation: 5deg;
+}
+.s13 {
+  bottom: 3%;
+  left: 28%;
+  --rotation: -9deg;
+}
+.s14 {
+  bottom: 4%;
+  right: 6%;
+  --rotation: -4deg;
+}
 
 /* ==========================================
    WALL MESSAGE
 ========================================== */
 
 .wall-message {
+  position: absolute;
 
-    position:
-        absolute;
+  left: 50%;
 
-    left:
-        50%;
+  bottom: 14px;
 
-    bottom:
-        14px;
+  transform: translateX(-50%);
 
-    transform:
-        translateX(-50%);
+  z-index: 70;
 
-    z-index:
-        70;
+  display: flex;
 
-    display:
-        flex;
+  align-items: center;
 
-    align-items:
-        center;
+  gap: 7px;
 
-    gap:
-        7px;
+  padding: 7px 12px;
 
-    padding:
-        7px 12px;
+  border: 1px solid rgba(210, 200, 188, 0.8);
 
-    border:
-        1px solid rgba(210, 200, 188, .8);
+  border-radius: 999px;
 
-    border-radius:
-        999px;
+  background: rgba(255, 253, 248, 0.75);
 
-    background:
-        rgba(255, 253, 248, .75);
+  backdrop-filter: blur(8px);
 
-    backdrop-filter:
-        blur(8px);
+  color: #9b9186;
 
-    color:
-        #9b9186;
+  font-size: 0.62rem;
 
-    font-size:
-        .62rem;
+  pointer-events: none;
 
-    pointer-events:
-        none;
-
-    opacity:
-        .8;
-
+  opacity: 0.8;
 }
-
 
 .wall-message-dot {
+  width: 5px;
 
-    width:
-        5px;
+  height: 5px;
 
-    height:
-        5px;
+  border-radius: 50%;
 
-    border-radius:
-        50%;
-
-    background:
-        #d96b61;
-
+  background: #d96b61;
 }
-
 
 /* ==========================================
    SHUFFLING
 ========================================== */
 
 .strip.is-shuffling {
-
-    transition:
-        left .65s cubic-bezier(.22, 1, .36, 1),
-        top .65s cubic-bezier(.22, 1, .36, 1),
-        transform .65s cubic-bezier(.22, 1, .36, 1);
-
+  transition:
+    left 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    top 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
-
 
 .wall.is-shuffling::before {
-
-    content: "Shuffling memories…";
-    position: absolute;
-    top: 14px;
-    left: 50%;
-    z-index: 80;
-    transform: translateX(-50%);
-    padding: 7px 12px;
-    border: 1px solid rgba(210, 200, 188, .8);
-    border-radius: 999px;
-    background: rgba(255, 253, 248, .9);
-    color: #766d63;
-    font-size: .62rem;
-    box-shadow: 0 4px 12px rgba(65, 50, 38, .1);
-
+  content: "Shuffling memories…";
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  z-index: 80;
+  transform: translateX(-50%);
+  padding: 7px 12px;
+  border: 1px solid rgba(210, 200, 188, 0.8);
+  border-radius: 999px;
+  background: rgba(255, 253, 248, 0.9);
+  color: #766d63;
+  font-size: 0.62rem;
+  box-shadow: 0 4px 12px rgba(65, 50, 38, 0.1);
 }
-
 
 .sr-only {
-
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
-
 
 /* ==========================================
    SELECTED STRIP
 ========================================== */
 
 .strip.is-selected {
+  z-index: 200 !important;
 
-    z-index:
-        200 !important;
+  transform: translate3d(0, -8px, 0) rotate(0deg) scale(1.08);
 
-    transform:
-        translate3d(0, -8px, 0)
-        rotate(0deg)
-        scale(1.08);
+  filter: brightness(1.08);
 
-    box-shadow:
-        0 22px 45px rgba(65, 50, 38, .24);
-
+  box-shadow:
+    0 22px 45px rgba(65, 50, 38, 0.28),
+    0 0 0 2px rgba(255, 255, 255, 0.55);
 }
-
 
 /* ==========================================
    MOBILE
 ========================================== */
 
 @media (max-width: 800px) {
+  body {
+    overflow-y: auto;
+  }
 
-    body {
+  .feature-navbar {
+    padding: 14px 20px;
+  }
 
-        overflow-y:
-            auto;
+  .logo {
+    font-size: 1.05rem;
+  }
 
-    }
+  .shuffle-btn {
+    padding: 9px 12px;
 
+    font-size: 0.72rem;
+  }
 
-    .feature-navbar {
+  .home-btn {
+    padding: 9px 12px;
 
-        padding:
-            14px 20px;
+    font-size: 0.72rem;
+  }
 
-    }
+  .featured-wall {
+    height: calc(100vh - 61px);
 
+    padding: 10px;
+  }
 
-    .logo {
+  .wall-title {
+    padding: 11px 25px 12px;
+  }
 
-        font-size:
-            1.05rem;
+  .wall-title h1 {
+    font-size: 1.55rem;
+  }
 
-    }
+  .title-description {
+    font-size: 0.65rem;
+  }
 
+  .strip {
+    width: 110px;
+  }
 
-    .shuffle-btn {
+  .strip-label {
+    font-size: 0.4rem;
+  }
 
-        padding:
-            9px 12px;
+  .wall-message {
+    font-size: 0.55rem;
 
-        font-size:
-            .72rem;
-
-    }
-
-
-    .home-btn {
-
-        padding:
-            9px 12px;
-
-        font-size:
-            .72rem;
-
-    }
-
-
-    .featured-wall {
-
-        height:
-            calc(100vh - 61px);
-
-        padding:
-            10px;
-
-    }
-
-
-    .wall-title {
-
-        padding:
-            11px 25px 12px;
-
-    }
-
-
-    .wall-title h1 {
-
-        font-size:
-            1.55rem;
-
-    }
-
-
-    .title-description {
-
-        font-size:
-            .65rem;
-
-    }
-
-
-    .strip {
-
-        width:
-            110px;
-
-    }
-
-
-    .strip-label {
-
-        font-size:
-            .4rem;
-
-    }
-
-
-    .wall-message {
-
-        font-size:
-            .55rem;
-
-        bottom:
-            8px;
-
-    }
-
+    bottom: 8px;
+  }
 }
-
 
 /* ==========================================
    SMALL MOBILE
 ========================================== */
 
 @media (max-width: 520px) {
+  .feature-navbar {
+    padding: 12px 14px;
+  }
 
-    .feature-navbar {
+  .logo {
+    font-size: 0.92rem;
+  }
 
-        padding:
-            12px 14px;
+  .nav-actions {
+    gap: 5px;
+  }
 
-    }
+  .shuffle-btn {
+    width: 40px;
 
+    height: 40px;
 
-    .logo {
+    padding: 0;
+  }
 
-        font-size:
-            .92rem;
+  .shuffle-btn .shuffle-icon {
+    font-size: 1.2rem;
+  }
 
-    }
+  .shuffle-btn {
+    font-size: 0;
+  }
 
+  .home-btn {
+    width: 40px;
 
-    .nav-actions {
+    height: 40px;
 
-        gap:
-            5px;
+    padding: 0;
 
-    }
+    font-size: 0;
+  }
 
+  .home-btn::first-letter {
+    font-size: 1rem;
+  }
 
-    .shuffle-btn {
+  .featured-wall {
+    height: calc(100vh - 58px);
 
-        width:
-            40px;
+    padding: 8px;
+  }
 
-        height:
-            40px;
+  .wall-title {
+    min-width: 210px;
 
-        padding:
-            0;
+    padding: 9px 20px 10px;
+  }
 
-    }
+  .wall-title h1 {
+    font-size: 1.35rem;
+  }
 
+  .title-label {
+    font-size: 0.48rem;
+  }
 
-    .shuffle-btn .shuffle-icon {
+  .title-description {
+    font-size: 0.58rem;
+  }
 
-        font-size:
-            1.2rem;
+  .strip {
+    width: 82px;
 
-    }
+    padding: 6px 6px 8px;
+  }
 
+  .strip::before {
+    width: 38px;
 
-    .shuffle-btn {
+    height: 9px;
 
-        font-size:
-            0;
+    top: -5px;
+  }
 
-    }
+  .strip-label {
+    padding-top: 5px;
 
+    font-size: 0.33rem;
+  }
 
-    .home-btn {
-
-        width:
-            40px;
-
-        height:
-            40px;
-
-        padding:
-            0;
-
-        font-size:
-            0;
-
-    }
-
-
-    .home-btn::first-letter {
-
-        font-size:
-            1rem;
-
-    }
-
-
-    .featured-wall {
-
-        height:
-            calc(100vh - 58px);
-
-        padding:
-            8px;
-
-    }
-
-
-    .wall-title {
-
-        min-width:
-            210px;
-
-        padding:
-            9px 20px 10px;
-
-    }
-
-
-    .wall-title h1 {
-
-        font-size:
-            1.35rem;
-
-    }
-
-
-    .title-label {
-
-        font-size:
-            .48rem;
-
-    }
-
-
-    .title-description {
-
-        font-size:
-            .58rem;
-
-    }
-
-
-    .strip {
-
-        width:
-            82px;
-
-        padding:
-            6px 6px 8px;
-
-    }
-
-
-    .strip::before {
-
-        width:
-            38px;
-
-        height:
-            9px;
-
-        top:
-            -5px;
-
-    }
-
-
-    .strip-label {
-
-        padding-top:
-            5px;
-
-        font-size:
-            .33rem;
-
-    }
-
-
-    .wall-message {
-
-        display:
-            none;
-
-    }
-
+  .wall-message {
+    display: none;
+  }
 }
-
 
 /* ==========================================
    REDUCED MOTION
 ========================================== */
 
 @media (prefers-reduced-motion: reduce) {
+  .strip {
+    transition: none;
+  }
 
-    .strip {
-
-        transition:
-            none;
-
-    }
-
-
-    .shuffle-btn {
-
-        transition:
-            none;
-
-    }
-
+  .shuffle-btn {
+    transition: none;
+  }
 }

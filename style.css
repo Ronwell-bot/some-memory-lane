@@ -103,11 +103,11 @@ body {
 
     position: absolute;
 
-    left: 28%;
-    top: 20%;
+    left: 32%;
+    top: 26%;
 
-    width: 15%;
-    height: 57%;
+    width: 17%;
+    height: 55%;
 
     display: block;
 
@@ -121,6 +121,14 @@ body {
 
     cursor: pointer;
 
+    /* Prevent browser tap/click highlights on this invisible hit area. */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-appearance: none;
+    appearance: none;
+
     z-index: 10;
 
 }
@@ -133,6 +141,7 @@ body {
 
 .enter-button:hover,
 .enter-button:focus,
+.enter-button:focus-visible,
 .enter-button:active {
 
     background: transparent;
@@ -140,6 +149,8 @@ body {
     color: transparent;
 
     outline: none;
+
+    box-shadow: none;
 
     transform: none;
 
@@ -170,11 +181,11 @@ body {
 
     position: absolute;
 
-    left: 44%;
-    top: 21%;
+    left: 50%;
+    top: 28%;
 
     width: 17%;
-    height: 25%;
+    height: 33%;
 
     display: block;
 
@@ -188,6 +199,14 @@ body {
 
     cursor: pointer;
 
+    /* Prevent browser tap/click highlights on this invisible hit area. */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-appearance: none;
+    appearance: none;
+
     z-index: 10;
 
 }
@@ -199,6 +218,7 @@ body {
 
 .featured-strips:hover,
 .featured-strips:focus,
+.featured-strips:focus-visible,
 .featured-strips:active {
 
     background: transparent;
@@ -206,6 +226,8 @@ body {
     color: transparent;
 
     outline: none;
+
+    box-shadow: none;
 
     transform: none;
 
