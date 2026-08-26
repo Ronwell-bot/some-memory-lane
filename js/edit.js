@@ -32,16 +32,27 @@ const finishButton = document.getElementById("finishButton");
    LOAD SESSION
 ========================================== */
 
-const savedSession =
-  JSON.parse(sessionStorage.getItem("memoryLaneSession")) || {};
+function readSession() {
+  try {
+    const storedSession = sessionStorage.getItem("memoryLaneSession");
+
+    return storedSession ? JSON.parse(storedSession) : null;
+  } catch (error) {
+    console.error("Unable to read the photo booth session:", error);
+
+    return null;
+  }
+}
+
+const savedSession = readSession();
 
 /* ==========================================
    USER SELECTION
 ========================================== */
 
-const layout = savedSession.layout || "Layout 1";
+const layout = savedSession?.layout || "Layout 1";
 
-const design = savedSession.design || "Design 1";
+const design = savedSession?.design || "Design 1";
 
 /*
     Normal value:
@@ -53,13 +64,13 @@ const design = savedSession.design || "Design 1";
         blue-pattern-4xs.jpeg
 */
 
-const savedStrip = savedSession.strip || "layout1-design1";
+const savedStrip = savedSession?.strip || "";
 
 /* ==========================================
    LOAD PHOTOS
 ========================================== */
 
-let photos = savedSession.photos || [];
+let photos = Array.isArray(savedSession?.photos) ? savedSession.photos : [];
 
 /*
     Fallback:
@@ -68,7 +79,14 @@ let photos = savedSession.photos || [];
 */
 
 if (photos.length === 0) {
-  photos = JSON.parse(localStorage.getItem("memoryLanePhotos") || "[]");
+  try {
+    const storedPhotos = JSON.parse(localStorage.getItem("memoryLanePhotos") || "[]");
+
+    photos = Array.isArray(storedPhotos) ? storedPhotos : [];
+  } catch (error) {
+    console.error("Unable to read captured photos:", error);
+    photos = [];
+  }
 }
 
 /* ==========================================
@@ -2124,7 +2142,14 @@ async function createStrip() {
        with the photos underneath.
     */
 
-  ctx.globalCompositeOperation = "multiply";
+  /*
+     JPEG frames use white backgrounds and need multiply blending.
+     The numbered PNG frames have transparent photo windows, so normal
+     source-over drawing preserves their original colors.
+  */
+  ctx.globalCompositeOperation = template.image.endsWith(".png")
+    ? "source-over"
+    : "multiply";
 
   ctx.drawImage(
     templateImage,
@@ -2479,6 +2504,18 @@ if (finishButton) {
 
 async function generateStrip() {
   console.log("Starting strip generation...");
+
+  if (!savedSession || !savedStrip) {
+    window.location.replace("../fallback.html?reason=editor");
+
+    return;
+  }
+
+  if (!photos.length) {
+    window.location.replace("../fallback.html?reason=photos");
+
+    return;
+  }
 
   /* ======================================
        SHOW DEVELOPING SCREEN

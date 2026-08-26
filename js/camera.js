@@ -54,20 +54,35 @@ const cameraContainer = document.querySelector(".camera-container");
    LOAD SESSION
 ========================================== */
 
-const savedSession =
-  JSON.parse(sessionStorage.getItem("memoryLaneSession")) || {};
+function readSession() {
+  try {
+    const storedSession = sessionStorage.getItem("memoryLaneSession");
+
+    return storedSession ? JSON.parse(storedSession) : null;
+  } catch (error) {
+    console.error("Unable to read the photo booth session:", error);
+
+    return null;
+  }
+}
+
+const savedSession = readSession();
+
+if (!savedSession || !savedSession.strip || !savedSession.layout) {
+  window.location.replace("../fallback.html?reason=photos");
+}
 
 /* ==========================================
    USER CHOICES
 ========================================== */
 
-const session = savedSession.session || "Solo";
+const session = savedSession?.session || "Solo";
 
-const layout = savedSession.layout || "Layout 1";
+const layout = savedSession?.layout || "Layout 1";
 
-const design = savedSession.design || "Blue";
+const design = savedSession?.design || "Blue";
 
-const strip = savedSession.strip || "layout1-design1";
+const strip = savedSession?.strip || "layout1-design1";
 
 /* ==========================================
    PHOTO COUNT BY LAYOUT
@@ -89,9 +104,12 @@ const layoutPhotoCounts = {
    DETERMINE PHOTO COUNT
 ========================================== */
 
-const layoutCaptureCount = layoutPhotoCounts[layout];
+const savedCaptureCount = Number(savedSession?.captures);
 
-const captureMode = layoutCaptureCount || Number(savedSession.captures) || 4;
+const captureMode =
+  Number.isInteger(savedCaptureCount) && savedCaptureCount > 0
+    ? savedCaptureCount
+    : layoutPhotoCounts[layout] || 4;
 
 /* ==========================================
    DEBUG INFORMATION
@@ -204,6 +222,27 @@ if (photos.length > captureMode) {
 }
 
 current = photos.length;
+
+function savePhotos() {
+  const updatedSession = {
+    ...savedSession,
+    photos,
+    photoCount: captureMode,
+  };
+
+  try {
+    localStorage.setItem("memoryLanePhotos", JSON.stringify(photos));
+    sessionStorage.setItem("memoryLaneSession", JSON.stringify(updatedSession));
+
+    return true;
+  } catch (error) {
+    console.error("Unable to save captured photos:", error);
+    setCameraStatus("Could not save photos", false);
+    alert("Your browser could not save this photo session. Please restart and try again.");
+
+    return false;
+  }
+}
 
 /* ==========================================
    INITIAL STATE
@@ -755,11 +794,16 @@ function capturePhoto() {
 
   current = photos.length;
 
-  localStorage.setItem(
-    "memoryLanePhotos",
+  if (!savePhotos()) {
+    photos.pop();
+    current = photos.length;
+    captureInProgress = false;
+    cameraBusy = false;
+    updatePhotoCounter();
+    updateCameraControls();
 
-    JSON.stringify(photos),
-  );
+    return;
+  }
 
   updatePhotoCounter();
 
@@ -869,11 +913,14 @@ function finishSession() {
     photos: photos,
   };
 
-  sessionStorage.setItem(
-    "memoryLaneSession",
+  try {
+    sessionStorage.setItem("memoryLaneSession", JSON.stringify(finalSession));
+  } catch (error) {
+    console.error("Unable to finalize photo booth session:", error);
+    window.location.href = "../fallback.html?reason=photos";
 
-    JSON.stringify(finalSession),
-  );
+    return;
+  }
 
   console.log("Final Session:", finalSession);
 
@@ -1057,3 +1104,5 @@ if (restartButton) {
     },
   );
 }
+
+window.addEventListener("pagehide", stopCamera);
