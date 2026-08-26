@@ -27,6 +27,10 @@ const layoutStep = document.getElementById("layoutStep");
 
 const groupOptions = document.getElementById("groupOptions");
 
+const sessionAvailabilityMessage = document.getElementById(
+  "sessionAvailabilityMessage",
+);
+
 const sessionContinue = document.getElementById("sessionContinue");
 
 const layoutContinue = document.getElementById("layoutContinue");
@@ -42,6 +46,11 @@ const selectedCaptureCount = document.getElementById("selectedCaptureCount");
 const sessionCards = document.querySelectorAll(".session-card");
 
 sessionCards.forEach((card) => {
+  card.setAttribute(
+    "aria-pressed",
+    String(card.classList.contains("selected")),
+  );
+
   card.addEventListener("click", () => {
     if (card.disabled) {
       return;
@@ -53,6 +62,7 @@ sessionCards.forEach((card) => {
 
     sessionCards.forEach((item) => {
       item.classList.remove("selected");
+      item.setAttribute("aria-pressed", "false");
     });
 
     /*
@@ -60,6 +70,7 @@ sessionCards.forEach((card) => {
         */
 
     card.classList.add("selected");
+    card.setAttribute("aria-pressed", "true");
 
     /*
             Save session choice.
@@ -78,10 +89,11 @@ sessionCards.forEach((card) => {
 
       if (sessionContinue) {
         sessionContinue.disabled = true;
+      }
 
-        sessionContinue.style.opacity = "0.45";
-
-        sessionContinue.style.cursor = "not-allowed";
+      if (sessionAvailabilityMessage) {
+        sessionAvailabilityMessage.textContent =
+          `${sessionChoice} sessions are coming soon.`;
       }
     } else {
       if (groupOptions) {
@@ -90,10 +102,6 @@ sessionCards.forEach((card) => {
 
       if (sessionContinue) {
         sessionContinue.disabled = false;
-
-        sessionContinue.style.opacity = "1";
-
-        sessionContinue.style.cursor = "pointer";
       }
     }
   });
@@ -166,6 +174,12 @@ stripOptions.forEach((option) => {
 
     captureChoice = Number(option.dataset.captures) || 4;
 
+    option.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+
     /*
                 Update visible count.
             */
@@ -221,7 +235,7 @@ const layoutRight = document.getElementById("layoutRight");
 if (layoutLeft && layoutScroller) {
   layoutLeft.addEventListener("click", () => {
     layoutScroller.scrollBy({
-      left: -300,
+      left: -Math.max(260, layoutScroller.clientWidth * 0.7),
 
       behavior: "smooth",
     });
@@ -235,7 +249,7 @@ if (layoutLeft && layoutScroller) {
 if (layoutRight && layoutScroller) {
   layoutRight.addEventListener("click", () => {
     layoutScroller.scrollBy({
-      left: 300,
+      left: Math.max(260, layoutScroller.clientWidth * 0.7),
 
       behavior: "smooth",
     });

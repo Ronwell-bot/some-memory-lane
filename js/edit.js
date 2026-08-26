@@ -1695,6 +1695,29 @@ const stripTemplates = {
 };
 
 /* ==========================================
+   NUMBERED COLLECTION
+
+   The 1.png–13.png assets share one 450 × 1300 canvas
+   and the same four transparent photo windows.
+========================================== */
+
+const numberedStripSlots = [
+  { photoIndex: 0, x: 13, y: 13, width: 424, height: 283 },
+  { photoIndex: 1, x: 13, y: 315, width: 424, height: 283 },
+  { photoIndex: 2, x: 13, y: 617, width: 424, height: 283 },
+  { photoIndex: 3, x: 13, y: 919, width: 424, height: 283 },
+];
+
+for (let imageNumber = 1; imageNumber <= 13; imageNumber++) {
+  stripTemplates[`layout1-design${imageNumber + 7}`] = {
+    image: `../assets/strip design/${imageNumber}.png`,
+    width: 450,
+    height: 1300,
+    slots: numberedStripSlots.map((slot) => ({ ...slot })),
+  };
+}
+
+/* ==========================================
    FIND TEMPLATE
 ========================================== */
 

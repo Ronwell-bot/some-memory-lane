@@ -42,7 +42,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
         rel="stylesheet"
     >
-    <link rel="icon" href="../assets//icons/favicon2.png" type="image/x-icon" />
+    <link rel="icon" href="../assets/icons/favicon2.png" type="image/png">
 
 </head>
 
@@ -220,8 +220,8 @@
                     <div class="group-divider"></div>
 
 
-                    <p>
-                        Group sessions are coming soon.
+                    <p id="sessionAvailabilityMessage">
+                        Duo and group sessions are coming soon.
                     </p>
 
 
@@ -537,6 +537,60 @@
                             Cat-2 - 4x Strip
                         </strong>
 
+                    </button>
+
+                    <!-- Numbered collection — all use the standard 4-photo strip layout. -->
+                    <button type="button" class="strip-option" data-layout="Layout 1" data-design="Numbered 01" data-strip="layout1-design8" data-captures="4">
+                        <div class="strip-preview"><img src="../assets/strip design/1.png" alt="Numbered design 1, 4-photo strip"></div>
+                        <strong>Numbered 01 - 4x Strip</strong>
+                    </button>
+                    <button type="button" class="strip-option" data-layout="Layout 1" data-design="Numbered 02" data-strip="layout1-design9" data-captures="4">
+                        <div class="strip-preview"><img src="../assets/strip design/2.png" alt="Numbered design 2, 4-photo strip"></div>
+                        <strong>Numbered 02 - 4x Strip</strong>
+                    </button>
+                    <button type="button" class="strip-option" data-layout="Layout 1" data-design="Numbered 03" data-strip="layout1-design10" data-captures="4">
+                        <div class="strip-preview"><img src="../assets/strip design/3.png" alt="Numbered design 3, 4-photo strip"></div>
+                        <strong>Numbered 03 - 4x Strip</strong>
+                    </button>
+                    <button type="button" class="strip-option" data-layout="Layout 1" data-design="Numbered 04" data-strip="layout1-design11" data-captures="4">
+                        <div class="strip-preview"><img src="../assets/strip design/4.png" alt="Numbered design 4, 4-photo strip"></div>
+                        <strong>Numbered 04 - 4x Strip</strong>
+                    </button>
+                    <button type="button" class="strip-option" data-layout="Layout 1" data-design="Numbered 05" data-strip="layout1-design12" data-captures="4">
+                        <div class="strip-preview"><img src="../assets/strip design/5.png" alt="Numbered design 5, 4-photo strip"></div>
+                        <strong>Numbered 05 - 4x Strip</strong>
+                    </button>
+                    <button type="button" class="strip-option" data-layout="Layout 1" data-design="Numbered 06" data-strip="layout1-design13" data-captures="4">
+                        <div class="strip-preview"><img src="../assets/strip design/6.png" alt="Numbered design 6, 4-photo strip"></div>
+                        <strong>Numbered 06 - 4x Strip</strong>
+                    </button>
+                    <button type="button" class="strip-option" data-layout="Layout 1" data-design="Numbered 07" data-strip="layout1-design14" data-captures="4">
+                        <div class="strip-preview"><img src="../assets/strip design/7.png" alt="Numbered design 7, 4-photo strip"></div>
+                        <strong>Numbered 07 - 4x Strip</strong>
+                    </button>
+                    <button type="button" class="strip-option" data-layout="Layout 1" data-design="Numbered 08" data-strip="layout1-design15" data-captures="4">
+                        <div class="strip-preview"><img src="../assets/strip design/8.png" alt="Numbered design 8, 4-photo strip"></div>
+                        <strong>Numbered 08 - 4x Strip</strong>
+                    </button>
+                    <button type="button" class="strip-option" data-layout="Layout 1" data-design="Numbered 09" data-strip="layout1-design16" data-captures="4">
+                        <div class="strip-preview"><img src="../assets/strip design/9.png" alt="Numbered design 9, 4-photo strip"></div>
+                        <strong>Numbered 09 - 4x Strip</strong>
+                    </button>
+                    <button type="button" class="strip-option" data-layout="Layout 1" data-design="Numbered 10" data-strip="layout1-design17" data-captures="4">
+                        <div class="strip-preview"><img src="../assets/strip design/10.png" alt="Numbered design 10, 4-photo strip"></div>
+                        <strong>Numbered 10 - 4x Strip</strong>
+                    </button>
+                    <button type="button" class="strip-option" data-layout="Layout 1" data-design="Numbered 11" data-strip="layout1-design18" data-captures="4">
+                        <div class="strip-preview"><img src="../assets/strip design/11.png" alt="Numbered design 11, 4-photo strip"></div>
+                        <strong>Numbered 11 - 4x Strip</strong>
+                    </button>
+                    <button type="button" class="strip-option" data-layout="Layout 1" data-design="Numbered 12" data-strip="layout1-design19" data-captures="4">
+                        <div class="strip-preview"><img src="../assets/strip design/12.png" alt="Numbered design 12, 4-photo strip"></div>
+                        <strong>Numbered 12 - 4x Strip</strong>
+                    </button>
+                    <button type="button" class="strip-option" data-layout="Layout 1" data-design="Numbered 13" data-strip="layout1-design20" data-captures="4">
+                        <div class="strip-preview"><img src="../assets/strip design/13.png" alt="Numbered design 13, 4-photo strip"></div>
+                        <strong>Numbered 13 - 4x Strip</strong>
                     </button>
 
                     <!-- ==================================
@@ -1091,7 +1145,7 @@
 
             </div>
 
-            <div class="selection-window strip-window">
+            <template>
 
 
                 <!-- LEFT ARROW -->
@@ -1240,7 +1294,7 @@
                     →
                 </button>
 
-            </div>
+            </template>
 
             <!-- ==========================================
                  AUTOMATIC PHOTO COUNT
@@ -1314,75 +1368,6 @@
     =========================================== -->
 
     <script src="../js/start.js"></script>
-
-
-    <!-- ==========================================
-         FRESH SESSION RESET
-    =========================================== -->
-
-    <script>
-
-        /*
-            Every time the user starts a new
-            photobooth session, remove any
-            photos left over from a previous
-            session.
-
-            Capture phase is used so this runs
-            BEFORE the normal start.js click
-            handler.
-        */
-
-        const layoutContinue =
-            document.getElementById(
-                "layoutContinue"
-            );
-
-
-        if(layoutContinue){
-
-            layoutContinue.addEventListener(
-
-                "click",
-
-                function(){
-
-                    console.log(
-                        "Starting a fresh Memory Lane session..."
-                    );
-
-
-                    /*
-                        Remove old camera photos.
-                    */
-
-                    localStorage.removeItem(
-                        "memoryLanePhotos"
-                    );
-
-
-                    /*
-                        Remove old session data.
-                    */
-
-                    sessionStorage.removeItem(
-                        "memoryLaneSession"
-                    );
-
-
-                    console.log(
-                        "Old session data cleared."
-                    );
-
-                },
-
-                true
-
-            );
-
-        }
-
-    </script>
 
 
 </body>
