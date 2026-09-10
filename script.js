@@ -5,7 +5,7 @@ const portfolioDialogClose = document.getElementById("portfolioDialogClose");
 const portfolioDialogStay = document.getElementById("portfolioDialogStay");
 const portfolioDialogConfirm = document.getElementById("portfolioDialogConfirm");
 
-const portfolioUrl = "http://127.0.0.1:5500/index.html";
+const portfolioUrl = "https://ronwell-bot.github.io/portfolio-cmdb/";
 
 let musicPlaying = false;
 
