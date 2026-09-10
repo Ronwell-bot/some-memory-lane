@@ -457,3 +457,234 @@ body {
     color: white;
 
 }
+
+
+/* ==========================================
+   PORTFOLIO CONFIRMATION DIALOG
+========================================== */
+
+body.dialog-open {
+
+    overflow: hidden;
+
+}
+
+
+.portfolio-dialog[hidden] {
+
+    display: none;
+
+}
+
+
+.portfolio-dialog {
+
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    background: rgba(43, 43, 43, .38);
+    backdrop-filter: blur(4px);
+
+    z-index: 200;
+
+}
+
+
+.portfolio-dialog-card {
+
+    position: relative;
+
+    width: min(100%, 430px);
+    padding: 38px 34px 32px;
+
+    border: 1px solid #d8d3cc;
+    border-radius: 4px;
+
+    background: #fffaf2;
+    box-shadow: 10px 10px 0 rgba(43, 43, 43, .14);
+    color: #2b2b2b;
+    text-align: center;
+
+}
+
+
+.portfolio-dialog-card::before,
+.portfolio-dialog-card::after {
+
+    position: absolute;
+    top: 16px;
+
+    width: 42px;
+    height: 8px;
+
+    background: repeating-linear-gradient(
+        90deg,
+        #e2b93f 0 6px,
+        transparent 6px 11px
+    );
+
+    content: "";
+
+}
+
+
+.portfolio-dialog-card::before {
+
+    left: 20px;
+
+}
+
+
+.portfolio-dialog-card::after {
+
+    right: 20px;
+
+}
+
+
+.portfolio-dialog-close {
+
+    position: absolute;
+    top: 10px;
+    right: 12px;
+
+    width: 28px;
+    height: 28px;
+
+    border: 0;
+    background: transparent;
+    color: #706b65;
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+
+}
+
+
+.portfolio-dialog-close:hover,
+.portfolio-dialog-close:focus-visible {
+
+    color: #2b2b2b;
+    outline: 2px solid #e2b93f;
+    outline-offset: 2px;
+
+}
+
+
+.portfolio-dialog-label {
+
+    margin: 0 0 8px;
+
+    color: #b34a3c;
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+
+}
+
+
+.portfolio-dialog-card h2 {
+
+    margin: 0 0 12px;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
+    line-height: 1.2;
+
+}
+
+
+.portfolio-dialog-card p:not(.portfolio-dialog-label) {
+
+    max-width: 320px;
+    margin: 0 auto;
+
+    color: #625d57;
+    font-size: .9rem;
+    line-height: 1.6;
+
+}
+
+
+.portfolio-dialog-actions {
+
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+
+    margin-top: 26px;
+
+}
+
+
+.dialog-button {
+
+    min-height: 42px;
+    padding: 10px 16px;
+
+    border: 1px solid #2b2b2b;
+    border-radius: 2px;
+
+    cursor: pointer;
+    font: inherit;
+    font-size: .78rem;
+    font-weight: 600;
+    transition: transform .2s ease, box-shadow .2s ease;
+
+}
+
+
+.dialog-button:hover,
+.dialog-button:focus-visible {
+
+    transform: translateY(-2px);
+    box-shadow: 3px 3px 0 #2b2b2b;
+    outline: none;
+
+}
+
+
+.dialog-button-secondary {
+
+    background: transparent;
+    color: #2b2b2b;
+
+}
+
+
+.dialog-button-primary {
+
+    background: #e2b93f;
+    color: #2b2b2b;
+
+}
+
+
+@media (max-width: 480px) {
+
+    .portfolio-dialog-card {
+
+        padding: 38px 20px 26px;
+
+    }
+
+    .portfolio-dialog-actions {
+
+        flex-direction: column-reverse;
+
+    }
+
+    .dialog-button {
+
+        width: 100%;
+
+    }
+
+}

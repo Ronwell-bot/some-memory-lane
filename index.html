@@ -77,6 +77,46 @@
       </footer>
     </main>
 
+    <div
+      id="portfolioDialog"
+      class="portfolio-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="portfolioDialogTitle"
+      aria-describedby="portfolioDialogMessage"
+      hidden
+    >
+      <div class="portfolio-dialog-card">
+        <button
+          type="button"
+          class="portfolio-dialog-close"
+          id="portfolioDialogClose"
+          aria-label="Stay on Some Memory Lane"
+        >
+          &times;
+        </button>
+
+        <p class="portfolio-dialog-label">A little detour</p>
+
+        <h2 id="portfolioDialogTitle">Leave the photo booth?</h2>
+
+        <p id="portfolioDialogMessage">
+          Your memories will stay right here. Would you like to visit my
+          portfolio?
+        </p>
+
+        <div class="portfolio-dialog-actions">
+          <button type="button" class="dialog-button dialog-button-secondary" id="portfolioDialogStay">
+            Stay here
+          </button>
+
+          <button type="button" class="dialog-button dialog-button-primary" id="portfolioDialogConfirm">
+            Visit portfolio <span aria-hidden="true">&#8594;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>

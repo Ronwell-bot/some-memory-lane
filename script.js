@@ -1,5 +1,11 @@
 const music = document.getElementById("backgroundMusic");
 const musicToggle = document.getElementById("musicToggle");
+const portfolioDialog = document.getElementById("portfolioDialog");
+const portfolioDialogClose = document.getElementById("portfolioDialogClose");
+const portfolioDialogStay = document.getElementById("portfolioDialogStay");
+const portfolioDialogConfirm = document.getElementById("portfolioDialogConfirm");
+
+const portfolioUrl = "http://127.0.0.1:5500/index.html";
 
 let musicPlaying = false;
 
@@ -30,4 +36,35 @@ musicToggle.addEventListener("click", () => {
 
     }
 
+});
+
+function openPortfolioDialog() {
+    portfolioDialog.hidden = false;
+    document.body.classList.add("dialog-open");
+    portfolioDialogClose.focus();
+}
+
+function closePortfolioDialog() {
+    portfolioDialog.hidden = true;
+    document.body.classList.remove("dialog-open");
+}
+
+portfolioDialogClose.addEventListener("click", closePortfolioDialog);
+portfolioDialogStay.addEventListener("click", closePortfolioDialog);
+
+portfolioDialog.addEventListener("click", (event) => {
+    if (event.target === portfolioDialog) {
+        closePortfolioDialog();
+    }
+});
+
+portfolioDialogConfirm.addEventListener("click", () => {
+    window.location.href = portfolioUrl;
+});
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" || event.key === "ArrowLeft") {
+        event.preventDefault();
+        openPortfolioDialog();
+    }
 });
