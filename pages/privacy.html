@@ -21,6 +21,8 @@
     />
 
     <link rel="stylesheet" href="../css/info.css" />
+    <link rel="stylesheet" href="../css/music.css" />
+    <link rel="stylesheet" href="../css/tape.css" />
     <link rel="icon" href="../assets//icons/favicon1.png" type="image/x-icon" />
   </head>
 
@@ -60,9 +62,11 @@
               <h2>Photo Storage</h2>
 
               <p>
-                Photos are processed locally in your browser and are not
-                uploaded to our servers unless future cloud-saving features are
-                added and enabled by you.
+                Photos are processed locally in your browser. During a session,
+                captured photos are kept in browser storage on this device and
+                are not uploaded to a server. Finished strips are cleared when
+                you finish the session. Featured Wall uploads are not currently
+                available.
               </p>
             </div>
 
@@ -79,8 +83,11 @@
               <h2>Cookies & Local Storage</h2>
 
               <p>
-                Basic browser storage may be used to remember preferences such
-                as themes, music, or layout choices.
+                Browser storage is used for the active session, captured photo
+                data, the music preference, and selected layout metadata. You
+                can clear the active memory by finishing or restarting a
+                session. Scripts running on this same origin may access this
+                storage, so avoid adding untrusted third-party scripts.
               </p>
             </div>
 
@@ -119,5 +126,6 @@
         <p>© 2026 Some Memory Lane. All Rights Reserved.</p>
       </footer>
     </div>
+    <script src="../js/session-music.js"></script>
   </body>
 </html>

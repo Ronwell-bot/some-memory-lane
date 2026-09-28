@@ -649,6 +649,60 @@ header {
   transform: none;
 }
 
+.capture-review {
+  width: 128px;
+  min-width: 0;
+  margin: 0;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: rgba(255, 253, 249, 0.9);
+  text-align: center;
+}
+
+.camera-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 128px;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-width: 0;
+}
+
+.capture-review[hidden] {
+  display: none;
+}
+
+.capture-review h2 {
+  margin: 0 0 4px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+}
+
+.capture-review p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.capture-thumbnails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0;
+  max-height: 260px;
+  overflow: hidden;
+}
+
+.capture-thumbnail {
+  width: 62px;
+  height: 48px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  object-fit: cover;
+}
+
 /* ==========================================
    HIDE OLD SECTIONS
 ========================================== */
@@ -1087,4 +1141,147 @@ a:focus-visible {
   outline: 2px solid var(--brown);
 
   outline-offset: 2px;
+}
+
+/* ==========================================
+   SCRAPBOOK THEME
+========================================== */
+
+:root {
+  --cream: #f7f5f0;
+  --cream-light: #fffefa;
+  --white: #fffefa;
+  --brown: #292827;
+  --brown-light: #5f5a53;
+  --border: #d8d0c3;
+  --border-dark: #393632;
+  --coral: #e78372;
+  --mustard: #e9b83f;
+}
+
+body {
+  background:
+    radial-gradient(
+      circle at 14% 16%,
+      rgba(231, 131, 114, 0.07),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 86% 75%,
+      rgba(233, 184, 63, 0.08),
+      transparent 23%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(57, 54, 50, 0.015) 0 1px,
+      transparent 1px 5px
+    ),
+    var(--cream);
+}
+
+header {
+  background: rgba(255, 254, 248, 0.94);
+  border-bottom: 1.5px solid var(--border-dark);
+}
+
+.logo {
+  font-weight: 700;
+}
+
+.start-btn,
+.power-btn,
+.controls button,
+.review-actions button {
+  border-color: var(--border-dark);
+  box-shadow: 2px 3px 0 rgba(41, 40, 39, 0.1);
+}
+
+.start-btn:hover,
+.power-btn:hover,
+.controls button:hover,
+.review-actions button:hover {
+  background: var(--coral);
+  border-color: var(--border-dark);
+  color: var(--brown);
+  transform: translateY(-2px) rotate(-1deg);
+}
+
+.camera-power,
+.capture-review {
+  background: rgba(255, 254, 248, 0.92);
+  border: 1.5px solid var(--border-dark);
+  box-shadow: 3px 4px 0 rgba(41, 40, 39, 0.08);
+}
+
+.camera-container {
+  border: 4px solid var(--border-dark);
+  box-shadow:
+    5px 6px 0 rgba(41, 40, 39, 0.12),
+    0 14px 26px rgba(53, 45, 36, 0.1);
+}
+
+.photo-progress {
+  border: 1px solid var(--border-dark);
+}
+
+.light.red {
+  background: var(--coral);
+}
+
+.light.green {
+  background: #9fae96;
+}
+
+.review-actions button:last-child,
+#startCapture,
+.primary-power-btn {
+  background: var(--brown);
+  border-color: var(--brown);
+}
+
+.review-actions button:last-child:hover,
+#startCapture:hover,
+.primary-power-btn:hover {
+  background: var(--coral);
+  color: var(--brown);
+  border-color: var(--brown);
+}
+
+/* Keep the camera centered; the review rail must not participate in centering. */
+.camera-stage {
+  position: relative;
+  display: block;
+}
+
+.camera-stage .camera-container {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.camera-stage .capture-review {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 900px) {
+  .camera-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .camera-stage .capture-review {
+    position: static;
+    width: min(100%, 420px);
+    transform: none;
+  }
+
+  .camera-stage .capture-thumbnails {
+    flex-direction: row;
+    justify-content: center;
+    max-width: 100%;
+    overflow-x: auto;
+  }
 }

@@ -4,19 +4,15 @@
    INTERACTION SCRIPT
 ========================================== */
 
-
 /* ==========================================
    ELEMENTS
 ========================================== */
 
-const wall =
-    document.getElementById("memoryWall");
+const wall = document.getElementById("memoryWall");
 
-const strips =
-    Array.from(
-        document.querySelectorAll(".strip")
-    );
+const shuffleButton = document.getElementById("shuffleWall");
 
+const strips = Array.from(document.querySelectorAll(".strip"));
 
 /* ==========================================
    STATE
@@ -34,715 +30,401 @@ let dragOffsetY = 0;
 
 let lastTouchTapAt = 0;
 
-
 /* ==========================================
    INITIAL SETUP
 ========================================== */
 
 function setupStrips() {
+  strips.forEach((strip, index) => {
+    strip.style.zIndex = 5 + index;
 
-    strips.forEach((strip, index) => {
+    strip.addEventListener("pointerdown", startDragging);
 
-        strip.style.zIndex =
-            5 + index;
-
-        strip.addEventListener(
-            "pointerdown",
-            startDragging
-        );
-
-        strip.addEventListener(
-            "click",
-            selectStrip
-        );
-
-    });
-
+    strip.addEventListener("click", selectStrip);
+  });
 }
-
 
 /* ==========================================
    SELECT STRIP
 ========================================== */
 
 function selectStrip(event) {
-
-    /*
+  /*
         Don't trigger selection after
         dragging.
     */
 
-    if (
-        stripWasDragged
-    ) {
+  if (stripWasDragged) {
+    stripWasDragged = false;
 
-        stripWasDragged = false;
+    return;
+  }
 
-        return;
+  const strip = event.currentTarget;
 
-    }
+  highestZIndex++;
 
+  strip.style.zIndex = highestZIndex;
 
-    const strip =
-        event.currentTarget;
+  strips.forEach((item) => {
+    item.classList.remove("is-selected");
+  });
 
+  strip.classList.add("is-selected");
 
-    highestZIndex++;
-
-
-    strip.style.zIndex =
-        highestZIndex;
-
-
-    strips.forEach(item => {
-
-        item.classList.remove(
-            "is-selected"
-        );
-
-    });
-
-
-    strip.classList.add(
-        "is-selected"
-    );
-
-
-    /*
+  /*
         Remove the selected state
         after a short moment.
     */
 
-    clearTimeout(
-        strip.selectionTimeout
-    );
+  clearTimeout(strip.selectionTimeout);
 
-
-    strip.selectionTimeout =
-        setTimeout(() => {
-
-            strip.classList.remove(
-                "is-selected"
-            );
-
-        }, 500);
-
+  strip.selectionTimeout = setTimeout(() => {
+    strip.classList.remove("is-selected");
+  }, 500);
 }
-
 
 /* ==========================================
    DRAGGING
 ========================================== */
 
-let stripWasDragged =
-    false;
-
+let stripWasDragged = false;
 
 function startDragging(event) {
-
-    /*
+  /*
         Only react to primary pointer.
     */
 
-    if (
-        event.button !== 0
-    ) {
+  if (event.button !== 0) {
+    return;
+  }
 
-        return;
+  draggedStrip = event.currentTarget;
 
-    }
+  isDragging = true;
 
+  stripWasDragged = false;
 
-    draggedStrip =
-        event.currentTarget;
+  const wallRect = wall.getBoundingClientRect();
 
+  const stripRect = draggedStrip.getBoundingClientRect();
 
-    isDragging = true;
-
-    stripWasDragged = false;
-
-
-    const wallRect =
-        wall.getBoundingClientRect();
-
-    const stripRect =
-        draggedStrip.getBoundingClientRect();
-
-
-    /*
+  /*
         Convert the strip's current
         position into wall-relative
         coordinates.
     */
 
-    const currentLeft =
-        stripRect.left -
-        wallRect.left;
+  const currentLeft = stripRect.left - wallRect.left;
 
+  const currentTop = stripRect.top - wallRect.top;
 
-    const currentTop =
-        stripRect.top -
-        wallRect.top;
-
-
-    /*
+  /*
         Pointer offset inside card.
     */
 
-    dragOffsetX =
-        event.clientX -
-        stripRect.left;
+  dragOffsetX = event.clientX - stripRect.left;
 
+  dragOffsetY = event.clientY - stripRect.top;
 
-    dragOffsetY =
-        event.clientY -
-        stripRect.top;
-
-
-    /*
+  /*
         Change from percentage-based
         positioning to pixels while
         dragging.
     */
 
-    draggedStrip.style.left =
-        `${currentLeft}px`;
+  draggedStrip.style.left = `${currentLeft}px`;
 
-    draggedStrip.style.top =
-        `${currentTop}px`;
+  draggedStrip.style.top = `${currentTop}px`;
 
-    draggedStrip.style.right =
-        "auto";
+  draggedStrip.style.right = "auto";
 
-    draggedStrip.style.bottom =
-        "auto";
+  draggedStrip.style.bottom = "auto";
 
-
-    /*
+  /*
         Bring to front.
     */
 
-    highestZIndex++;
+  highestZIndex++;
 
-    draggedStrip.style.zIndex =
-        highestZIndex;
+  draggedStrip.style.zIndex = highestZIndex;
 
+  draggedStrip.classList.add("is-selected");
 
-    draggedStrip.classList.add(
-        "is-selected"
-    );
+  draggedStrip.setPointerCapture(event.pointerId);
 
+  draggedStrip.addEventListener("pointermove", dragStrip);
 
-    draggedStrip.setPointerCapture(
-        event.pointerId
-    );
+  draggedStrip.addEventListener("pointerup", stopDragging);
 
-
-    draggedStrip.addEventListener(
-        "pointermove",
-        dragStrip
-    );
-
-    draggedStrip.addEventListener(
-        "pointerup",
-        stopDragging
-    );
-
-    draggedStrip.addEventListener(
-        "pointercancel",
-        stopDragging
-    );
-
+  draggedStrip.addEventListener("pointercancel", stopDragging);
 }
-
 
 /* ==========================================
    MOVE STRIP
 ========================================== */
 
 function dragStrip(event) {
+  if (!isDragging || !draggedStrip) {
+    return;
+  }
 
-    if (
-        !isDragging ||
-        !draggedStrip
-    ) {
+  stripWasDragged = true;
 
-        return;
+  const wallRect = wall.getBoundingClientRect();
 
-    }
+  const stripRect = draggedStrip.getBoundingClientRect();
 
+  let newLeft = event.clientX - wallRect.left - dragOffsetX;
 
-    stripWasDragged =
-        true;
+  let newTop = event.clientY - wallRect.top - dragOffsetY;
 
-
-    const wallRect =
-        wall.getBoundingClientRect();
-
-
-    const stripRect =
-        draggedStrip.getBoundingClientRect();
-
-
-    let newLeft =
-        event.clientX -
-        wallRect.left -
-        dragOffsetX;
-
-
-    let newTop =
-        event.clientY -
-        wallRect.top -
-        dragOffsetY;
-
-
-    /*
+  /*
         Keep the strip inside the wall.
     */
 
-    const maxLeft =
-        wall.clientWidth -
-        stripRect.width;
+  const maxLeft = wall.clientWidth - stripRect.width;
 
+  const maxTop = wall.clientHeight - stripRect.height;
 
-    const maxTop =
-        wall.clientHeight -
-        stripRect.height;
+  newLeft = Math.max(0, Math.min(newLeft, maxLeft));
 
+  newTop = Math.max(0, Math.min(newTop, maxTop));
 
-    newLeft =
-        Math.max(
-            0,
-            Math.min(
-                newLeft,
-                maxLeft
-            )
-        );
+  draggedStrip.style.left = `${newLeft}px`;
 
+  draggedStrip.style.top = `${newTop}px`;
 
-    newTop =
-        Math.max(
-            0,
-            Math.min(
-                newTop,
-                maxTop
-            )
-        );
-
-
-    draggedStrip.style.left =
-        `${newLeft}px`;
-
-    draggedStrip.style.top =
-        `${newTop}px`;
-
-
-    /*
+  /*
         Disable the normal transition
         while dragging.
     */
 
-    draggedStrip.style.transition =
-        "none";
-
+  draggedStrip.style.transition = "none";
 }
-
 
 /* ==========================================
    STOP DRAGGING
 ========================================== */
 
 function stopDragging(event) {
+  if (!draggedStrip) {
+    return;
+  }
 
-    if (
-        !draggedStrip
-    ) {
+  isDragging = false;
 
-        return;
+  draggedStrip.releasePointerCapture(event.pointerId);
 
-    }
+  draggedStrip.removeEventListener("pointermove", dragStrip);
 
+  draggedStrip.removeEventListener("pointerup", stopDragging);
 
-    isDragging = false;
+  draggedStrip.removeEventListener("pointercancel", stopDragging);
 
-
-    draggedStrip.releasePointerCapture(
-        event.pointerId
-    );
-
-
-    draggedStrip.removeEventListener(
-        "pointermove",
-        dragStrip
-    );
-
-    draggedStrip.removeEventListener(
-        "pointerup",
-        stopDragging
-    );
-
-    draggedStrip.removeEventListener(
-        "pointercancel",
-        stopDragging
-    );
-
-
-    /*
+  /*
         Restore transitions.
     */
 
-    draggedStrip.style.transition =
-        "";
+  draggedStrip.style.transition = "";
 
-
-    /*
+  /*
         Remove selection after dragging.
     */
 
-    setTimeout(() => {
+  setTimeout(() => {
+    if (draggedStrip) {
+      draggedStrip.classList.remove("is-selected");
+    }
+  }, 200);
 
-        if (
-            draggedStrip
-        ) {
-
-            draggedStrip.classList.remove(
-                "is-selected"
-            );
-
-        }
-
-    }, 200);
-
-
-    draggedStrip =
-        null;
-
+  draggedStrip = null;
 }
-
 
 /* ==========================================
    RANDOM POSITION GENERATOR
 ========================================== */
 
-function randomPosition(
-    strip,
-    index
-) {
+function randomPosition(strip, index) {
+  const wallWidth = wall.clientWidth;
 
-    const wallWidth =
-        wall.clientWidth;
+  const wallHeight = wall.clientHeight;
 
-    const wallHeight =
-        wall.clientHeight;
+  const stripWidth = strip.offsetWidth;
 
+  const stripHeight = strip.offsetHeight;
 
-    const stripWidth =
-        strip.offsetWidth;
-
-    const stripHeight =
-        strip.offsetHeight;
-
-
-    /*
+  /*
         Keep a generous safe area
         around the edges.
     */
 
-    const horizontalPadding =
-        Math.max(
-            15,
-            wallWidth * 0.025
-        );
+  const horizontalPadding = Math.max(15, wallWidth * 0.025);
 
+  const verticalPadding = Math.max(15, wallHeight * 0.025);
 
-    const verticalPadding =
-        Math.max(
-            15,
-            wallHeight * 0.025
-        );
+  const maxLeft = Math.max(
+    horizontalPadding,
+    wallWidth - stripWidth - horizontalPadding,
+  );
 
+  const maxTop = Math.max(
+    verticalPadding,
+    wallHeight - stripHeight - verticalPadding,
+  );
 
-    const maxLeft =
-        Math.max(
-            horizontalPadding,
-            wallWidth -
-            stripWidth -
-            horizontalPadding
-        );
-
-
-    const maxTop =
-        Math.max(
-            verticalPadding,
-            wallHeight -
-            stripHeight -
-            verticalPadding
-        );
-
-
-    /*
+  /*
         Random position.
     */
 
-    let left =
-        randomNumber(
-            horizontalPadding,
-            maxLeft
-        );
+  let left = randomNumber(horizontalPadding, maxLeft);
 
+  let top = randomNumber(verticalPadding, maxTop);
 
-    let top =
-        randomNumber(
-            verticalPadding,
-            maxTop
-        );
-
-
-    /*
+  /*
         Rotation.
     */
 
-    const rotation =
-        randomNumber(
-            -10,
-            10
-        );
+  const rotation = randomNumber(-10, 10);
 
+  return {
+    left,
 
-    return {
+    top,
 
-        left,
-
-        top,
-
-        rotation
-
-    };
-
+    rotation,
+  };
 }
-
 
 /* ==========================================
    RANDOM NUMBER
 ========================================== */
 
-function randomNumber(
-    min,
-    max
-) {
-
-    return (
-        Math.random() *
-        (max - min)
-    ) + min;
-
+function randomNumber(min, max) {
+  return Math.random() * (max - min) + min;
 }
-
 
 /* ==========================================
    SHUFFLE
 ========================================== */
 
 function shuffleMemories() {
+  if (isDragging) {
+    return;
+  }
 
-    if (
-        isDragging
-    ) {
+  wall.classList.add("is-shuffling");
 
-        return;
-
-    }
-
-
-    wall.classList.add(
-        "is-shuffling"
-    );
-
-
-    /*
+  /*
         Shuffle the order.
     */
 
-    const shuffled =
-        [...strips].sort(
-            () =>
-                Math.random() - 0.5
-        );
+  const shuffled = [...strips].sort(() => Math.random() - 0.5);
 
-
-    /*
+  /*
         Move each strip.
     */
 
-    shuffled.forEach(
-        (strip, index) => {
+  shuffled.forEach((strip, index) => {
+    const position = randomPosition(strip, index);
 
-            const position =
-                randomPosition(
-                    strip,
-                    index
-                );
-
-
-            /*
+    /*
                 Remove old percentage
                 positioning.
             */
 
-            strip.style.right =
-                "auto";
+    strip.style.right = "auto";
 
-            strip.style.bottom =
-                "auto";
+    strip.style.bottom = "auto";
 
-
-            /*
+    /*
                 Apply new position.
             */
 
-            strip.style.left =
-                `${position.left}px`;
+    strip.style.left = `${position.left}px`;
 
-            strip.style.top =
-                `${position.top}px`;
+    strip.style.top = `${position.top}px`;
 
+    strip.style.setProperty("--rotation", `${position.rotation}deg`);
 
-            strip.style.setProperty(
-                "--rotation",
-                `${position.rotation}deg`
-            );
-
-
-            /*
+    /*
                 Random stacking.
             */
 
-            highestZIndex++;
+    highestZIndex++;
 
-            strip.style.zIndex =
-                highestZIndex;
+    strip.style.zIndex = highestZIndex;
 
-
-            /*
+    /*
                 Small stagger.
             */
 
-            strip.style.transitionDelay =
-                `${index * 45}ms`;
+    strip.style.transitionDelay = `${index * 45}ms`;
 
+    strip.classList.add("is-shuffling");
+  });
 
-            strip.classList.add(
-                "is-shuffling"
-            );
-
-        }
-    );
-
-
-    /*
+  /*
         Clean up transition delays.
     */
 
-    setTimeout(() => {
+  setTimeout(() => {
+    strips.forEach((strip) => {
+      strip.style.transitionDelay = "";
 
-        strips.forEach(strip => {
+      strip.classList.remove("is-shuffling");
+    });
 
-            strip.style.transitionDelay =
-                "";
-
-            strip.classList.remove(
-                "is-shuffling"
-            );
-
-        });
-
-        wall.classList.remove(
-            "is-shuffling"
-        );
-
-    }, 1100);
-
+    wall.classList.remove("is-shuffling");
+  }, 1100);
 }
 
+if (shuffleButton) {
+  shuffleButton.addEventListener("click", shuffleMemories);
+}
 
 /* ==========================================
    SHUFFLE GESTURES
 ========================================== */
 
 /* Desktop: double-click anywhere on the gallery board. */
-wall.addEventListener(
-    "dblclick",
-    event => {
+wall.addEventListener("dblclick", (event) => {
+  event.preventDefault();
 
-        event.preventDefault();
-
-        if(!stripWasDragged){
-
-            shuffleMemories();
-
-        }
-
-    }
-);
-
+  if (!stripWasDragged) {
+    shuffleMemories();
+  }
+});
 
 /* Touch browsers do not reliably emit dblclick, so detect two quick taps. */
-wall.addEventListener(
-    "pointerup",
-    event => {
+wall.addEventListener("pointerup", (event) => {
+  if (event.pointerType !== "touch" || stripWasDragged || isDragging) {
+    return;
+  }
 
-        if(
-            event.pointerType !== "touch" ||
-            stripWasDragged ||
-            isDragging
-        ){
+  const now = Date.now();
 
-            return;
+  if (now - lastTouchTapAt < 350) {
+    lastTouchTapAt = 0;
+    shuffleMemories();
 
-        }
+    return;
+  }
 
-        const now = Date.now();
-
-        if(now - lastTouchTapAt < 350){
-
-            lastTouchTapAt = 0;
-            shuffleMemories();
-
-            return;
-
-        }
-
-        lastTouchTapAt = now;
-
-    }
-);
-
+  lastTouchTapAt = now;
+});
 
 /* ==========================================
    ESCAPE KEY
 ========================================== */
 
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Escape"
-        ) {
-
-            strips.forEach(strip => {
-
-                strip.classList.remove(
-                    "is-selected"
-                );
-
-            });
-
-        }
-
-    }
-);
-
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    strips.forEach((strip) => {
+      strip.classList.remove("is-selected");
+    });
+  }
+});
 
 /* ==========================================
    INITIALIZE

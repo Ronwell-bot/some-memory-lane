@@ -35,7 +35,20 @@
         <source src="assets/music/notcuteanymore.mp3" type="audio/mpeg" />
       </audio>
 
-      <button id="musicToggle" class="music-toggle">♫</button>
+      <button
+        id="musicToggle"
+        class="music-toggle"
+        type="button"
+        aria-label="Play music"
+        aria-pressed="false"
+      >
+        <img
+          id="musicIcon"
+          class="music-icon"
+          src="assets/icons/music-note.svg"
+          alt="Play music"
+        />
+      </button>
 
       <section class="landing-visual">
         <img
@@ -46,7 +59,11 @@
 
         <!-- START / ENTER -->
 
-        <a href="pages/start.html" class="enter-button">
+        <a
+          href="pages/start.html"
+          class="enter-button"
+          aria-label="Start a new photo booth session"
+        >
           <span>Enter</span>
 
           <span class="enter-arrow">→</span>
@@ -54,7 +71,11 @@
 
         <!-- FEATURED STRIPS -->
 
-        <a href="pages/features.html" class="featured-strips">
+        <a
+          href="pages/features.html"
+          class="featured-strips"
+          aria-label="View featured memories"
+        >
           <span>Some</span>
           <span>Memories</span>
         </a>
@@ -76,6 +97,11 @@
         <a href="fallback.html" class="footer-link"> How it works </a>
       </footer>
     </main>
+
+    <div class="coin-transition" id="coinTransition" aria-hidden="true">
+      <div class="transition-coin">SLM</div>
+      <p>Starting your session</p>
+    </div>
 
     <div
       id="portfolioDialog"
@@ -106,11 +132,19 @@
         </p>
 
         <div class="portfolio-dialog-actions">
-          <button type="button" class="dialog-button dialog-button-secondary" id="portfolioDialogStay">
+          <button
+            type="button"
+            class="dialog-button dialog-button-secondary"
+            id="portfolioDialogStay"
+          >
             Stay here
           </button>
 
-          <button type="button" class="dialog-button dialog-button-primary" id="portfolioDialogConfirm">
+          <button
+            type="button"
+            class="dialog-button dialog-button-primary"
+            id="portfolioDialogConfirm"
+          >
             Visit portfolio <span aria-hidden="true">&#8594;</span>
           </button>
         </div>

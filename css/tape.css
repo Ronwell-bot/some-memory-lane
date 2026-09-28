@@ -1,0 +1,106 @@
+/* Shared tape and paper details for non-landing pages. */
+
+body {
+  background-color: #f7f5f0;
+  background-image:
+    radial-gradient(
+      circle at 14% 18%,
+      rgba(231, 131, 114, 0.07),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 86% 74%,
+      rgba(233, 184, 63, 0.08),
+      transparent 23%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(57, 54, 50, 0.015) 0 1px,
+      transparent 1px 5px
+    );
+}
+
+.start-page,
+.camera-page,
+.edit-page,
+.featured-wall,
+.privacy-page main,
+.about-page main,
+.page main {
+  position: relative;
+}
+
+.start-page::before,
+.camera-page::before,
+.edit-page::before,
+.featured-wall::before,
+.privacy-page main::before,
+.about-page main::before,
+.page main::before {
+  content: "";
+  position: fixed;
+  top: 12%;
+  left: 5%;
+  width: 150px;
+  height: 30px;
+  z-index: 0;
+  opacity: 0.48;
+  pointer-events: none;
+  background: rgba(244, 229, 178, 0.78);
+  border: 1px solid rgba(57, 54, 50, 0.12);
+  border-radius: 3px;
+  transform: rotate(-7deg);
+  box-shadow:
+    930px 160px 0 -2px rgba(244, 229, 178, 0.62),
+    520px 650px 0 1px rgba(231, 131, 114, 0.18),
+    1080px 690px 0 -1px rgba(244, 229, 178, 0.56);
+}
+
+.start-page::after,
+.camera-page::after,
+.edit-page::after,
+.featured-wall::after,
+.privacy-page main::after,
+.about-page main::after,
+.page main::after {
+  content: "";
+  position: fixed;
+  right: 6%;
+  bottom: 12%;
+  width: 110px;
+  height: 24px;
+  z-index: 0;
+  opacity: 0.42;
+  pointer-events: none;
+  background: rgba(244, 229, 178, 0.68);
+  border: 1px solid rgba(57, 54, 50, 0.1);
+  border-radius: 3px;
+  transform: rotate(6deg);
+  box-shadow:
+    -740px -330px 0 -3px rgba(244, 229, 178, 0.58),
+    -240px -530px 0 0 rgba(231, 131, 114, 0.15);
+}
+
+.start-page > *,
+.camera-page > *,
+.edit-page > *,
+.featured-wall > *,
+.privacy-page main > *,
+.about-page main > *,
+.page main > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 700px) {
+  .start-page::before,
+  .camera-page::before,
+  .edit-page::before,
+  .featured-wall::before,
+  .privacy-page main::before,
+  .about-page main::before,
+  .page main::before {
+    transform: scale(0.7) rotate(-7deg);
+    transform-origin: top left;
+  }
+}

@@ -16,8 +16,30 @@
 html,
 body {
   width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 
-  min-height: 100%;
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  background: #2b2b2b;
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+body.leaving-page::after {
+  animation: pageCurtain 0.42s ease forwards;
+}
+
+@keyframes pageCurtain {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 body {
@@ -118,8 +140,8 @@ header {
 
 .start-page {
   width: 100%;
-
-  min-height: calc(100vh - 70px);
+  height: calc(100dvh - 70px);
+  min-height: 0;
 
   display: flex;
 
@@ -127,7 +149,8 @@ header {
 
   align-items: flex-start;
 
-  padding: 25px 10px 10px;
+  padding: 12px 10px 8px;
+  overflow: hidden;
 }
 
 /* ==========================================
@@ -135,7 +158,7 @@ header {
 ========================================== */
 
 .setup-step {
-  width: min(950px, 100%);
+  width: min(1280px, 100%);
 
   display: none;
 
@@ -144,8 +167,9 @@ header {
 
 .setup-step.active {
   display: block;
-
   padding: 10px;
+  max-height: 100%;
+  overflow: hidden;
 }
 
 @keyframes stepIn {
@@ -169,7 +193,7 @@ header {
 .step-heading {
   text-align: center;
 
-  margin-bottom: 18px;
+  margin-bottom: 10px;
 }
 
 .step-label {
@@ -227,11 +251,118 @@ header {
 
   border-radius: 28px;
 
-  padding: 25px;
+  padding: 18px;
 
   box-shadow:
     0 15px 40px rgba(0, 0, 0, 0.045),
     inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+}
+
+.choice-section + .choice-section {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #e4ded7;
+}
+
+.choice-section-heading {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.choice-section-heading h2 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.05rem;
+  margin: 3px 0;
+}
+
+.choice-section-heading p,
+.choice-kicker {
+  color: #888;
+  font-size: 0.75rem;
+}
+
+.design-filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.design-filter {
+  border: 1px solid #d8d3cc;
+  border-radius: 999px;
+  background: #fff;
+  color: #666;
+  padding: 7px 12px;
+  cursor: pointer;
+  font:
+    0.72rem "Inter",
+    sans-serif;
+}
+
+.design-filter.selected,
+.design-filter:hover {
+  border-color: #2b2b2b;
+  background: #2b2b2b;
+  color: #fff;
+}
+
+.design-filter:focus-visible {
+  outline: 3px solid #8c7663;
+  outline-offset: 3px;
+}
+
+.choice-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+
+.layout-options {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.layout-choice {
+  min-height: 82px;
+  padding: 12px 8px;
+  border: 1px solid #ded8d1;
+  border-radius: 14px;
+  background: #fff;
+  color: #2b2b2b;
+  cursor: pointer;
+  font: inherit;
+  transition: 0.2s ease;
+}
+
+.layout-choice strong,
+.layout-choice small {
+  display: block;
+}
+
+.layout-choice strong {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.85rem;
+}
+
+.layout-choice small {
+  color: #888;
+  font-size: 0.68rem;
+  margin-top: 4px;
+}
+
+.layout-choice:hover,
+.layout-choice.selected {
+  border-color: #2b2b2b;
+  background: #faf8f5;
+  transform: translateY(-2px);
+}
+
+.layout-choice:focus-visible {
+  outline: 3px solid #8c7663;
+  outline-offset: 3px;
 }
 
 /* ==========================================
@@ -286,6 +417,16 @@ header {
   transform: translateY(-5px);
 
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+}
+
+.session-card:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  box-shadow: none;
+}
+
+.session-card:disabled:hover {
+  transform: none;
 }
 
 .session-card.selected {
@@ -411,27 +552,49 @@ header {
 ========================================== */
 
 .strip-window {
-  display: flex;
+  display: block;
+  padding: 18px clamp(18px, 4vw, 52px);
+}
 
-  align-items: center;
+.design-section {
+  position: relative;
+  padding: 14px 52px 0;
+}
 
-  gap: 15px;
+.design-section .scroll-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  transform: translateY(-50%);
+}
 
-  padding: 25px 35px;
+.design-section .scroll-arrow:hover {
+  transform: translateY(-50%) scale(1.05);
+}
+
+.design-section .scroll-arrow.left {
+  left: 0;
+}
+
+.design-section .scroll-arrow.right {
+  right: 0;
 }
 
 .strip-scroller {
   width: 100%;
+  min-width: 0;
 
   display: flex;
 
-  gap: 28px;
+  gap: 18px;
 
   overflow-x: auto;
 
   scroll-behavior: smooth;
 
-  padding: 15px 8px 20px;
+  padding: 8px 8px 12px;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x proximity;
 
   scrollbar-width: none;
 }
@@ -441,7 +604,8 @@ header {
 }
 
 .strip-option {
-  flex: 0 0 160px;
+  flex: 0 0 clamp(180px, 18vw, 230px);
+  scroll-snap-align: start;
 
   border: 2px solid transparent;
 
@@ -462,6 +626,10 @@ header {
   transition: 0.25s ease;
 }
 
+.strip-option[hidden] {
+  display: none;
+}
+
 .strip-option:hover {
   transform: translateY(-6px);
 }
@@ -473,7 +641,7 @@ header {
 }
 
 .strip-preview {
-  height: 220px;
+  height: clamp(145px, 20vw, 220px);
 
   display: flex;
 
@@ -487,7 +655,7 @@ header {
 .strip-preview img {
   max-width: 100%;
 
-  max-height: 210px;
+  max-height: 100%;
 
   object-fit: contain;
 
@@ -539,7 +707,7 @@ header {
 .capture-section {
   text-align: center;
 
-  margin-top: 22px;
+  margin-top: 10px;
 }
 
 .capture-section h2 {
@@ -555,7 +723,7 @@ header {
 
   font-size: 0.9rem;
 
-  margin-bottom: 15px;
+  margin-bottom: 8px;
 }
 
 .capture-options {
@@ -889,6 +1057,11 @@ header {
   .strip-option {
     flex-basis: 150px;
   }
+
+  .design-section {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
 }
 
 /* ==========================================
@@ -932,6 +1105,11 @@ header {
     padding: 20px 10px;
   }
 
+  .design-section {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
   .scroll-arrow {
     width: 35px;
 
@@ -939,11 +1117,11 @@ header {
   }
 
   .strip-option {
-    flex-basis: 140px;
+    flex-basis: 170px;
   }
 
   .strip-preview {
-    height: 210px;
+    height: 150px;
   }
 
   .design-window {
@@ -965,4 +1143,561 @@ header {
 
     height: 68px;
   }
+}
+
+@media (max-height: 900px) {
+  .start-page {
+    padding-top: 6px;
+  }
+
+  .step-heading {
+    margin-bottom: 6px;
+  }
+
+  .step-heading h1 {
+    font-size: 1.25rem;
+  }
+
+  .selection-window,
+  .strip-window {
+    padding-top: 7px;
+    padding-bottom: 5px;
+  }
+
+  .layout-choice {
+    min-height: 58px;
+    padding: 7px 5px;
+  }
+
+  .layout-choice small {
+    margin-top: 1px;
+  }
+
+  .design-section {
+    padding-top: 4px;
+  }
+
+  .strip-preview {
+    height: 96px;
+  }
+
+  .capture-section {
+    margin-top: 0;
+  }
+
+  .step-action {
+    margin-top: 0;
+  }
+
+  .continue-btn,
+  .back-btn {
+    padding: 8px 14px;
+    font-size: 0.72rem;
+  }
+}
+
+@media (max-height: 650px) {
+  .navbar {
+    height: 56px;
+  }
+
+  .start-page {
+    height: calc(100dvh - 56px);
+    padding: 3px 8px;
+  }
+
+  .setup-step.active {
+    padding: 4px;
+  }
+
+  .step-heading {
+    margin-bottom: 3px;
+  }
+
+  .step-label {
+    width: 22px;
+    height: 22px;
+    font-size: 0.62rem;
+    margin-bottom: 1px;
+  }
+
+  .step-heading h1 {
+    font-size: 1.05rem;
+    margin-bottom: 1px;
+  }
+
+  .step-heading p {
+    font-size: 0.66rem;
+  }
+
+  .selection-window {
+    padding: 8px;
+    border-radius: 16px;
+  }
+
+  .session-options {
+    gap: 6px;
+  }
+
+  .session-card {
+    min-height: 72px;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .session-icon {
+    font-size: 1rem;
+  }
+
+  .session-card strong {
+    font-size: 0.85rem;
+  }
+
+  .session-card small {
+    font-size: 0.68rem;
+  }
+
+  .choice-section + .choice-section {
+    margin-top: 7px;
+    padding-top: 7px;
+  }
+
+  .choice-section-heading {
+    margin-bottom: 3px;
+  }
+
+  .choice-section-heading h2 {
+    font-size: 0.85rem;
+  }
+
+  .choice-section-heading p,
+  .choice-kicker {
+    font-size: 0.6rem;
+  }
+
+  .design-filters {
+    gap: 4px;
+    margin-top: 4px;
+  }
+
+  .design-filter {
+    padding: 4px 8px;
+    font-size: 0.6rem;
+  }
+
+  .layout-options {
+    gap: 5px;
+  }
+
+  .layout-choice {
+    min-height: 42px;
+    padding: 4px;
+  }
+
+  .layout-choice strong {
+    font-size: 0.7rem;
+  }
+
+  .layout-choice small {
+    display: none;
+  }
+
+  .design-section {
+    padding: 4px 34px 0;
+  }
+
+  .design-section .scroll-arrow {
+    width: 28px;
+    height: 28px;
+  }
+
+  .strip-scroller {
+    gap: 8px;
+    padding: 3px 4px 5px;
+  }
+
+  .strip-option {
+    flex-basis: 112px;
+    padding: 6px;
+    border-radius: 10px;
+  }
+
+  .strip-preview {
+    height: 100px;
+    margin-bottom: 3px;
+  }
+
+  .strip-option strong {
+    font-size: 0.65rem;
+  }
+
+  .capture-section {
+    margin-top: 4px;
+  }
+
+  .capture-section h2 {
+    font-size: 0.85rem;
+    margin-bottom: 1px;
+  }
+
+  .capture-section p {
+    font-size: 0.62rem;
+    margin-bottom: 3px;
+  }
+
+  .selected-capture-info {
+    min-width: 100px;
+    padding: 6px 10px;
+  }
+
+  .step-action {
+    margin-top: 4px;
+  }
+
+  .continue-btn,
+  .back-btn {
+    padding: 7px 12px;
+    font-size: 0.68rem;
+  }
+}
+
+/* ==========================================
+   VIEWPORT FIT FIX
+   Keeps the active step inside a 100% browser viewport.
+   The design strip remains the only intentional horizontal scroller.
+========================================== */
+
+:root {
+  --page-header-height: 70px;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+.start-page {
+  height: calc(100dvh - var(--page-header-height));
+  min-height: 0;
+  padding: clamp(3px, 1dvh, 12px) clamp(6px, 1.2vw, 10px)
+    clamp(3px, 0.7dvh, 8px);
+  overflow: hidden;
+}
+
+.setup-step.active {
+  min-height: 0;
+  max-height: 100%;
+  padding: clamp(4px, 0.9dvh, 10px);
+  overflow: visible;
+}
+
+.step-heading {
+  margin-bottom: clamp(4px, 1dvh, 10px);
+}
+
+.step-label {
+  width: clamp(24px, 3.4dvh, 32px);
+  height: clamp(24px, 3.4dvh, 32px);
+  margin-bottom: clamp(1px, 0.5dvh, 5px);
+}
+
+.step-heading h1 {
+  font-size: clamp(1.05rem, 2.7dvh, 1.5rem);
+  margin-bottom: clamp(2px, 0.5dvh, 5px);
+}
+
+.step-heading p {
+  font-size: clamp(0.66rem, 1.5dvh, 0.8rem);
+}
+
+.selection-window,
+.strip-window,
+.design-window {
+  padding: clamp(8px, 1.8dvh, 18px);
+}
+
+.choice-section + .choice-section {
+  margin-top: clamp(6px, 1.4dvh, 14px);
+  padding-top: clamp(6px, 1.4dvh, 14px);
+}
+
+.choice-section-heading {
+  margin-bottom: clamp(3px, 1dvh, 8px);
+}
+
+.design-filters {
+  gap: clamp(4px, 1dvh, 8px);
+  margin-top: clamp(4px, 1.2dvh, 12px);
+}
+
+.layout-options {
+  gap: clamp(5px, 1.2dvh, 10px);
+}
+
+.layout-choice {
+  min-height: clamp(42px, 8.5dvh, 82px);
+  padding: clamp(4px, 1dvh, 12px) 8px;
+}
+
+.session-options {
+  gap: clamp(8px, 2dvh, 20px);
+}
+
+.session-card {
+  min-height: clamp(76px, 16dvh, 210px);
+}
+
+.group-divider {
+  margin: clamp(10px, 3dvh, 30px) auto clamp(8px, 2.2dvh, 22px);
+}
+
+.group-options p {
+  margin-bottom: clamp(8px, 2dvh, 18px);
+}
+
+.design-section {
+  padding-top: clamp(4px, 1.5dvh, 14px);
+}
+
+.strip-preview {
+  height: clamp(78px, 16dvh, 220px);
+  margin-bottom: clamp(3px, 1.3dvh, 10px);
+}
+
+.capture-section {
+  margin-top: clamp(2px, 1.3dvh, 10px);
+}
+
+.capture-section p {
+  margin-bottom: clamp(3px, 1dvh, 8px);
+}
+
+.step-action {
+  margin-top: clamp(4px, 1.8dvh, 15px);
+}
+
+/* The design picker can contain several rows, so its tiles must also
+   scale with viewport height instead of using a fixed 210px height. */
+.design-category {
+  margin-bottom: clamp(8px, 2.2dvh, 20px);
+}
+
+.design-grid {
+  gap: clamp(8px, 1.6dvh, 14px);
+}
+
+.design-option {
+  height: clamp(110px, 22dvh, 210px);
+  padding: clamp(7px, 1.5dvh, 12px);
+}
+
+@media (max-width: 900px) {
+  .session-card {
+    min-height: clamp(76px, 13dvh, 130px);
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --page-header-height: 70px;
+  }
+
+  .start-page {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .selection-window,
+  .strip-window,
+  .design-window {
+    padding: clamp(8px, 2dvh, 20px);
+  }
+
+  .design-option {
+    height: clamp(110px, 24dvh, 190px);
+  }
+}
+
+@media (max-height: 650px) {
+  :root {
+    --page-header-height: 56px;
+  }
+
+  .start-page {
+    height: calc(100dvh - var(--page-header-height));
+  }
+
+  .design-option {
+    height: clamp(82px, 20dvh, 140px);
+  }
+}
+
+/* ==========================================
+   DESKTOP 100% VIEWPORT FIT — FINAL OVERRIDE
+
+   The page content is taller than the available viewport at normal
+   browser zoom. CSS zoom reproduces the user's working 80% browser
+   zoom without requiring the visitor to change browser settings.
+========================================== */
+
+@media (min-width: 901px) {
+  .setup-step.active {
+    zoom: 0.9;
+    width: 111.111%;
+    max-width: 1422px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .start-page {
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+}
+
+@media (min-width: 901px) and (max-height: 760px) {
+  .setup-step.active {
+    zoom: 0.82;
+    width: 121.951%;
+    max-width: 1560px;
+  }
+}
+
+/* Do not apply desktop zoom to phones/tablets. */
+@media (max-width: 900px) {
+  .setup-step.active {
+    zoom: 1;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+/* ==========================================
+   SCRAPBOOK THEME
+========================================== */
+
+:root {
+  --paper: #f7f5f0;
+  --paper-light: #fffefa;
+  --ink: #292827;
+  --soft-line: #d8d0c3;
+  --coral: #e78372;
+  --mustard: #e9b83f;
+  --dusty-blue: #7192aa;
+}
+
+body {
+  background:
+    radial-gradient(
+      circle at 12% 18%,
+      rgba(231, 131, 114, 0.07),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 88% 76%,
+      rgba(233, 184, 63, 0.08),
+      transparent 23%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(57, 54, 50, 0.015) 0 1px,
+      transparent 1px 5px
+    ),
+    var(--paper);
+  color: var(--ink);
+}
+
+body::before {
+  content: "✦";
+  position: fixed;
+  top: 92px;
+  right: 4%;
+  z-index: 1;
+  color: var(--mustard);
+  font-size: 1.4rem;
+  transform: rotate(12deg);
+  pointer-events: none;
+}
+
+header {
+  background: rgba(255, 254, 248, 0.94);
+  border-bottom: 1.5px solid var(--ink);
+}
+
+.logo {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.start-btn,
+.back-btn,
+.continue-btn {
+  border: 1.5px solid var(--ink);
+  box-shadow: 3px 3px 0 rgba(41, 40, 39, 0.12);
+}
+
+.start-btn:hover,
+.back-btn:hover,
+.continue-btn:hover {
+  background: var(--coral);
+  color: var(--ink);
+  border-color: var(--ink);
+  transform: translateY(-2px) rotate(-1deg);
+}
+
+.selection-window {
+  background: rgba(255, 254, 248, 0.9);
+  border: 1.5px solid var(--ink);
+  box-shadow:
+    3px 4px 0 rgba(41, 40, 39, 0.08),
+    0 12px 28px rgba(53, 45, 36, 0.07);
+}
+
+.step-label {
+  background: var(--ink);
+  border: 2px solid var(--coral);
+}
+
+.choice-kicker {
+  color: var(--dusty-blue);
+}
+
+.layout-choice,
+.strip-option,
+.design-filter {
+  border-color: var(--soft-line);
+  box-shadow: 2px 3px 0 rgba(41, 40, 39, 0.06);
+}
+
+.layout-choice.selected,
+.strip-option.selected {
+  border-color: var(--ink);
+  box-shadow: 3px 4px 0 rgba(41, 40, 39, 0.14);
+}
+
+.design-filter.selected,
+.design-filter:hover {
+  background: var(--coral);
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.scroll-arrow {
+  border: 1.5px solid var(--ink);
+  box-shadow: 2px 3px 0 rgba(41, 40, 39, 0.08);
+}
+
+.scroll-arrow:hover {
+  background: var(--mustard);
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+.selected-capture-info {
+  border: 1.5px solid var(--ink);
+  background: var(--paper-light);
+  box-shadow: 2px 3px 0 rgba(41, 40, 39, 0.08);
 }

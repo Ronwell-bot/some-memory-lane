@@ -25,6 +25,8 @@
     =========================================== -->
 
     <link rel="stylesheet" href="../css/features.css" />
+    <link rel="stylesheet" href="../css/music.css" />
+    <link rel="stylesheet" href="../css/tape.css" />
 
     <!-- ==========================================
          FAVICON
@@ -45,6 +47,16 @@
         <a href="../index.html" class="logo"> Some Memory Lane </a>
 
         <!-- NAV ACTIONS -->
+        <div class="nav-actions">
+          <button
+            type="button"
+            class="shuffle-btn"
+            id="shuffleWall"
+            aria-label="Shuffle memories"
+          >
+            <span class="shuffle-icon" aria-hidden="true">↻</span>
+            <span>Shuffle wall</span>
+          </button>
           <a href="../index.html" class="home-btn">Exit Gallery </a>
         </div>
       </nav>
@@ -118,7 +130,7 @@
         <article class="strip s3" data-index="2">
           <div class="strip-paper">
             <img
-              src="../assets/images/strip6.jpg"
+              src="../assets/images/strip3.jpg"
               alt="Featured memory"
               draggable="false"
             />
@@ -134,7 +146,7 @@
         <article class="strip s4" data-index="3">
           <div class="strip-paper">
             <img
-              src="../assets/images/strip8.jpg"
+              src="../assets/images/strip2.jpg"
               alt="Featured memory"
               draggable="false"
             />
@@ -150,105 +162,13 @@
         <article class="strip s5" data-index="4">
           <div class="strip-paper">
             <img
-              src="../assets/images/strip7.jpeg"
+              src="../assets/images/strip1.jpeg"
               alt="Featured memory"
               draggable="false"
             />
           </div>
 
           <span class="strip-label"> memory 05 </span>
-        </article>
-
-        <!-- ==================================
-                 MEMORY 6
-            =================================== -->
-
-        <article class="strip s6" data-index="5">
-          <div class="strip-paper">
-            <img
-              src="../assets/images/strip5.png"
-              alt="Featured memory"
-              draggable="false"
-            />
-          </div>
-
-          <span class="strip-label"> memory 06 </span>
-        </article>
-
-        <!-- ==================================
-                 MEMORY 7
-            =================================== -->
-
-        <article class="strip s7" data-index="6">
-          <div class="strip-paper">
-            <img
-              src="../assets/images/strip2.png"
-              alt="Featured memory"
-              draggable="false"
-            />
-          </div>
-
-          <span class="strip-label"> memory 07 </span>
-        </article>
-
-        <!-- ==================================
-                 MEMORY 8
-            =================================== -->
-
-        <article class="strip s8" data-index="7">
-          <div class="strip-paper">
-            <img
-              src="../assets/images/strip4.png"
-              alt="Featured memory"
-              draggable="false"
-            />
-          </div>
-
-          <span class="strip-label"> memory 08 </span>
-        </article>
-
-        <article class="strip s11" data-index="10">
-          <div class="strip-paper">
-            <img
-              src="../assets/images/strip6.jpg"
-              alt="Featured memory"
-              draggable="false"
-            />
-          </div>
-          <span class="strip-label">memory 11</span>
-        </article>
-
-        <article class="strip s12" data-index="11">
-          <div class="strip-paper">
-            <img
-              src="../assets/images/strip8.jpg"
-              alt="Featured memory"
-              draggable="false"
-            />
-          </div>
-          <span class="strip-label">memory 12</span>
-        </article>
-
-        <article class="strip s13" data-index="12">
-          <div class="strip-paper">
-            <img
-              src="../assets/images/strip7.jpeg"
-              alt="Featured memory"
-              draggable="false"
-            />
-          </div>
-          <span class="strip-label">memory 13</span>
-        </article>
-
-        <article class="strip s14" data-index="13">
-          <div class="strip-paper">
-            <img
-              src="../assets/images/strip2.png"
-              alt="Featured memory"
-              draggable="false"
-            />
-          </div>
-          <span class="strip-label">memory 14</span>
         </article>
 
         <!-- ==================================
@@ -276,5 +196,6 @@
     =========================================== -->
 
     <script src="../js/features.js"></script>
+    <script src="../js/session-music.js"></script>
   </body>
 </html>

@@ -26,6 +26,8 @@
     =========================================== -->
 
     <link rel="stylesheet" href="../css/edit.css" />
+    <link rel="stylesheet" href="../css/music.css" />
+    <link rel="stylesheet" href="../css/tape.css" />
   </head>
 
   <body>
@@ -140,10 +142,61 @@
       </section>
     </main>
 
+    <div
+      class="finish-dialog"
+      id="finishDialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="finishDialogTitle"
+      hidden
+    >
+      <div class="finish-dialog-card">
+        <button
+          type="button"
+          class="finish-dialog-close"
+          id="finishDialogClose"
+          aria-label="Close finish choices"
+        >
+          &times;
+        </button>
+        <p class="section-label">ONE LAST CHOICE</p>
+        <h2 id="finishDialogTitle">What should happen to this memory?</h2>
+        <p class="finish-dialog-copy">
+          Keep this memory private and return home. Featured Wall uploads are
+          coming soon while storage, moderation, and deletion tools are being
+          prepared.
+        </p>
+        <div class="finish-dialog-actions">
+          <button type="button" class="secondary-btn" id="keepPrivateButton">
+            Keep private and go home
+          </button>
+          <button
+            type="button"
+            class="primary-btn"
+            id="featuredWallButton"
+            disabled
+          >
+            Add to Featured Wall (coming soon)
+          </button>
+          <button
+            type="button"
+            class="secondary-btn"
+            id="downloadAndFinishButton"
+            hidden
+          >
+            Download and finish
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- ==========================================
      JAVASCRIPT
 ========================================== -->
 
+    <script src="../js/strip-catalog.js"></script>
+    <script src="../js/photo-storage.js"></script>
+    <script src="../js/session-music.js"></script>
     <script src="../js/edit.js"></script>
   </body>
 </html>

@@ -12,6 +12,8 @@
     =========================================== -->
 
     <link rel="stylesheet" href="../css/start.css" />
+    <link rel="stylesheet" href="../css/music.css" />
+    <link rel="stylesheet" href="../css/tape.css" />
 
     <!-- ==========================================
          FONTS
@@ -82,12 +84,12 @@
                          DUO
                     =================================== -->
 
-            <button type="button" class="session-card" data-session="Duo">
+            <button type="button" class="session-card" data-session="Duo" disabled>
               <span class="session-icon"> ◉◉ </span>
 
               <strong> Duo </strong>
 
-              <small> Two people </small>
+              <small> Coming soon </small>
             </button>
 
             <!-- ==================================
@@ -99,12 +101,13 @@
               class="session-card"
               data-session="Group"
               id="groupBtn"
+              disabled
             >
               <span class="session-icon"> ◉◉◉◉ </span>
 
               <strong> Group </strong>
 
-              <small> Friends & family </small>
+              <small> Coming soon </small>
             </button>
           </div>
 
@@ -166,6 +169,43 @@
             ============================================ -->
 
         <div class="selection-window strip-window">
+          <div class="choice-section">
+            <div class="choice-section-heading">
+              <span class="choice-kicker">Arrangement</span>
+              <h2>Choose a layout</h2>
+            </div>
+
+            <div class="layout-options" role="group" aria-label="Choose a layout">
+              <button type="button" class="layout-choice selected" data-layout-filter="Layout 1" aria-pressed="true">
+                <strong>Classic</strong>
+                <small>4-photo strip</small>
+              </button>
+              <button type="button" class="layout-choice" data-layout-filter="Layout 2" aria-pressed="false">
+                <strong>2×4</strong>
+                <small>Photo strip</small>
+              </button>
+              <button type="button" class="layout-choice" data-layout-filter="Layout 3" aria-pressed="false">
+                <strong>Grid</strong>
+                <small>4 photos</small>
+              </button>
+              <button type="button" class="layout-choice" data-layout-filter="Layout 4" aria-pressed="false">
+                <strong>Three</strong>
+                <small>3-photo strip</small>
+              </button>
+              <button type="button" class="layout-choice" data-layout-filter="Layout 5" aria-pressed="false">
+                <strong>Instax</strong>
+                <small>1 photo</small>
+              </button>
+            </div>
+          </div>
+
+          <div class="choice-section design-section">
+            <div class="choice-section-heading">
+              <span class="choice-kicker">Visual frame</span>
+              <h2>Choose a design</h2>
+              <p id="designHint">Classic colors, cat designs, and numbered collections.</p>
+              <div class="design-filters" id="designFilters" role="group" aria-label="Choose a design category"></div>
+            </div>
           <!-- LEFT ARROW -->
 
           <button
@@ -892,6 +932,9 @@
          JAVASCRIPT
     =========================================== -->
 
+    <script src="../js/strip-catalog.js"></script>
+    <script src="../js/photo-storage.js"></script>
+    <script src="../js/session-music.js"></script>
     <script src="../js/start.js"></script>
   </body>
 </html>

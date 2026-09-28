@@ -50,6 +50,10 @@ const captureInfo = document.getElementById("captureInfo");
 
 const cameraContainer = document.querySelector(".camera-container");
 
+const captureReview = document.getElementById("captureReview");
+
+const captureThumbnails = document.getElementById("captureThumbnails");
+
 /* ==========================================
    LOAD SESSION
 ========================================== */
@@ -84,6 +88,8 @@ const design = savedSession?.design || "Blue";
 
 const strip = savedSession?.strip || "layout1-design1";
 
+const catalogEntry = window.MemoryLaneStripCatalog?.get(strip);
+
 /* ==========================================
    PHOTO COUNT BY LAYOUT
 ========================================== */
@@ -107,9 +113,10 @@ const layoutPhotoCounts = {
 const savedCaptureCount = Number(savedSession?.captures);
 
 const captureMode =
-  Number.isInteger(savedCaptureCount) && savedCaptureCount > 0
+  catalogEntry?.captureCount ||
+  (Number.isInteger(savedCaptureCount) && savedCaptureCount > 0
     ? savedCaptureCount
-    : layoutPhotoCounts[layout] || 4;
+    : layoutPhotoCounts[layout] || 4);
 
 /* ==========================================
    DEBUG INFORMATION
@@ -165,6 +172,8 @@ let current = 0;
 
 let cameraReady = false;
 
+let storageReady = false;
+
 let cameraBusy = false;
 
 /*
@@ -191,16 +200,33 @@ let nextCaptureTimer = null;
    RESTORE PHOTOS
 ========================================== */
 
-try {
-  photos = JSON.parse(localStorage.getItem("memoryLanePhotos") || "[]");
+async function restorePhotos() {
+  try {
+    photos = await window.MemoryLanePhotoStorage.read(savedSession?.id);
+
+    if (!photos.length) {
+      photos = await window.MemoryLanePhotoStorage.migrate(savedSession?.id);
+    }
+  } catch (error) {
+    console.error("Unable to restore IndexedDB photos:", error);
+
+    try {
+      photos = JSON.parse(localStorage.getItem("memoryLanePhotos") || "[]");
+    } catch (fallbackError) {
+      console.error("Unable to restore legacy photos:", fallbackError);
+      photos = [];
+    }
+  }
 
   if (!Array.isArray(photos)) {
     photos = [];
   }
-} catch (error) {
-  console.error("Unable to restore saved photos:", error);
 
-  photos = [];
+  current = Math.min(photos.length, captureMode);
+  storageReady = true;
+  updatePhotoCounter();
+  renderCaptureReview();
+  updateCameraControls();
 }
 
 /* ==========================================
@@ -223,22 +249,23 @@ if (photos.length > captureMode) {
 
 current = photos.length;
 
-function savePhotos() {
+async function savePhotos() {
   const updatedSession = {
     ...savedSession,
-    photos,
     photoCount: captureMode,
   };
 
   try {
-    localStorage.setItem("memoryLanePhotos", JSON.stringify(photos));
+    await window.MemoryLanePhotoStorage.write(savedSession?.id, photos);
     sessionStorage.setItem("memoryLaneSession", JSON.stringify(updatedSession));
 
     return true;
   } catch (error) {
     console.error("Unable to save captured photos:", error);
     setCameraStatus("Could not save photos", false);
-    alert("Your browser could not save this photo session. Please restart and try again.");
+    alert(
+      "Your browser could not save this photo session. Please restart and try again.",
+    );
 
     return false;
   }
@@ -257,6 +284,8 @@ setCameraStatus("Camera Off", false);
 updateCameraControls();
 
 updatePhotoCounter();
+
+restorePhotos();
 
 /* ==========================================
    CAMERA CONTROLS
@@ -296,6 +325,7 @@ function updateCameraControls() {
   if (startButton) {
     startButton.disabled =
       cameraBusy ||
+      !storageReady ||
       !cameraReady ||
       !hasStream ||
       current >= captureMode ||
@@ -331,6 +361,24 @@ function updatePhotoCounter() {
   if (totalPhotos) {
     totalPhotos.textContent = captureMode;
   }
+}
+
+function renderCaptureReview() {
+  if (!captureReview || !captureThumbnails) {
+    return;
+  }
+
+  captureThumbnails.replaceChildren();
+
+  photos.forEach((photo, index) => {
+    const thumbnail = document.createElement("img");
+    thumbnail.src = photo;
+    thumbnail.alt = `Captured photo ${index + 1}`;
+    thumbnail.className = "capture-thumbnail";
+    captureThumbnails.appendChild(thumbnail);
+  });
+
+  captureReview.hidden = photos.length === 0;
 }
 
 /* ==========================================
@@ -671,7 +719,7 @@ async function startCountdown() {
    CAPTURE PHOTO
 ========================================== */
 
-function capturePhoto() {
+async function capturePhoto() {
   /*
         Prevent duplicate capture.
     */
@@ -794,7 +842,7 @@ function capturePhoto() {
 
   current = photos.length;
 
-  if (!savePhotos()) {
+  if (!(await savePhotos())) {
     photos.pop();
     current = photos.length;
     captureInProgress = false;
@@ -806,6 +854,7 @@ function capturePhoto() {
   }
 
   updatePhotoCounter();
+  renderCaptureReview();
 
   console.log(`Photo ${current} of ${captureMode} captured.`);
 
@@ -815,7 +864,6 @@ function capturePhoto() {
 
   if (current >= captureMode) {
     captureInProgress = false;
-
     finishSession();
 
     return;
@@ -1078,6 +1126,7 @@ if (restartButton) {
                 Remove old photos.
             */
 
+      window.MemoryLanePhotoStorage?.remove(savedSession?.id)?.catch(() => {});
       localStorage.removeItem("memoryLanePhotos");
 
       /*
@@ -1087,6 +1136,8 @@ if (restartButton) {
       photos = [];
 
       current = 0;
+
+      renderCaptureReview();
 
       /*
                 Update UI.

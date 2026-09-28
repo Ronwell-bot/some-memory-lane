@@ -12,6 +12,8 @@
     =========================================== -->
 
     <link rel="stylesheet" href="../css/camera.css" />
+    <link rel="stylesheet" href="../css/music.css" />
+    <link rel="stylesheet" href="../css/tape.css" />
 
     <!-- ==========================================
          FONTS
@@ -23,7 +25,8 @@
 
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
-      rel="stylesheet" />
+      rel="stylesheet"
+    />
     <link rel="icon" href="../assets//icons/favicon3.png" type="image/x-icon" />
   </head>
 
@@ -35,7 +38,7 @@
     <header>
       <nav class="navbar">
         <div class="logo">
-          <span> Memory Lane </span>
+          <span> Some Memory Lane </span>
         </div>
 
         <a href="../pages/start.html" class="start-btn">Back </a>
@@ -109,32 +112,51 @@
              CAMERA PREVIEW
         ======================================= -->
 
-      <div class="camera-container">
-        <!-- Camera -->
+      <div class="camera-stage">
+        <div class="camera-container">
+          <!-- Camera -->
 
-        <video id="video" autoplay playsinline muted></video>
+          <video id="video" autoplay playsinline muted></video>
 
-        <!-- Flash Effect -->
+          <!-- Flash Effect -->
 
-        <div id="flash"></div>
+          <div id="flash"></div>
 
-        <!-- Countdown -->
+          <!-- Countdown -->
 
-        <div id="countdown">3</div>
+          <div id="countdown">3</div>
 
-        <!-- Camera Overlay -->
+          <!-- Camera Overlay -->
 
-        <div class="camera-overlay">
-          <div class="photo-progress">
-            Photo
+          <div class="camera-overlay">
+            <div class="photo-progress">
+              Photo
 
-            <span id="currentPhoto"> 1 </span>
+              <span id="currentPhoto"> 1 </span>
 
-            /
+              /
 
-            <span id="totalPhotos"> 4 </span>
+              <span id="totalPhotos"> 4 </span>
+            </div>
           </div>
         </div>
+
+        <section
+          class="capture-review"
+          id="captureReview"
+          hidden
+          aria-labelledby="captureReviewTitle"
+        >
+          <div>
+            <h2 id="captureReviewTitle">Captured</h2>
+            <p>Your photos will be arranged automatically.</p>
+          </div>
+          <div
+            class="capture-thumbnails"
+            id="captureThumbnails"
+            aria-label="Captured photo thumbnails"
+          ></div>
+        </section>
       </div>
 
       <!-- ======================================
@@ -158,6 +180,9 @@
          JAVASCRIPT
     =========================================== -->
 
+    <script src="../js/strip-catalog.js"></script>
+    <script src="../js/photo-storage.js"></script>
+    <script src="../js/session-music.js"></script>
     <script src="../js/camera.js"></script>
   </body>
 </html>

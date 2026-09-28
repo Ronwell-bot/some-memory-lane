@@ -39,6 +39,14 @@ const layoutBack = document.getElementById("layoutBack");
 
 const selectedCaptureCount = document.getElementById("selectedCaptureCount");
 
+const layoutChoices = document.querySelectorAll(".layout-choice");
+
+const designHint = document.getElementById("designHint");
+
+const designFilters = document.getElementById("designFilters");
+
+let selectedDesignCategory = "";
+
 /* ==========================================
    SESSION SELECTION
 ========================================== */
@@ -92,8 +100,7 @@ sessionCards.forEach((card) => {
       }
 
       if (sessionAvailabilityMessage) {
-        sessionAvailabilityMessage.textContent =
-          `${sessionChoice} sessions are coming soon.`;
+        sessionAvailabilityMessage.textContent = `${sessionChoice} sessions are coming soon.`;
       }
     } else {
       if (groupOptions) {
@@ -131,7 +138,131 @@ if (sessionContinue) {
    STRIP SELECTION
 ========================================== */
 
+const stripScroller = document.getElementById("layoutScroller");
+
+function renderCatalogOptions() {
+  if (!stripScroller || !window.MemoryLaneStripCatalog) {
+    return;
+  }
+
+  stripScroller.replaceChildren();
+
+  window.MemoryLaneStripCatalog.all().forEach((entry) => {
+    const option = document.createElement("button");
+    const preview = document.createElement("div");
+    const image = document.createElement("img");
+
+    option.type = "button";
+    option.className = "strip-option";
+    option.dataset.layout = entry.layout;
+    option.dataset.design = entry.name;
+    option.dataset.strip = entry.id;
+    option.dataset.captures = String(entry.captureCount);
+    option.dataset.category = entry.category;
+    option.setAttribute(
+      "aria-label",
+      `${entry.name}, ${entry.captureCount} photos`,
+    );
+
+    preview.className = "strip-preview";
+    image.src = `../${entry.previewImage}`;
+    image.alt = `${entry.name} preview`;
+    preview.appendChild(image);
+    option.appendChild(preview);
+    stripScroller.appendChild(option);
+  });
+}
+
+function renderDesignFilters(selectedLayout) {
+  if (!designFilters) {
+    return;
+  }
+
+  const categories = [
+    ...new Set(
+      Array.from(stripOptions || [])
+        .filter((option) => option.dataset.layout === selectedLayout)
+        .map((option) => option.dataset.category),
+    ),
+  ];
+
+  const preferredCategory =
+    selectedLayout === "Layout 1" && categories.includes("Numbered collection")
+      ? "Numbered collection"
+      : categories[0];
+
+  designFilters.replaceChildren();
+
+  categories.forEach((category, index) => {
+    const filter = document.createElement("button");
+    filter.type = "button";
+    filter.className = "design-filter";
+    filter.textContent = category;
+    filter.dataset.category = category;
+    filter.setAttribute("aria-pressed", String(category === preferredCategory));
+    filter.addEventListener("click", () => {
+      selectedDesignCategory = category;
+      designFilters.querySelectorAll(".design-filter").forEach((item) => {
+        item.classList.toggle("selected", item === filter);
+        item.setAttribute("aria-pressed", String(item === filter));
+      });
+      filterDesigns(selectedLayout, selectedDesignCategory);
+    });
+    if (category === preferredCategory) {
+      filter.classList.add("selected");
+      selectedDesignCategory = category;
+    }
+    designFilters.appendChild(filter);
+  });
+}
+
+renderCatalogOptions();
+
 const stripOptions = document.querySelectorAll(".strip-option");
+
+function filterDesigns(selectedLayout, category = selectedDesignCategory) {
+  stripOptions.forEach((option) => {
+    option.hidden =
+      option.dataset.layout !== selectedLayout ||
+      (category && option.dataset.category !== category);
+  });
+
+  const selectedOption = Array.from(stripOptions).find(
+    (option) =>
+      option.dataset.layout === selectedLayout &&
+      (!category || option.dataset.category === category),
+  );
+
+  stripOptions.forEach((option) => option.classList.remove("selected"));
+
+  if (selectedOption) {
+    selectedOption.classList.add("selected");
+    layoutChoice = selectedOption.dataset.layout || selectedLayout;
+    designChoice = selectedOption.dataset.design || "Blue";
+    stripChoice = selectedOption.dataset.strip || "layout1-design1";
+    captureChoice = Number(selectedOption.dataset.captures) || 4;
+    updateCaptureDisplay();
+  }
+
+  if (designHint) {
+    designHint.textContent = category || `${selectedLayout} designs`;
+  }
+}
+
+layoutChoices.forEach((choice) => {
+  choice.addEventListener("click", () => {
+    layoutChoices.forEach((item) => {
+      item.classList.remove("selected");
+      item.setAttribute("aria-pressed", "false");
+    });
+
+    choice.classList.add("selected");
+    choice.setAttribute("aria-pressed", "true");
+    const selectedLayout = choice.dataset.layoutFilter || "Layout 1";
+    renderDesignFilters(selectedLayout);
+    filterDesigns(selectedLayout);
+  });
+});
 
 stripOptions.forEach((option) => {
   option.addEventListener("click", () => {
@@ -199,6 +330,9 @@ stripOptions.forEach((option) => {
     console.log("Captures:", captureChoice);
   });
 });
+
+renderDesignFilters(layoutChoice);
+filterDesigns(layoutChoice);
 
 /* ==========================================
    UPDATE PHOTO COUNT
@@ -288,6 +422,17 @@ if (layoutBack) {
 */
 
 function clearPreviousSession() {
+  let previousSession = null;
+
+  try {
+    previousSession = JSON.parse(
+      sessionStorage.getItem("memoryLaneSession") || "null",
+    );
+  } catch (error) {
+    console.warn("Unable to inspect the previous session.", error);
+  }
+
+  window.MemoryLanePhotoStorage?.remove(previousSession?.id)?.catch(() => {});
   localStorage.removeItem("memoryLanePhotos");
 
   sessionStorage.removeItem("memoryLaneSession");
@@ -309,6 +454,7 @@ function saveSession() {
   clearPreviousSession();
 
   const memoryLaneSession = {
+    id: globalThis.crypto?.randomUUID?.() || `session-${Date.now()}`,
     session: sessionChoice,
 
     layout: layoutChoice,
@@ -320,8 +466,6 @@ function saveSession() {
     captures: captureChoice,
 
     photoCount: captureChoice,
-
-    photos: [],
   };
 
   sessionStorage.setItem(
@@ -334,8 +478,6 @@ function saveSession() {
         Make absolutely sure there are
         no old photos.
     */
-
-  localStorage.setItem("memoryLanePhotos", JSON.stringify([]));
 
   console.log("New Memory Lane Session Saved:", memoryLaneSession);
 }
@@ -409,6 +551,13 @@ if (layoutContinue) {
                 Go to camera.
             */
 
-    window.location.href = "../pages/camera.html";
+    document.body.classList.add("leaving-page");
+
+    window.setTimeout(
+      () => {
+        window.location.href = "../pages/camera.html";
+      },
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 420,
+    );
   });
 }

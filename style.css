@@ -4,87 +4,200 @@
 ========================================== */
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html,
 body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    overflow: hidden;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.music-toggle {
+  position: fixed;
+  top: max(18px, env(safe-area-inset-top));
+  right: max(18px, env(safe-area-inset-right));
+  z-index: 50;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #d8d3cc;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: #2b2b2b;
+  padding: 6px;
+  cursor: pointer;
+  font:
+    0.72rem "Inter",
+    sans-serif;
+  box-shadow: 0 10px 24px rgba(43, 43, 43, 0.16);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.music-toggle:hover,
+.music-toggle:focus-visible {
+  background: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(43, 43, 43, 0.2);
+}
+
+.music-toggle:focus-visible {
+  outline: 3px solid #e5b85c;
+  outline-offset: 3px;
+}
+
+.music-icon {
+  width: 34px;
+  height: 34px;
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.music-toggle.playing .music-icon {
+  animation: spinRecord 2s linear infinite;
+}
+
+@keyframes spinRecord {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.coin-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 18px;
+  background: #191817;
+  color: #fff;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.coin-transition.show {
+  animation: boothCurtain 1.05s ease both;
+}
+
+.transition-coin {
+  width: 84px;
+  height: 84px;
+  display: grid;
+  place-items: center;
+  border: 5px solid #e5b85c;
+  border-radius: 50%;
+  color: #e5b85c;
+  font:
+    700 1rem "Poppins",
+    sans-serif;
+  animation: coinDrop 0.8s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+.coin-transition p {
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@keyframes coinDrop {
+  from {
+    transform: translateY(-45vh) rotate(-30deg);
+  }
+  to {
+    transform: translateY(0) rotate(0);
+  }
+}
+
+@keyframes boothCurtain {
+  0%,
+  80% {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  100% {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .music-toggle.playing .music-icon,
+  .coin-transition.show,
+  .transition-coin {
+    animation: none;
+  }
 }
 
 body {
-    background: #ffffff;
-    font-family: 'Inter', sans-serif;
+  background: #ffffff;
+  font-family: "Inter", sans-serif;
 }
-
 
 /* ==========================================
    LANDING PAGE
 ========================================== */
 
 .landing-page {
+  width: 100%;
+  height: 100vh;
 
-    width: 100%;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
 
-    display: flex;
-    flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-    align-items: center;
-    justify-content: center;
+  overflow: hidden;
 
-    overflow: hidden;
-
-    padding: 5px 20px;
-
+  padding: 5px 20px;
 }
-
 
 /* ==========================================
    MAIN IMAGE
 ========================================== */
 
 .landing-visual {
+  position: relative;
 
-    position: relative;
-
-    /*
+  /*
         Smaller than before.
         This keeps the sketch from feeling
         zoomed in.
     */
 
-    height: min(78vh, 540px);
+  height: min(78vh, 540px);
 
-    width: auto;
+  width: auto;
 
-    aspect-ratio: 872 / 620;
+  aspect-ratio: 872 / 620;
 
-    flex-shrink: 1;
-
+  flex-shrink: 1;
 }
-
 
 /* ==========================================
    SKETCH IMAGE
 ========================================== */
 
 .landing-image {
+  display: block;
 
-    display: block;
+  width: 100%;
+  height: 100%;
 
-    width: 100%;
-    height: 100%;
+  object-fit: contain;
 
-    object-fit: contain;
-
-    user-select: none;
-
+  user-select: none;
 }
-
 
 /* ==========================================
    START / ENTER AREA
@@ -100,39 +213,36 @@ body {
 */
 
 .enter-button {
+  position: absolute;
 
-    position: absolute;
+  left: 32%;
+  top: 26%;
 
-    left: 32%;
-    top: 26%;
+  width: 17%;
+  height: 55%;
 
-    width: 17%;
-    height: 55%;
+  display: block;
 
-    display: block;
+  background: transparent;
 
-    background: transparent;
+  border: none;
 
-    border: none;
+  color: transparent;
 
-    color: transparent;
+  text-decoration: none;
 
-    text-decoration: none;
+  cursor: pointer;
 
-    cursor: pointer;
+  /* Prevent browser tap/click highlights on this invisible hit area. */
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  appearance: none;
 
-    /* Prevent browser tap/click highlights on this invisible hit area. */
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
-    -webkit-appearance: none;
-    appearance: none;
-
-    z-index: 10;
-
+  z-index: 10;
 }
-
 
 /*
     Completely disable the
@@ -143,30 +253,24 @@ body {
 .enter-button:focus,
 .enter-button:focus-visible,
 .enter-button:active {
+  background: transparent;
 
-    background: transparent;
+  color: transparent;
 
-    color: transparent;
+  outline: none;
 
-    outline: none;
+  box-shadow: none;
 
-    box-shadow: none;
-
-    transform: none;
-
+  transform: none;
 }
-
 
 /*
     Hide the text completely.
 */
 
 .enter-button span {
-
-    display: none;
-
+  display: none;
 }
-
 
 /* ==========================================
    FEATURED STRIPS AREA
@@ -178,39 +282,36 @@ body {
 */
 
 .featured-strips {
+  position: absolute;
 
-    position: absolute;
+  left: 50%;
+  top: 28%;
 
-    left: 50%;
-    top: 28%;
+  width: 17%;
+  height: 33%;
 
-    width: 17%;
-    height: 33%;
+  display: block;
 
-    display: block;
+  background: transparent;
 
-    background: transparent;
+  border: none;
 
-    border: none;
+  color: transparent;
 
-    color: transparent;
+  text-decoration: none;
 
-    text-decoration: none;
+  cursor: pointer;
 
-    cursor: pointer;
+  /* Prevent browser tap/click highlights on this invisible hit area. */
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  appearance: none;
 
-    /* Prevent browser tap/click highlights on this invisible hit area. */
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
-    -webkit-appearance: none;
-    appearance: none;
-
-    z-index: 10;
-
+  z-index: 10;
 }
-
 
 /*
     NO visual hover effect.
@@ -220,471 +321,301 @@ body {
 .featured-strips:focus,
 .featured-strips:focus-visible,
 .featured-strips:active {
+  background: transparent;
 
-    background: transparent;
+  color: transparent;
 
-    color: transparent;
+  outline: none;
 
-    outline: none;
+  box-shadow: none;
 
-    box-shadow: none;
-
-    transform: none;
-
+  transform: none;
 }
-
 
 /*
     Hide the text completely.
 */
 
 .featured-strips span {
-
-    display: none;
-
+  display: none;
 }
-
 
 /* ==========================================
    FOOTER
 ========================================== */
 
 .landing-footer {
+  width: auto;
 
-    width: auto;
+  display: flex;
 
-    display: flex;
+  justify-content: center;
+  align-items: center;
 
-    justify-content: center;
-    align-items: center;
+  gap: 28px;
 
-    gap: 28px;
+  margin-top: 4px;
 
-    margin-top: 4px;
-
-    flex-shrink: 0;
-
+  flex-shrink: 0;
 }
-
 
 /* ==========================================
    FOOTER LINKS
 ========================================== */
 
 .footer-link {
+  color: #444;
 
-    color: #444;
+  text-decoration: none;
 
-    text-decoration: none;
+  font-size: 0.72rem;
 
-    font-size: .72rem;
+  font-weight: 400;
 
-    font-weight: 400;
+  white-space: nowrap;
 
-    white-space: nowrap;
-
-    transition: color .2s ease;
-
+  transition: color 0.2s ease;
 }
-
 
 .footer-link:hover {
+  color: #000;
 
-    color: #000;
-
-    text-decoration: underline;
-
+  text-decoration: underline;
 }
-
 
 /* ==========================================
    TABLET
 ========================================== */
 
 @media (max-width: 900px) {
+  .landing-page {
+    padding: 5px 10px;
+  }
 
-    .landing-page {
+  .landing-visual {
+    height: min(76vh, 500px);
+  }
 
-        padding: 5px 10px;
+  .landing-footer {
+    gap: 20px;
+  }
 
-    }
-
-
-    .landing-visual {
-
-        height: min(76vh, 500px);
-
-    }
-
-
-    .landing-footer {
-
-        gap: 20px;
-
-    }
-
-
-    .footer-link {
-
-        font-size: .68rem;
-
-    }
-
+  .footer-link {
+    font-size: 0.68rem;
+  }
 }
-
 
 /* ==========================================
    MOBILE
 ========================================== */
 
 @media (max-width: 600px) {
+  .landing-page {
+    padding: 5px;
+  }
 
-    .landing-page {
+  .landing-visual {
+    height: min(72vh, 420px);
+  }
 
-        padding: 5px;
+  .landing-footer {
+    gap: 10px;
 
-    }
+    flex-wrap: wrap;
+  }
 
-
-    .landing-visual {
-
-        height: min(72vh, 420px);
-
-    }
-
-
-    .landing-footer {
-
-        gap: 10px;
-
-        flex-wrap: wrap;
-
-    }
-
-
-    .footer-link {
-
-        font-size: .6rem;
-
-    }
-
+  .footer-link {
+    font-size: 0.6rem;
+  }
 }
-
 
 /* ==========================================
    SHORT SCREEN
 ========================================== */
 
 @media (max-height: 650px) {
+  .landing-visual {
+    height: 72vh;
+  }
 
-    .landing-visual {
+  .landing-footer {
+    gap: 18px;
+  }
 
-        height: 72vh;
-
-    }
-
-
-    .landing-footer {
-
-        gap: 18px;
-
-    }
-
-
-    .footer-link {
-
-        font-size: .62rem;
-
-    }
-
+  .footer-link {
+    font-size: 0.62rem;
+  }
 }
-
-
-/* ==========================================
-   MUSIC BUTTON
-========================================== */
-
-.music-toggle {
-
-    position: fixed;
-
-    top: 20px;
-    right: 20px;
-
-    width: 42px;
-    height: 42px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border: 1px solid #D8D3CC;
-
-    border-radius: 50%;
-
-    background: rgba(255, 255, 255, .85);
-
-    color: #2B2B2B;
-
-    font-size: 1rem;
-
-    cursor: pointer;
-
-    box-shadow: 0 5px 15px rgba(0,0,0,.06);
-
-    transition: .25s ease;
-
-    z-index: 100;
-}
-
-
-.music-toggle:hover {
-
-    background: #2B2B2B;
-
-    color: white;
-
-    transform: translateY(-2px);
-
-}
-
-
-.music-toggle.playing {
-
-    background: #2B2B2B;
-
-    color: white;
-
-}
-
 
 /* ==========================================
    PORTFOLIO CONFIRMATION DIALOG
 ========================================== */
 
 body.dialog-open {
-
-    overflow: hidden;
-
+  overflow: hidden;
 }
-
 
 .portfolio-dialog[hidden] {
-
-    display: none;
-
+  display: none;
 }
-
 
 .portfolio-dialog {
+  position: fixed;
+  inset: 0;
 
-    position: fixed;
-    inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  padding: 24px;
 
-    padding: 24px;
+  background: rgba(43, 43, 43, 0.38);
+  backdrop-filter: blur(4px);
 
-    background: rgba(43, 43, 43, .38);
-    backdrop-filter: blur(4px);
-
-    z-index: 200;
-
+  z-index: 200;
 }
-
 
 .portfolio-dialog-card {
+  position: relative;
 
-    position: relative;
+  width: min(100%, 430px);
+  padding: 38px 34px 32px;
 
-    width: min(100%, 430px);
-    padding: 38px 34px 32px;
+  border: 1px solid #d8d3cc;
+  border-radius: 4px;
 
-    border: 1px solid #d8d3cc;
-    border-radius: 4px;
-
-    background: #fffaf2;
-    box-shadow: 10px 10px 0 rgba(43, 43, 43, .14);
-    color: #2b2b2b;
-    text-align: center;
-
+  background: #fffaf2;
+  box-shadow: 10px 10px 0 rgba(43, 43, 43, 0.14);
+  color: #2b2b2b;
+  text-align: center;
 }
-
 
 .portfolio-dialog-card::before,
 .portfolio-dialog-card::after {
+  position: absolute;
+  top: 16px;
 
-    position: absolute;
-    top: 16px;
+  width: 42px;
+  height: 8px;
 
-    width: 42px;
-    height: 8px;
+  background: repeating-linear-gradient(
+    90deg,
+    #e2b93f 0 6px,
+    transparent 6px 11px
+  );
 
-    background: repeating-linear-gradient(
-        90deg,
-        #e2b93f 0 6px,
-        transparent 6px 11px
-    );
-
-    content: "";
-
+  content: "";
 }
-
 
 .portfolio-dialog-card::before {
-
-    left: 20px;
-
+  left: 20px;
 }
-
 
 .portfolio-dialog-card::after {
-
-    right: 20px;
-
+  right: 20px;
 }
-
 
 .portfolio-dialog-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
 
-    position: absolute;
-    top: 10px;
-    right: 12px;
+  width: 28px;
+  height: 28px;
 
-    width: 28px;
-    height: 28px;
-
-    border: 0;
-    background: transparent;
-    color: #706b65;
-    cursor: pointer;
-    font-size: 1.5rem;
-    line-height: 1;
-
+  border: 0;
+  background: transparent;
+  color: #706b65;
+  cursor: pointer;
+  font-size: 1.5rem;
+  line-height: 1;
 }
-
 
 .portfolio-dialog-close:hover,
 .portfolio-dialog-close:focus-visible {
-
-    color: #2b2b2b;
-    outline: 2px solid #e2b93f;
-    outline-offset: 2px;
-
+  color: #2b2b2b;
+  outline: 2px solid #e2b93f;
+  outline-offset: 2px;
 }
-
 
 .portfolio-dialog-label {
+  margin: 0 0 8px;
 
-    margin: 0 0 8px;
-
-    color: #b34a3c;
-    font-size: .68rem;
-    font-weight: 600;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-
+  color: #b34a3c;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
-
 
 .portfolio-dialog-card h2 {
+  margin: 0 0 12px;
 
-    margin: 0 0 12px;
-
-    font-family: 'Poppins', sans-serif;
-    font-size: clamp(1.4rem, 4vw, 1.8rem);
-    line-height: 1.2;
-
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  line-height: 1.2;
 }
-
 
 .portfolio-dialog-card p:not(.portfolio-dialog-label) {
+  max-width: 320px;
+  margin: 0 auto;
 
-    max-width: 320px;
-    margin: 0 auto;
-
-    color: #625d57;
-    font-size: .9rem;
-    line-height: 1.6;
-
+  color: #625d57;
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
-
 
 .portfolio-dialog-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
 
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-
-    margin-top: 26px;
-
+  margin-top: 26px;
 }
-
 
 .dialog-button {
+  min-height: 42px;
+  padding: 10px 16px;
 
-    min-height: 42px;
-    padding: 10px 16px;
+  border: 1px solid #2b2b2b;
+  border-radius: 2px;
 
-    border: 1px solid #2b2b2b;
-    border-radius: 2px;
-
-    cursor: pointer;
-    font: inherit;
-    font-size: .78rem;
-    font-weight: 600;
-    transition: transform .2s ease, box-shadow .2s ease;
-
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
-
 
 .dialog-button:hover,
 .dialog-button:focus-visible {
-
-    transform: translateY(-2px);
-    box-shadow: 3px 3px 0 #2b2b2b;
-    outline: none;
-
+  transform: translateY(-2px);
+  box-shadow: 3px 3px 0 #2b2b2b;
+  outline: none;
 }
-
 
 .dialog-button-secondary {
-
-    background: transparent;
-    color: #2b2b2b;
-
+  background: transparent;
+  color: #2b2b2b;
 }
-
 
 .dialog-button-primary {
-
-    background: #e2b93f;
-    color: #2b2b2b;
-
+  background: #e2b93f;
+  color: #2b2b2b;
 }
 
-
 @media (max-width: 480px) {
+  .portfolio-dialog-card {
+    padding: 38px 20px 26px;
+  }
 
-    .portfolio-dialog-card {
+  .portfolio-dialog-actions {
+    flex-direction: column-reverse;
+  }
 
-        padding: 38px 20px 26px;
-
-    }
-
-    .portfolio-dialog-actions {
-
-        flex-direction: column-reverse;
-
-    }
-
-    .dialog-button {
-
-        width: 100%;
-
-    }
-
+  .dialog-button {
+    width: 100%;
+  }
 }

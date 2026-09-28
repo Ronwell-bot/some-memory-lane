@@ -28,6 +28,18 @@ const printButton = document.getElementById("printButton");
 
 const finishButton = document.getElementById("finishButton");
 
+const finishDialog = document.getElementById("finishDialog");
+
+const finishDialogClose = document.getElementById("finishDialogClose");
+
+const keepPrivateButton = document.getElementById("keepPrivateButton");
+
+const featuredWallButton = document.getElementById("featuredWallButton");
+
+const downloadAndFinishButton = document.getElementById(
+  "downloadAndFinishButton",
+);
+
 /* ==========================================
    LOAD SESSION
 ========================================== */
@@ -66,6 +78,8 @@ const design = savedSession?.design || "Design 1";
 
 const savedStrip = savedSession?.strip || "";
 
+const catalogEntry = window.MemoryLaneStripCatalog?.get(savedStrip);
+
 /* ==========================================
    LOAD PHOTOS
 ========================================== */
@@ -80,12 +94,37 @@ let photos = Array.isArray(savedSession?.photos) ? savedSession.photos : [];
 
 if (photos.length === 0) {
   try {
-    const storedPhotos = JSON.parse(localStorage.getItem("memoryLanePhotos") || "[]");
+    const storedPhotos = JSON.parse(
+      localStorage.getItem("memoryLanePhotos") || "[]",
+    );
 
     photos = Array.isArray(storedPhotos) ? storedPhotos : [];
   } catch (error) {
     console.error("Unable to read captured photos:", error);
     photos = [];
+  }
+}
+
+async function restoreStoredPhotos() {
+  if (!savedSession?.id || !window.MemoryLanePhotoStorage) {
+    return;
+  }
+
+  try {
+    const storedPhotos = await window.MemoryLanePhotoStorage.read(
+      savedSession.id,
+    );
+
+    if (storedPhotos.length) {
+      photos = storedPhotos;
+    } else if (photos.length) {
+      await window.MemoryLanePhotoStorage.write(savedSession.id, photos);
+      localStorage.removeItem("memoryLanePhotos");
+    } else {
+      photos = await window.MemoryLanePhotoStorage.migrate(savedSession.id);
+    }
+  } catch (error) {
+    console.error("Unable to restore IndexedDB photos:", error);
   }
 }
 
@@ -336,65 +375,6 @@ const stripTemplates = {
         y: 950,
         width: 323,
         height: 264,
-      },
-    ],
-  },
-
-  /* ======================================
-       LAYOUT 1 — DESIGN 5
-       4 STRAIGHT PHOTOS
-    ====================================== */
-
-  "layout1-design5": {
-    image: "../assets/strip design/red-simple-4xs.jpeg",
-
-    width: 430,
-
-    height: 1330,
-
-    slots: [
-      /* PHOTO 1 */
-
-      {
-        photoIndex: 0,
-
-        x: 45,
-        y: 50,
-        width: 345,
-        height: 265,
-      },
-
-      /* PHOTO 2 */
-
-      {
-        photoIndex: 1,
-
-        x: 45,
-        y: 345,
-        width: 340,
-        height: 270,
-      },
-
-      /* PHOTO 3 */
-
-      {
-        photoIndex: 2,
-
-        x: 45,
-        y: 645,
-        width: 340,
-        height: 270,
-      },
-
-      /* PHOTO 4 */
-
-      {
-        photoIndex: 3,
-
-        x: 45,
-        y: 945,
-        width: 340,
-        height: 270,
       },
     ],
   },
@@ -963,120 +943,6 @@ const stripTemplates = {
     ],
   },
 
-  "layout2-design5": {
-    image: "../assets/strip design/red-simple-8xs.jpeg",
-
-    width: 600,
-
-    height: 1200,
-
-    slots: [
-      /* ==================================
-           PHOTO 1 — LEFT
-        ================================== */
-
-      {
-        photoIndex: 0,
-
-        x: 30,
-        y: 40,
-        width: 250,
-        height: 234,
-      },
-
-      /* ==================================
-           PHOTO 1 — RIGHT
-        ================================== */
-
-      {
-        photoIndex: 0,
-
-        x: 320,
-        y: 40,
-        width: 250,
-        height: 234,
-      },
-
-      /* ==================================
-           PHOTO 2 — LEFT
-        ================================== */
-
-      {
-        photoIndex: 1,
-
-        x: 30,
-        y: 300,
-        width: 250,
-        height: 232,
-      },
-
-      /* ==================================
-           PHOTO 2 — RIGHT
-        ================================== */
-
-      {
-        photoIndex: 1,
-
-        x: 320,
-        y: 300,
-        width: 250,
-        height: 232,
-      },
-
-      /* ==================================
-           PHOTO 3 — LEFT
-        ================================== */
-
-      {
-        photoIndex: 2,
-
-        x: 35,
-        y: 560,
-        width: 250,
-        height: 232,
-      },
-
-      /* ==================================
-           PHOTO 3 — RIGHT
-        ================================== */
-
-      {
-        photoIndex: 2,
-
-        x: 320,
-        y: 560,
-        width: 250,
-        height: 232,
-      },
-
-      /* ==================================
-           PHOTO 4 — LEFT
-        ================================== */
-
-      {
-        photoIndex: 3,
-
-        x: 35,
-        y: 820,
-        width: 250,
-        height: 232,
-      },
-
-      /* ==================================
-           PHOTO 4 — RIGHT
-        ================================== */
-
-      {
-        photoIndex: 3,
-
-        x: 320,
-        y: 820,
-        width: 250,
-        height: 232,
-      },
-    ],
-  },
-
   "layout3-design1": {
     image: "../assets/strip design/blue-pattern-4xg.jpeg",
 
@@ -1341,72 +1207,6 @@ const stripTemplates = {
     ],
   },
 
-  "layout3-design5": {
-    image: "../assets/strip design/red-simple-4xg.jpeg",
-
-    width: 650,
-
-    height: 650,
-
-    slots: [
-      /* ==================================
-           PHOTO 1 — TOP LEFT
-        ================================== */
-
-      {
-        photoIndex: 0,
-
-        x: 35,
-        y: 35,
-
-        width: 280,
-        height: 265,
-      },
-
-      /* ==================================
-           PHOTO 2 — TOP RIGHT
-        ================================== */
-
-      {
-        photoIndex: 1,
-
-        x: 330,
-        y: 35,
-
-        width: 280,
-        height: 265,
-      },
-
-      /* ==================================
-           PHOTO 3 — BOTTOM LEFT
-        ================================== */
-
-      {
-        photoIndex: 2,
-
-        x: 35,
-        y: 315,
-
-        width: 280,
-        height: 265,
-      },
-
-      /* ==================================
-           PHOTO 4 — BOTTOM RIGHT
-        ================================== */
-
-      {
-        photoIndex: 3,
-
-        x: 330,
-        y: 315,
-
-        width: 280,
-        height: 265,
-      },
-    ],
-  },
-
   "layout4-design1": {
     image: "../assets/strip design/blue-pattern-3xs.jpeg",
 
@@ -1563,8 +1363,8 @@ const stripTemplates = {
     ],
   },
 
-  "layout4-design5": {
-    image: "../assets/strip design/red-simple-3xs.jpeg",
+  "layout4-design4": {
+    image: "../assets/strip design/yellow-pattern-3xs.jpeg",
 
     width: 350,
 
@@ -1750,6 +1550,15 @@ for (let imageNumber = 1; imageNumber <= 13; imageNumber++) {
 
 let template = stripTemplates[savedStrip];
 
+if (template && catalogEntry) {
+  template = {
+    ...template,
+    image: `../${catalogEntry.outputTemplate}`,
+    width: catalogEntry.width || template.width,
+    height: catalogEntry.height || template.height,
+  };
+}
+
 /*
     Fallback:
     If savedStrip contains the actual
@@ -1926,8 +1735,7 @@ function drawImageCover(ctx, image, slot) {
 
     sourceX = (image.width - sourceWidth) / 2;
   } else if (imageRatio < slotRatio) {
-
-  /* ======================================
+    /* ======================================
        CROP TOP / BOTTOM
     ====================================== */
     sourceHeight = image.width / slotRatio;
@@ -2338,11 +2146,50 @@ function finishSession() {
 
   localStorage.removeItem("memoryLanePhotos");
 
+  window.MemoryLanePhotoStorage?.remove(savedSession?.id)?.catch(() => {});
+
   /*
         Return to beginning.
     */
 
   window.location.href = "../index.html";
+}
+
+function openFinishDialog() {
+  if (!finishDialog) {
+    finishSession();
+    return;
+  }
+
+  if (downloadAndFinishButton) {
+    downloadAndFinishButton.hidden = Boolean(
+      sessionStorage.getItem("memoryLaneFinalStrip"),
+    );
+  }
+
+  finishDialog.hidden = false;
+  document.body.classList.add("dialog-open");
+  keepPrivateButton?.focus();
+}
+
+function closeFinishDialog() {
+  if (!finishDialog) {
+    return;
+  }
+
+  finishDialog.hidden = true;
+  document.body.classList.remove("dialog-open");
+}
+
+function finishWithVisibility(isFeatured) {
+  sessionStorage.setItem("memoryLaneGalleryOptIn", JSON.stringify(isFeatured));
+  closeFinishDialog();
+  finishSession();
+}
+
+function downloadAndFinish() {
+  downloadStrip();
+  finishWithVisibility(false);
 }
 
 /* ==========================================
@@ -2494,9 +2341,26 @@ if (finishButton) {
   finishButton.addEventListener(
     "click",
 
-    finishSession,
+    openFinishDialog,
   );
 }
+
+finishDialogClose?.addEventListener("click", closeFinishDialog);
+keepPrivateButton?.addEventListener("click", () => finishWithVisibility(false));
+featuredWallButton?.addEventListener("click", () => finishWithVisibility(true));
+downloadAndFinishButton?.addEventListener("click", downloadAndFinish);
+
+finishDialog?.addEventListener("click", (event) => {
+  if (event.target === finishDialog) {
+    closeFinishDialog();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && finishDialog && !finishDialog.hidden) {
+    closeFinishDialog();
+  }
+});
 
 /* ==========================================
    MAIN
@@ -2504,6 +2368,8 @@ if (finishButton) {
 
 async function generateStrip() {
   console.log("Starting strip generation...");
+
+  await restoreStoredPhotos();
 
   if (!savedSession || !savedStrip) {
     window.location.replace("../fallback.html?reason=editor");

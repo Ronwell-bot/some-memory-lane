@@ -9,21 +9,19 @@
 ========================================== */
 
 :root {
-  --bg: #f7f5f2;
-
-  --white: #ffffff;
-
-  --text: #2b2b2b;
-
-  --text-light: #555555;
-
-  --muted: #777777;
-
-  --subtle: #999999;
-
-  --border: #e2ddd7;
-
-  --border-dark: #d8d3cc;
+  --bg: #f7f5f0;
+  --white: #fffefa;
+  --text: #292827;
+  --text-light: #5f5a53;
+  --muted: #766f66;
+  --subtle: #8d867d;
+  --border: #d8d0c3;
+  --border-dark: #393632;
+  --coral: #e78372;
+  --mustard: #e9b83f;
+  --dusty-blue: #7192aa;
+  --blush: #e9c6bb;
+  --shadow: 0 10px 24px rgba(53, 45, 36, 0.08);
 }
 
 /* ==========================================
@@ -51,12 +49,37 @@ body {
 
 body {
   font-family: "Inter", sans-serif;
-
-  background: var(--bg);
-
+  background:
+    radial-gradient(
+      circle at 12% 18%,
+      rgba(231, 131, 114, 0.08),
+      transparent 24%
+    ),
+    radial-gradient(
+      circle at 88% 76%,
+      rgba(233, 184, 63, 0.09),
+      transparent 22%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(57, 54, 50, 0.018) 0 1px,
+      transparent 1px 5px
+    ),
+    var(--bg);
   color: var(--text);
-
   overflow-x: hidden;
+}
+
+body::before {
+  content: "✦";
+  position: fixed;
+  top: 9%;
+  right: 8%;
+  color: var(--mustard);
+  font-size: 1.6rem;
+  transform: rotate(12deg);
+  pointer-events: none;
+  opacity: 0.8;
 }
 
 /* ==========================================
@@ -88,7 +111,7 @@ header {
 .privacy-page header,
 .about-page header,
 .page header {
-  padding: 28px 50px;
+  padding: 28px 50px 18px;
 }
 
 /* ==========================================
@@ -114,7 +137,7 @@ header {
 
   font-size: 1.1rem;
 
-  font-weight: 600;
+  font-weight: 700;
 
   letter-spacing: -0.02em;
 
@@ -165,7 +188,12 @@ main {
 .privacy-content,
 .about-content {
   width: min(900px, 100%);
-
+  position: relative;
+  padding: 42px 48px;
+  background: rgba(255, 254, 248, 0.9);
+  border: 1.5px solid var(--border-dark);
+  border-radius: 22px 18px 24px 16px;
+  box-shadow: var(--shadow);
   display: flex;
 
   flex-direction: column;
@@ -181,8 +209,27 @@ main {
 
 .page-content {
   width: 100%;
-
   max-width: 850px;
+  position: relative;
+  padding: 38px 46px;
+  background: rgba(255, 254, 248, 0.9);
+  border: 1.5px solid var(--border-dark);
+  border-radius: 18px 24px 16px 22px;
+  box-shadow: var(--shadow);
+}
+
+.privacy-content::before,
+.about-content::before,
+.page-content::before {
+  content: "";
+  position: absolute;
+  top: 16px;
+  right: 34px;
+  width: 52px;
+  height: 10px;
+  border-top: 2px solid var(--coral);
+  border-radius: 50%;
+  transform: rotate(-5deg);
 }
 
 /* ==========================================
@@ -213,7 +260,7 @@ main {
 
   letter-spacing: 0.18em;
 
-  color: var(--subtle);
+  color: var(--dusty-blue);
 
   margin-bottom: 8px;
 
@@ -244,6 +291,18 @@ h1 {
   line-height: 1.2;
 
   color: var(--text);
+  letter-spacing: -0.03em;
+}
+
+h1::after {
+  content: "";
+  display: block;
+  width: 78px;
+  height: 7px;
+  margin-top: 8px;
+  border-top: 2px solid var(--coral);
+  border-radius: 50%;
+  transform: rotate(-3deg);
 }
 
 .privacy-page h1 {
@@ -311,9 +370,10 @@ h1 {
 }
 
 .privacy-item {
-  padding-bottom: 15px;
-
-  border-bottom: 1px solid var(--border);
+  padding: 16px 17px 17px;
+  background: rgba(247, 245, 240, 0.72);
+  border: 1px solid var(--border);
+  border-radius: 13px 17px 12px 15px;
 }
 
 .privacy-item h2 {
@@ -321,7 +381,7 @@ h1 {
 
   font-size: 0.95rem;
 
-  font-weight: 600;
+  font-weight: 700;
 
   margin-bottom: 6px;
 }
@@ -347,9 +407,10 @@ h1 {
 }
 
 .about-item {
-  padding-bottom: 18px;
-
-  border-bottom: 1px solid var(--border);
+  padding: 16px 17px 18px;
+  background: rgba(247, 245, 240, 0.72);
+  border: 1px solid var(--border);
+  border-radius: 15px 12px 17px 13px;
 }
 
 .about-item h2 {
@@ -401,17 +462,24 @@ h1 {
 ========================================== */
 
 .faq-container {
-  border-top: 1px solid #ded9d2;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(247, 245, 240, 0.55);
 }
 
 .faq-item {
-  border-bottom: 1px solid #ded9d2;
+  border-bottom: 1px solid var(--border);
+}
+
+.faq-item:last-child {
+  border-bottom: 0;
 }
 
 .faq-question {
   width: 100%;
 
-  padding: 14px 0;
+  padding: 16px 18px;
 
   background: transparent;
 
@@ -423,7 +491,7 @@ h1 {
 
   font-size: 0.84rem;
 
-  font-weight: 500;
+  font-weight: 600;
 
   text-align: left;
 
@@ -447,7 +515,14 @@ h1 {
 
   font-weight: 300;
 
-  color: var(--subtle);
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--mustard);
+  border-radius: 50%;
+  color: var(--text);
+  background: rgba(233, 184, 63, 0.14);
 }
 
 .faq-item.open .faq-question::after {
@@ -457,7 +532,7 @@ h1 {
 .faq-answer {
   display: none;
 
-  padding: 0 30px 14px 0;
+  padding: 0 48px 17px 18px;
 
   color: var(--muted);
 
@@ -509,11 +584,9 @@ h1 {
 
   border-radius: 999px;
 
-  border: 1px solid var(--border-dark);
-
-  background: var(--white);
-
-  color: var(--text-light);
+  border: 1.5px solid var(--border-dark);
+  background: var(--text);
+  color: var(--white);
 
   text-decoration: none;
 
@@ -527,13 +600,11 @@ h1 {
 }
 
 .back-home-btn:hover {
-  background: var(--text);
-
-  color: white;
-
+  background: var(--coral);
+  color: var(--text);
   border-color: var(--text);
-
-  transform: translateY(-1px);
+  transform: translateY(-2px) rotate(-1deg);
+  box-shadow: 3px 3px 0 rgba(41, 40, 39, 0.18);
 }
 
 /* ==========================================
@@ -552,7 +623,7 @@ footer {
 
   padding: 20px 50px;
 
-  border-top: 1px solid var(--border);
+  border-top: 1.5px solid var(--border-dark);
 
   color: var(--subtle);
 
@@ -761,5 +832,106 @@ footer p {
 
   footer {
     padding: 16px;
+  }
+}
+/* ==========================================
+   ONE-PAGE FIT — INFORMATIONAL PAGES
+
+   Keeps the header and footer at normal size while fitting the
+   About, Privacy, and FAQ content between them on desktop screens.
+   Small phones retain vertical scrolling for readability.
+========================================== */
+
+@media (min-width: 801px) {
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .privacy-page,
+  .about-page,
+  .page {
+    width: 100%;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .privacy-page main,
+  .about-page main,
+  .page main {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  /* The 0.85 scale is equivalent to using a slightly reduced browser
+     zoom, but only the content card is scaled—not the navbar/footer. */
+  .privacy-content,
+  .about-content,
+  .page-content {
+    zoom: 0.85;
+    width: 117.647%;
+  }
+
+  .privacy-content,
+  .about-content {
+    max-width: 1058px;
+  }
+
+  .page-content {
+    max-width: 1000px;
+  }
+}
+
+/* Short desktop/laptop screens need a little more compression. */
+@media (min-width: 801px) and (max-height: 760px) {
+  .privacy-content,
+  .about-content,
+  .page-content {
+    zoom: 0.76;
+    width: 131.579%;
+  }
+
+  .privacy-content,
+  .about-content {
+    max-width: 1185px;
+  }
+
+  .page-content {
+    max-width: 1118px;
+  }
+}
+
+/* Keep the original readable mobile behavior. */
+@media (max-width: 800px) {
+  html,
+  body {
+    height: auto;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .privacy-page,
+  .about-page,
+  .page {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
+  .privacy-page main,
+  .about-page main,
+  .page main {
+    overflow: visible;
+  }
+
+  .privacy-content,
+  .about-content,
+  .page-content {
+    zoom: 1;
+    width: 100%;
   }
 }

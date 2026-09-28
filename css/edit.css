@@ -23,6 +23,85 @@ body {
   height: 100%;
 }
 
+body.dialog-open {
+  overflow: hidden;
+}
+
+.finish-dialog[hidden] {
+  display: none;
+}
+
+.finish-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(43, 43, 43, 0.38);
+  animation: dialogFadeIn 0.2s ease both;
+}
+
+.finish-dialog-card {
+  position: relative;
+  width: min(460px, 100%);
+  padding: 34px;
+  background: #fff;
+  border: 1px solid #e1dbd4;
+  border-radius: 18px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
+}
+
+.finish-dialog-card h2 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.35rem;
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+
+.finish-dialog-copy {
+  color: #777;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  margin-bottom: 24px;
+}
+
+.finish-dialog-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  border: 0;
+  background: transparent;
+  color: #777;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.finish-dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.finish-dialog-actions button {
+  flex: 1 1 180px;
+}
+
+@keyframes dialogFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .finish-dialog {
+    animation: none;
+  }
+}
+
 body {
   font-family: "Inter", sans-serif;
 
@@ -1025,4 +1104,126 @@ body {
 
     font-size: 0.7rem;
   }
+}
+
+/* ==========================================
+   SCRAPBOOK THEME
+========================================== */
+
+:root {
+  --paper: #f7f5f0;
+  --paper-light: #fffefa;
+  --ink: #292827;
+  --soft-line: #d8d0c3;
+  --coral: #e78372;
+  --mustard: #e9b83f;
+  --dusty-blue: #7192aa;
+}
+
+body {
+  background:
+    radial-gradient(
+      circle at 14% 16%,
+      rgba(231, 131, 114, 0.07),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 86% 74%,
+      rgba(233, 184, 63, 0.08),
+      transparent 23%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(57, 54, 50, 0.015) 0 1px,
+      transparent 1px 5px
+    ),
+    var(--paper);
+  color: var(--ink);
+}
+
+.developing-icon {
+  border: 1.5px solid var(--ink);
+  background: var(--paper-light);
+  box-shadow: 4px 5px 0 rgba(41, 40, 39, 0.1);
+}
+
+.photo-paper {
+  background: var(--paper);
+  border-color: var(--ink);
+}
+
+.photo-paper span {
+  background: var(--dusty-blue);
+}
+
+.section-label {
+  color: var(--dusty-blue);
+}
+
+.developing-content h1,
+.result-header h1 {
+  color: var(--ink);
+  letter-spacing: -0.03em;
+}
+
+.developing-content h1::after,
+.result-header h1::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 6px;
+  margin: 8px auto 0;
+  border-top: 2px solid var(--coral);
+  border-radius: 50%;
+  transform: rotate(-3deg);
+}
+
+.developing-progress {
+  background: var(--soft-line);
+  border: 1px solid var(--ink);
+}
+
+.developing-progress-fill {
+  background: var(--coral);
+}
+
+.strip-stage {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.primary-btn,
+.secondary-btn {
+  border: 1.5px solid var(--ink);
+  box-shadow: 3px 3px 0 rgba(41, 40, 39, 0.12);
+}
+
+.primary-btn {
+  background: var(--ink);
+}
+
+.primary-btn:hover,
+.secondary-btn:hover {
+  background: var(--coral);
+  border-color: var(--ink);
+  color: var(--ink);
+  transform: translateY(-2px) rotate(-1deg);
+}
+
+.finish-dialog-card {
+  border: 1.5px solid var(--ink);
+  border-radius: 16px 20px 15px 18px;
+  background: var(--paper-light);
+  box-shadow:
+    4px 5px 0 rgba(41, 40, 39, 0.12),
+    0 24px 70px rgba(53, 45, 36, 0.18);
+}
+
+.finish-dialog-close:focus-visible,
+.primary-btn:focus-visible,
+.secondary-btn:focus-visible {
+  outline: 3px solid var(--mustard);
+  outline-offset: 3px;
 }

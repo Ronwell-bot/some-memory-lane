@@ -1,0 +1,61 @@
+/* Shared music control for non-landing pages. */
+
+.session-music-toggle {
+  position: fixed;
+  top: max(16px, env(safe-area-inset-top));
+  right: max(18px, env(safe-area-inset-right));
+  z-index: 1000;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  padding: 5px;
+  border: 1.5px solid #393632;
+  border-radius: 50%;
+  background: rgba(255, 254, 248, 0.94);
+  box-shadow: 3px 4px 0 rgba(41, 40, 39, 0.13);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.session-music-toggle:hover,
+.session-music-toggle:focus-visible {
+  transform: translateY(-2px) rotate(-5deg);
+  box-shadow: 4px 6px 0 rgba(41, 40, 39, 0.17);
+}
+
+.session-music-toggle:focus-visible {
+  outline: 3px solid #e9b83f;
+  outline-offset: 3px;
+}
+
+.session-music-toggle img {
+  width: 36px;
+  height: 36px;
+  display: block;
+}
+
+.session-music-toggle.is-playing img {
+  animation: music-note-spin 2.8s linear infinite;
+}
+
+.session-music-toggle.is-unavailable {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+@keyframes music-note-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .session-music-toggle,
+  .session-music-toggle.is-playing img {
+    animation: none;
+    transition: none;
+  }
+}
