@@ -222,6 +222,14 @@ async function restorePhotos() {
     photos = [];
   }
 
+  if (photos.length > captureMode) {
+    console.warn(
+      `Too many saved photos detected. Keeping only the first ${captureMode}.`,
+    );
+
+    photos = photos.slice(0, captureMode);
+  }
+
   current = Math.min(photos.length, captureMode);
   storageReady = true;
   updatePhotoCounter();
@@ -229,35 +237,36 @@ async function restorePhotos() {
   updateCameraControls();
 }
 
-/* ==========================================
-   SAFETY CHECK
-========================================== */
-
-if (photos.length > captureMode) {
-  console.warn(
-    `Too many saved photos detected. Keeping only the first ${captureMode}.`,
-  );
-
-  photos = photos.slice(0, captureMode);
-
-  localStorage.setItem(
-    "memoryLanePhotos",
-
-    JSON.stringify(photos),
-  );
-}
-
-current = photos.length;
-
-async function savePhotos() {
-  const updatedSession = {
+function sessionMetadata() {
+  const metadata = {
     ...savedSession,
     photoCount: captureMode,
   };
 
+  delete metadata.photos;
+
+  return metadata;
+}
+
+async function savePhotos() {
+  const sessionId = savedSession?.id;
+
+  if (!sessionId) {
+    console.error("Unable to save captured photos: missing session ID.");
+    setCameraStatus("Could not save photos", false);
+    alert(
+      "Your browser could not save this photo session. Please restart and try again.",
+    );
+
+    return false;
+  }
+
   try {
-    await window.MemoryLanePhotoStorage.write(savedSession?.id, photos);
-    sessionStorage.setItem("memoryLaneSession", JSON.stringify(updatedSession));
+    await window.MemoryLanePhotoStorage.write(sessionId, photos);
+    sessionStorage.setItem(
+      "memoryLaneSession",
+      JSON.stringify(sessionMetadata()),
+    );
 
     return true;
   } catch (error) {
@@ -864,7 +873,7 @@ async function capturePhoto() {
 
   if (current >= captureMode) {
     captureInProgress = false;
-    finishSession();
+    await finishSession();
 
     return;
   }
@@ -908,7 +917,7 @@ async function capturePhoto() {
    FINISH SESSION
 ========================================== */
 
-function finishSession() {
+async function finishSession() {
   /*
         Prevent duplicate finish.
     */
@@ -943,23 +952,39 @@ function finishSession() {
 
   stopCamera();
 
+  const sessionId = savedSession?.id;
+
+  if (!sessionId) {
+    console.error("Unable to finish session: missing session ID.");
+    window.location.href = "../fallback.html?reason=photos";
+
+    return;
+  }
+
+  if (!(await savePhotos())) {
+    window.location.href = "../fallback.html?reason=photos";
+
+    return;
+  }
+
+  try {
+    const storedPhotos = await window.MemoryLanePhotoStorage.read(sessionId);
+
+    if (!Array.isArray(storedPhotos) || storedPhotos.length < photos.length) {
+      throw new Error("IndexedDB photo record is missing or incomplete.");
+    }
+  } catch (error) {
+    console.error("Unable to confirm saved photos before editing:", error);
+    window.location.href = "../fallback.html?reason=photos";
+
+    return;
+  }
+
   /* ======================================
-       SAVE FINAL SESSION
+       SAVE FINAL SESSION METADATA
     ====================================== */
 
-  const finalSession = {
-    session: session,
-
-    layout: layout,
-
-    design: design,
-
-    strip: strip,
-
-    photoCount: captureMode,
-
-    photos: photos,
-  };
+  const finalSession = sessionMetadata();
 
   try {
     sessionStorage.setItem("memoryLaneSession", JSON.stringify(finalSession));
@@ -1026,7 +1051,7 @@ if (startButton) {
             */
 
       if (current >= captureMode) {
-        finishSession();
+        void finishSession();
 
         return;
       }

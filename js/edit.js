@@ -84,48 +84,27 @@ const catalogEntry = window.MemoryLaneStripCatalog?.get(savedStrip);
    LOAD PHOTOS
 ========================================== */
 
-let photos = Array.isArray(savedSession?.photos) ? savedSession.photos : [];
-
-/*
-    Fallback:
-    If photos aren't inside sessionStorage,
-    get them from localStorage.
-*/
-
-if (photos.length === 0) {
-  try {
-    const storedPhotos = JSON.parse(
-      localStorage.getItem("memoryLanePhotos") || "[]",
-    );
-
-    photos = Array.isArray(storedPhotos) ? storedPhotos : [];
-  } catch (error) {
-    console.error("Unable to read captured photos:", error);
-    photos = [];
-  }
-}
+let photos = [];
 
 async function restoreStoredPhotos() {
-  if (!savedSession?.id || !window.MemoryLanePhotoStorage) {
+  if (!window.MemoryLanePhotoStorage) {
+    throw new Error("Photo storage is unavailable.");
+  }
+
+  if (!savedSession?.id) {
+    throw new Error("A session ID is required to restore photos.");
+  }
+
+  const storedPhotos = await window.MemoryLanePhotoStorage.read(
+    savedSession.id,
+  );
+
+  if (storedPhotos.length) {
+    photos = storedPhotos;
     return;
   }
 
-  try {
-    const storedPhotos = await window.MemoryLanePhotoStorage.read(
-      savedSession.id,
-    );
-
-    if (storedPhotos.length) {
-      photos = storedPhotos;
-    } else if (photos.length) {
-      await window.MemoryLanePhotoStorage.write(savedSession.id, photos);
-      localStorage.removeItem("memoryLanePhotos");
-    } else {
-      photos = await window.MemoryLanePhotoStorage.migrate(savedSession.id);
-    }
-  } catch (error) {
-    console.error("Unable to restore IndexedDB photos:", error);
-  }
+  photos = await window.MemoryLanePhotoStorage.migrate(savedSession.id);
 }
 
 /* ==========================================
@@ -2369,10 +2348,17 @@ document.addEventListener("keydown", (event) => {
 async function generateStrip() {
   console.log("Starting strip generation...");
 
-  await restoreStoredPhotos();
-
   if (!savedSession || !savedStrip) {
     window.location.replace("../fallback.html?reason=editor");
+
+    return;
+  }
+
+  try {
+    await restoreStoredPhotos();
+  } catch (error) {
+    console.error("Unable to restore IndexedDB photos:", error);
+    window.location.replace("../fallback.html?reason=photos");
 
     return;
   }
