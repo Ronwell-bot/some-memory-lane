@@ -466,6 +466,42 @@ const stripTemplates = {
     ],
   },
 
+  "layout1-design21": {
+    image: "../assets/strip design/14.png",
+    width: 450,
+    height: 1300,
+    slots: [
+      { photoIndex: 0, x: 38, y: 207, width: 375, height: 222 },
+      { photoIndex: 1, x: 38, y: 441, width: 375, height: 222 },
+      { photoIndex: 2, x: 38, y: 677, width: 375, height: 222 },
+      { photoIndex: 3, x: 38, y: 912, width: 375, height: 220 },
+    ],
+  },
+
+  "layout1-design22": {
+    image: "../assets/strip design/15.png",
+    width: 450,
+    height: 1300,
+    slots: [
+      { photoIndex: 0, x: 24, y: 17, width: 401, height: 282 },
+      { photoIndex: 1, x: 24, y: 314, width: 401, height: 284 },
+      { photoIndex: 2, x: 24, y: 613, width: 401, height: 284 },
+      { photoIndex: 3, x: 24, y: 912, width: 401, height: 284 },
+    ],
+  },
+
+  "layout1-design23": {
+    image: "../assets/strip design/16.png",
+    width: 450,
+    height: 1300,
+    slots: [
+      { photoIndex: 0, x: 24, y: 17, width: 401, height: 282 },
+      { photoIndex: 1, x: 24, y: 314, width: 401, height: 284 },
+      { photoIndex: 2, x: 24, y: 613, width: 401, height: 284 },
+      { photoIndex: 3, x: 24, y: 912, width: 401, height: 284 },
+    ],
+  },
+
   "layout2-design1": {
     image: "../assets/strip design/blue-pattern-8xs.jpeg",
 

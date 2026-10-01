@@ -104,3 +104,40 @@ body {
     transform-origin: top left;
   }
 }
+
+/* Keep full-viewport pages contained on desktop, while tablet and mobile
+   layouts can grow naturally and scroll vertically when needed. */
+@media (min-width: 1025px) {
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 1024px) {
+  html,
+  body {
+    height: auto;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto !important;
+  }
+
+  .start-page,
+  .camera-page,
+  .edit-page,
+  .featured-wall,
+  .privacy-page,
+  .about-page,
+  .page {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
+  .setup-step.active {
+    max-height: none;
+    overflow: visible;
+  }
+}

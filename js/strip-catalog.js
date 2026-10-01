@@ -15,8 +15,11 @@
         ["layout1-design2", "Classic Green", "green-pattern-4xs.jpeg"],
         ["layout1-design3", "Classic Red", "red-pattern-4xs.jpeg"],
         ["layout1-design4", "Classic Yellow", "yellow-pattern-4xs.jpeg"],
-        ["layout1-design6", "Cat", "cat-4xs.jpg"],
-        ["layout1-design7", "Cat Two", "cat2-4xs.jpg"],
+        ["layout1-design6", "Whiskers", "cat-4xs.jpg"],
+        ["layout1-design7", "Mittens", "cat2-4xs.jpg"],
+        ["layout1-design21", "Movie Ticket", "14.png"],
+        ["layout1-design22", "White Film", "15.png"],
+        ["layout1-design23", "Film Roll", "16.png"],
       ],
     },
     {
@@ -93,6 +96,9 @@
     "layout1-design2": [424, 1313],
     "layout1-design3": [430, 1313],
     "layout1-design4": [475, 1330],
+    "layout1-design21": [450, 1300],
+    "layout1-design22": [450, 1300],
+    "layout1-design23": [450, 1300],
   };
 
   entries.forEach((entry) => {
@@ -102,8 +108,14 @@
       [entry.width, entry.height] = dimensions;
     }
 
-    if (entry.id === "layout1-design6" || entry.id === "layout1-design7") {
-      entry.category = "Cat designs";
+    if (
+      entry.id === "layout1-design6" ||
+      entry.id === "layout1-design7" ||
+      entry.id === "layout1-design21" ||
+      entry.id === "layout1-design22" ||
+      entry.id === "layout1-design23"
+    ) {
+      entry.category = "Illustrated designs";
     }
   });
 
