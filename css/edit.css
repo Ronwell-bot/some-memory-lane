@@ -593,6 +593,43 @@ body {
   width: auto;
 }
 
+.timelapse-panel {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  width: min(100%, 520px);
+  justify-self: center;
+  padding: 18px;
+  border: 1px solid #d8d0c3;
+  border-radius: 16px;
+  background: rgba(255, 254, 250, 0.82);
+  text-align: center;
+}
+
+.timelapse-panel h2 {
+  margin: 0 0 6px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.1rem;
+}
+
+.timelapse-panel p:not(.section-label) {
+  color: #777;
+  font-size: 0.8rem;
+}
+
+.timelapse-panel video {
+  display: block;
+  width: min(100%, 420px);
+  max-height: 260px;
+  margin: 14px auto;
+  border-radius: 10px;
+  background: #292827;
+}
+
+.timelapse-actions {
+  display: flex;
+  justify-content: center;
+}
+
 /* ==========================================
    BUTTONS
 ========================================== */
@@ -629,6 +666,22 @@ body {
     box-shadow 0.25s ease;
 
   white-space: nowrap;
+}
+
+.primary-btn:focus-visible,
+.secondary-btn:focus-visible,
+.finish-dialog-close:focus-visible {
+  outline: 3px solid #b68a2c;
+  outline-offset: 3px;
+}
+
+.primary-btn:disabled,
+.secondary-btn:disabled {
+  color: #766d64;
+  background: #eee9e2;
+  border-color: #c9c0b5;
+  cursor: not-allowed;
+  opacity: 1;
 }
 
 /* ==========================================
@@ -778,6 +831,12 @@ body {
   .session-details,
   .result-actions {
     display: none !important;
+  }
+
+  .timelapse-panel {
+    order: 5;
+    grid-column: auto;
+    grid-row: auto;
   }
 
   .edit-page {
@@ -1424,5 +1483,197 @@ body {
     width: 100%;
     min-width: 0;
     padding-inline: 10px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE RESULT LAYOUT
+========================================== */
+
+@media (max-width: 1050px) and (min-width: 751px) {
+  .result-screen {
+    grid-template-columns: minmax(0, 1fr) minmax(170px, 0.9fr);
+    grid-template-rows: auto auto auto;
+    gap: 24px clamp(18px, 3vw, 42px);
+    padding-inline: clamp(20px, 4vw, 48px);
+  }
+
+  .result-header {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .strip-stage {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .result-note {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    max-width: 420px;
+  }
+
+  .result-actions {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: min(100%, 440px);
+  }
+
+  .primary-btn,
+  .secondary-btn {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 750px) {
+  html,
+  body {
+    height: auto;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .edit-page {
+    min-height: 100dvh;
+    width: 100%;
+  }
+
+  .result-screen.show {
+    width: 100%;
+    min-height: 100dvh;
+    height: auto;
+    padding: clamp(24px, 6vw, 40px) clamp(12px, 5vw, 24px)
+      clamp(28px, 8vw, 48px);
+    gap: clamp(16px, 4vw, 24px);
+  }
+
+  .result-header,
+  .result-note,
+  .result-actions {
+    width: min(100%, 520px);
+    min-width: 0;
+  }
+
+  .result-header h1 {
+    font-size: clamp(1.55rem, 7vw, 2.2rem);
+    overflow-wrap: anywhere;
+  }
+
+  .strip-stage {
+    max-width: 100%;
+  }
+
+  .final-strip,
+  .final-strip img {
+    width: auto !important;
+    height: min(68dvh, 620px) !important;
+    max-width: min(82vw, 280px);
+    max-height: none;
+  }
+
+  .result-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .primary-btn,
+  .secondary-btn {
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    height: auto;
+    padding-inline: clamp(8px, 3vw, 16px);
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 360px) {
+  .result-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Keep the result strip, status, and controls inside a laptop viewport. */
+@media (min-width: 1051px) and (max-height: 900px) {
+  .result-screen.show {
+    width: 100%;
+    height: 100dvh;
+    min-height: 0;
+    grid-template-columns: minmax(240px, 0.85fr) minmax(180px, 0.7fr) minmax(260px, 0.95fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 8px clamp(18px, 3vw, 44px);
+    padding: 12px clamp(24px, 4vw, 64px) 8px;
+  }
+
+  .result-header h1 {
+    font-size: clamp(1.65rem, 2.4vw, 2.35rem);
+  }
+
+  .result-header p:last-child {
+    font-size: 0.8rem;
+  }
+
+  .final-strip,
+  .final-strip img {
+    height: min(calc(100dvh - 150px), 580px) !important;
+    max-height: calc(100dvh - 150px);
+  }
+
+  .result-note {
+    grid-column: 3;
+    grid-row: 1;
+    align-self: start;
+    margin-top: 6px;
+  }
+
+  .timelapse-panel {
+    grid-column: 3;
+    grid-row: 1;
+    align-self: end;
+    max-height: min(230px, 32dvh);
+    overflow: hidden;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .timelapse-panel h2 {
+    font-size: 0.95rem;
+  }
+
+  .timelapse-panel p:not(.section-label) {
+    font-size: 0.72rem;
+  }
+
+  .timelapse-panel video {
+    width: min(100%, 300px);
+    max-height: 96px;
+    margin: 6px auto;
+  }
+
+  .timelapse-panel .secondary-btn {
+    min-height: 42px;
+    height: 42px;
+    padding: 8px 14px;
+  }
+
+  .result-actions {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    gap: 8px;
+  }
+
+  .primary-btn,
+  .secondary-btn {
+    min-width: 118px;
+    height: 44px;
+    min-height: 44px;
+    padding: 9px 14px;
   }
 }

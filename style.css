@@ -318,8 +318,6 @@ body {
 */
 
 .featured-strips:hover,
-.featured-strips:focus,
-.featured-strips:focus-visible,
 .featured-strips:active {
   background: transparent;
 
@@ -330,6 +328,13 @@ body {
   box-shadow: none;
 
   transform: none;
+}
+
+.enter-button:focus-visible,
+.featured-strips:focus-visible {
+  outline: 3px solid #e5b85c;
+  outline-offset: 4px;
+  background: rgba(229, 184, 92, 0.18);
 }
 
 /*
@@ -381,6 +386,12 @@ body {
   color: #000;
 
   text-decoration: underline;
+}
+
+.footer-link:focus-visible {
+  outline: 3px solid #e5b85c;
+  outline-offset: 3px;
+  border-radius: 3px;
 }
 
 /* ==========================================
@@ -593,7 +604,11 @@ body.dialog-open {
 .dialog-button:focus-visible {
   transform: translateY(-2px);
   box-shadow: 3px 3px 0 #2b2b2b;
-  outline: none;
+}
+
+.dialog-button:focus-visible {
+  outline: 3px solid #e5b85c;
+  outline-offset: 3px;
 }
 
 .dialog-button-secondary {

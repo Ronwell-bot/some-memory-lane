@@ -441,8 +441,28 @@ header {
 .continue-btn:focus-visible,
 .back-btn:focus-visible,
 .start-btn:focus-visible {
-  outline: 3px solid #8c7663;
+  outline: 3px solid #b68a2c;
   outline-offset: 3px;
+}
+
+.session-card,
+.layout-choice,
+.strip-option,
+.design-filter,
+.continue-btn,
+.back-btn,
+.scroll-arrow {
+  min-height: 44px;
+}
+
+.session-card:disabled,
+.layout-choice:disabled,
+.strip-option:disabled {
+  color: #766d64;
+  border-color: #c9c0b5;
+  background: #eee9e2;
+  cursor: not-allowed;
+  opacity: 1;
 }
 
 .session-icon {
@@ -592,7 +612,7 @@ header {
 
   scroll-behavior: smooth;
 
-  padding: 8px 8px 12px;
+  padding: 16px 8px 18px;
   overscroll-behavior-inline: contain;
   scroll-snap-type: x proximity;
 
@@ -623,7 +643,13 @@ header {
 
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
 
-  transition: 0.25s ease;
+  position: relative;
+  z-index: 0;
+  transition:
+    transform 0.3s ease,
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .strip-option[hidden] {
@@ -635,9 +661,17 @@ header {
 }
 
 .strip-option.selected {
+  z-index: 1;
   border-color: #2b2b2b;
 
   background: #faf8f5;
+
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.14);
+}
+
+.strip-option.selected:hover {
+  transform: translateY(-6px) scale(1.05);
 }
 
 .strip-preview {
@@ -1137,11 +1171,230 @@ header {
 
     padding: 10px;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .strip-option {
+    transition: none;
+  }
+
+  /*
+     Laptop-height layout
+     Keep the complete desktop selector visible without shrinking the page
+     with CSS zoom. The design scroller remains the only intentional scroller.
+  */
+  @media (min-width: 901px) and (max-height: 850px) {
+    .start-page {
+      padding: 6px 16px;
+    }
+
+    .setup-step.active {
+      padding: 4px 8px;
+      overflow: visible;
+    }
+
+    .step-heading {
+      margin-bottom: 6px;
+    }
+
+    .step-label {
+      width: 26px;
+      height: 26px;
+      margin-bottom: 2px;
+      font-size: 0.68rem;
+    }
+
+    .step-heading h1 {
+      font-size: 1.28rem;
+      margin-bottom: 2px;
+    }
+
+    .step-heading p {
+      font-size: 0.72rem;
+    }
+
+    .selection-window {
+      padding: 12px 18px;
+    }
+
+    .session-options {
+      gap: 12px;
+    }
+
+    .session-card {
+      min-height: 150px;
+    }
+
+    .choice-section + .choice-section {
+      margin-top: 8px;
+      padding-top: 8px;
+    }
+
+    .choice-section-heading {
+      margin-bottom: 4px;
+    }
+
+    .choice-section-heading h2 {
+      font-size: 0.92rem;
+    }
+
+    .design-filters {
+      margin-top: 6px;
+      gap: 5px;
+    }
+
+    .design-section {
+      padding-top: 8px;
+    }
+
+    .strip-scroller {
+      gap: 12px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    .strip-option {
+      flex-basis: clamp(150px, 15vw, 190px);
+      padding: 10px;
+    }
+
+    .strip-preview {
+      height: clamp(112px, 17vh, 155px);
+      margin-bottom: 6px;
+    }
+
+    .step-action {
+      margin-top: 8px;
+    }
+  }
+
+  .strip-option.selected,
+  .strip-option.selected:hover {
+    transform: none;
+  }
 
   .capture-circle {
     width: 68px;
 
     height: 68px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE CONTENT SAFETY
+========================================== */
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.start-page {
+  min-height: calc(100dvh - var(--page-header-height));
+}
+
+.setup-step,
+.setup-step.active {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .layout-options {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .design-section {
+    padding-inline: clamp(34px, 6vw, 45px);
+  }
+}
+
+@media (max-width: 600px) {
+  html,
+  body {
+    height: auto;
+    min-height: 100%;
+    overflow-y: auto;
+  }
+
+  .navbar {
+    min-height: 58px;
+    height: auto;
+    padding-block: 10px;
+  }
+
+  .start-page {
+    height: auto;
+    min-height: calc(100dvh - 58px);
+    align-items: stretch;
+    padding: clamp(12px, 4vw, 20px) clamp(10px, 4vw, 15px)
+      clamp(24px, 7vw, 40px);
+    overflow: visible;
+  }
+
+  .setup-step.active {
+    max-height: none;
+    overflow: visible;
+    padding: 0;
+  }
+
+  .selection-window,
+  .strip-window {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .layout-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .layout-choice {
+    min-width: 0;
+  }
+
+  .session-options {
+    grid-template-columns: 1fr;
+  }
+
+  .strip-scroller {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+  }
+
+  .strip-option {
+    flex: 0 0 clamp(136px, 42vw, 170px);
+  }
+
+  .step-action {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .continue-btn,
+  .back-btn {
+    min-height: 44px;
+    flex: 1 1 140px;
+  }
+}
+
+@media (max-width: 380px) {
+  .layout-options {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .layout-choice {
+    padding-inline: 5px;
+  }
+
+  .design-section {
+    padding-inline: 32px;
+  }
+
+  .strip-option {
+    flex-basis: 132px;
   }
 }
 
@@ -1313,13 +1566,18 @@ header {
 
   .strip-scroller {
     gap: 8px;
-    padding: 3px 4px 5px;
+    padding: 10px 4px 12px;
   }
 
   .strip-option {
     flex-basis: 112px;
     padding: 6px;
     border-radius: 10px;
+  }
+
+  .strip-option.selected,
+  .strip-option.selected:hover {
+    transform: translateY(-3px) scale(1.04);
   }
 
   .strip-preview {
@@ -1358,6 +1616,168 @@ header {
   .back-btn {
     padding: 7px 12px;
     font-size: 0.68rem;
+  }
+}
+
+/* Keep the complete strip picker and its navigation visible at 100% zoom. */
+@media (min-width: 901px) and (max-height: 900px) {
+  .start-page {
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  .setup-step.active {
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  .step-heading {
+    margin-bottom: 3px;
+  }
+
+  .step-label {
+    width: 24px;
+    height: 24px;
+    font-size: 0.64rem;
+  }
+
+  .step-heading h1 {
+    font-size: 1.15rem;
+    margin-bottom: 1px;
+  }
+
+  .step-heading p {
+    font-size: 0.68rem;
+  }
+
+  .strip-window {
+    padding: 8px 14px;
+  }
+
+  .choice-section + .choice-section {
+    margin-top: 5px;
+    padding-top: 5px;
+  }
+
+  .choice-section-heading {
+    margin-bottom: 2px;
+  }
+
+  .choice-section-heading h2 {
+    font-size: 0.84rem;
+    margin: 1px 0;
+  }
+
+  .choice-section-heading p,
+  .choice-kicker {
+    font-size: 0.64rem;
+  }
+
+  .layout-options {
+    gap: 6px;
+  }
+
+  .layout-choice {
+    min-height: 48px;
+    padding: 5px 6px;
+  }
+
+  .layout-choice strong {
+    font-size: 0.74rem;
+  }
+
+  .layout-choice small {
+    font-size: 0.6rem;
+    margin-top: 1px;
+  }
+
+  .design-filters {
+    gap: 5px;
+    margin-top: 4px;
+  }
+
+  .design-filter {
+    min-height: 38px;
+    padding: 5px 9px;
+    font-size: 0.64rem;
+  }
+
+  .design-section {
+    padding: 5px 42px 0;
+  }
+
+  .strip-scroller {
+    gap: 10px;
+    padding: 7px 5px 8px;
+  }
+
+  .strip-option,
+  .strip-option.selected,
+  .strip-option.selected:hover {
+    flex-basis: 155px;
+    padding: 8px;
+    border-radius: 14px;
+    transform: none;
+  }
+
+  .strip-option:hover {
+    transform: translateY(-2px);
+  }
+
+  .strip-option.selected {
+    transform: translateY(-2px) scale(1.015);
+  }
+
+  .strip-option.selected:hover {
+    transform: translateY(-3px) scale(1.015);
+  }
+
+  .strip-preview,
+  .strip-option.selected .strip-preview {
+    height: 168px;
+    margin-bottom: 4px;
+  }
+
+  .strip-option strong {
+    font-size: 0.72rem;
+  }
+
+  .capture-section {
+    margin-top: 3px;
+  }
+
+  .capture-section h2 {
+    font-size: 0.88rem;
+    margin-bottom: 2px;
+  }
+
+  .capture-section p {
+    font-size: 0.66rem;
+    margin-bottom: 3px;
+  }
+
+  .capture-circle {
+    width: 52px;
+    height: 52px;
+  }
+
+  .capture-circle strong {
+    font-size: 0.95rem;
+  }
+
+  .capture-circle span {
+    font-size: 0.55rem;
+  }
+
+  .step-action {
+    margin-top: 4px;
+  }
+
+  .continue-btn,
+  .back-btn {
+    min-height: 44px;
+    padding: 8px 20px;
+    font-size: 0.76rem;
   }
 }
 
@@ -1535,47 +1955,6 @@ body {
 }
 
 /* ==========================================
-   DESKTOP 100% VIEWPORT FIT — FINAL OVERRIDE
-
-   The page content is taller than the available viewport at normal
-   browser zoom. CSS zoom reproduces the user's working 80% browser
-   zoom without requiring the visitor to change browser settings.
-========================================== */
-
-@media (min-width: 901px) {
-  .setup-step.active {
-    zoom: 0.9;
-    width: 111.111%;
-    max-width: 1422px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .start-page {
-    padding-top: 4px;
-    padding-bottom: 4px;
-  }
-}
-
-@media (min-width: 901px) and (max-height: 760px) {
-  .setup-step.active {
-    zoom: 0.82;
-    width: 121.951%;
-    max-width: 1560px;
-  }
-}
-
-/* Do not apply desktop zoom to phones/tablets. */
-@media (max-width: 900px) {
-  .setup-step.active {
-    zoom: 1;
-    width: 100%;
-    margin-left: 0;
-    margin-right: 0;
-  }
-}
-
-/* ==========================================
    SCRAPBOOK THEME
 ========================================== */
 
@@ -1608,6 +1987,23 @@ body {
     ),
     var(--paper);
   color: var(--ink);
+}
+
+/* ==========================================
+   ACCESSIBILITY FINAL OVERRIDES
+========================================== */
+
+.layout-choice,
+.strip-option,
+.design-filter,
+.scroll-arrow,
+.continue-btn,
+.back-btn {
+  min-height: 44px;
+}
+
+.design-filter {
+  min-width: 44px;
 }
 
 body::before {
@@ -1700,4 +2096,233 @@ header {
   border: 1.5px solid var(--ink);
   background: var(--paper-light);
   box-shadow: 2px 3px 0 rgba(41, 40, 39, 0.08);
+}
+
+/* ==========================================
+   ENLARGED SELECTED STRIP PREVIEW
+========================================== */
+
+.strip-scroller {
+  overflow-y: visible;
+}
+
+.strip-option.selected {
+  flex-basis: clamp(230px, 24vw, 300px);
+  transform: translateY(-4px);
+}
+
+.strip-option.selected:hover {
+  transform: translateY(-6px);
+}
+
+.strip-option.selected .strip-preview {
+  height: clamp(230px, 32vw, 330px);
+}
+
+.strip-option.selected .strip-preview img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+@media (max-width: 900px) {
+  .strip-option.selected {
+    flex-basis: clamp(210px, 42vw, 270px);
+  }
+
+  .strip-option.selected .strip-preview {
+    height: clamp(220px, 48vw, 300px);
+  }
+}
+
+@media (max-width: 600px) {
+  .strip-option.selected,
+  .strip-option.selected:hover {
+    flex-basis: clamp(200px, 62vw, 250px);
+    transform: translateY(-3px);
+  }
+
+  .strip-option.selected .strip-preview {
+    height: clamp(210px, 58vw, 270px);
+  }
+}
+
+@media (max-width: 380px) {
+  .strip-option.selected,
+  .strip-option.selected:hover {
+    flex-basis: min(220px, 68vw);
+  }
+
+  .strip-option.selected .strip-preview {
+    height: clamp(190px, 62vw, 240px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .strip-option.selected,
+  .strip-option.selected:hover {
+    transform: none;
+  }
+}
+
+/* Final laptop override: the selected preview must not push navigation below
+   the viewport at normal browser zoom. */
+@media (min-width: 901px) and (max-height: 900px) {
+  .start-page {
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  .setup-step.active {
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  .step-heading {
+    margin-bottom: 3px;
+  }
+
+  .step-label {
+    width: 24px;
+    height: 24px;
+    font-size: 0.64rem;
+  }
+
+  .step-heading h1 {
+    font-size: 1.15rem;
+    margin-bottom: 1px;
+  }
+
+  .step-heading p {
+    font-size: 0.68rem;
+  }
+
+  .strip-window {
+    padding: 8px 14px;
+  }
+
+  .choice-section + .choice-section {
+    margin-top: 5px;
+    padding-top: 5px;
+  }
+
+  .choice-section-heading {
+    margin-bottom: 2px;
+  }
+
+  .choice-section-heading h2 {
+    font-size: 0.84rem;
+    margin: 1px 0;
+  }
+
+  .choice-section-heading p,
+  .choice-kicker {
+    font-size: 0.64rem;
+  }
+
+  .layout-options {
+    gap: 6px;
+  }
+
+  .layout-choice {
+    min-height: 48px;
+    padding: 5px 6px;
+  }
+
+  .layout-choice strong {
+    font-size: 0.74rem;
+  }
+
+  .layout-choice small {
+    font-size: 0.6rem;
+    margin-top: 1px;
+  }
+
+  .design-filters {
+    gap: 5px;
+    margin-top: 4px;
+  }
+
+  .design-filter {
+    min-height: 38px;
+    padding: 5px 9px;
+    font-size: 0.64rem;
+  }
+
+  .design-section {
+    padding: 5px 42px 0;
+  }
+
+  .strip-scroller {
+    gap: 10px;
+    padding: 7px 5px 8px;
+  }
+
+  .strip-option,
+  .strip-option.selected,
+  .strip-option.selected:hover {
+    flex-basis: 155px;
+    padding: 8px;
+    border-radius: 14px;
+    transform: none;
+  }
+
+  .strip-option:hover {
+    transform: translateY(-2px);
+  }
+
+  .strip-option.selected {
+    transform: translateY(-2px) scale(1.015);
+  }
+
+  .strip-option.selected:hover {
+    transform: translateY(-3px) scale(1.015);
+  }
+
+  .strip-preview,
+  .strip-option.selected .strip-preview {
+    height: 168px;
+    margin-bottom: 4px;
+  }
+
+  .strip-option strong {
+    font-size: 0.72rem;
+  }
+
+  .capture-section {
+    margin-top: 3px;
+  }
+
+  .capture-section h2 {
+    font-size: 0.88rem;
+    margin-bottom: 2px;
+  }
+
+  .capture-section p {
+    font-size: 0.66rem;
+    margin-bottom: 3px;
+  }
+
+  .capture-circle {
+    width: 52px;
+    height: 52px;
+  }
+
+  .capture-circle strong {
+    font-size: 0.95rem;
+  }
+
+  .capture-circle span {
+    font-size: 0.55rem;
+  }
+
+  .step-action {
+    margin-top: 4px;
+  }
+
+  .continue-btn,
+  .back-btn {
+    min-height: 44px;
+    padding: 8px 20px;
+    font-size: 0.76rem;
+  }
 }

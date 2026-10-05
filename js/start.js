@@ -159,6 +159,7 @@ function renderCatalogOptions() {
     option.dataset.strip = entry.id;
     option.dataset.captures = String(entry.captureCount);
     option.dataset.category = entry.category;
+    option.setAttribute("aria-pressed", "false");
     option.setAttribute(
       "aria-label",
       `${entry.name}, ${entry.captureCount} photos`,
@@ -233,10 +234,14 @@ function filterDesigns(selectedLayout, category = selectedDesignCategory) {
       (!category || option.dataset.category === category),
   );
 
-  stripOptions.forEach((option) => option.classList.remove("selected"));
+  stripOptions.forEach((option) => {
+    option.classList.remove("selected");
+    option.setAttribute("aria-pressed", "false");
+  });
 
   if (selectedOption) {
     selectedOption.classList.add("selected");
+    selectedOption.setAttribute("aria-pressed", "true");
     layoutChoice = selectedOption.dataset.layout || selectedLayout;
     designChoice = selectedOption.dataset.design || "Blue";
     stripChoice = selectedOption.dataset.strip || "layout1-design1";
@@ -272,6 +277,7 @@ stripOptions.forEach((option) => {
 
     stripOptions.forEach((item) => {
       item.classList.remove("selected");
+      item.setAttribute("aria-pressed", "false");
     });
 
     /*
@@ -279,6 +285,7 @@ stripOptions.forEach((option) => {
             */
 
     option.classList.add("selected");
+    option.setAttribute("aria-pressed", "true");
 
     /*
                 Save layout.

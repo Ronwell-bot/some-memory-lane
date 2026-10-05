@@ -150,6 +150,18 @@
             Home
           </a>
         </div>
+
+        <section class="timelapse-panel" id="timelapsePanel" hidden aria-labelledby="timelapseTitle">
+          <p class="section-label">CAMERA MEMORY</p>
+          <h2 id="timelapseTitle">Your session timelapse</h2>
+          <p id="timelapseStatus">Preparing a quiet 30-second replay...</p>
+          <video id="timelapseVideo" controls playsinline muted hidden></video>
+          <div class="timelapse-actions">
+            <button type="button" class="secondary-btn" id="downloadTimelapseButton" hidden>
+              Download Timelapse
+            </button>
+          </div>
+        </section>
       </section>
     </main>
 

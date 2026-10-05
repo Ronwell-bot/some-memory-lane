@@ -2,7 +2,8 @@
 (function createPhotoStorage(global) {
   const databaseName = "some-memory-lane";
   const storeName = "photo-sessions";
-  const version = 1;
+  const mediaStoreName = "session-media";
+  const version = 2;
 
   function openDatabase() {
     return new Promise((resolve, reject) => {
@@ -16,6 +17,9 @@
       request.onupgradeneeded = () => {
         if (!request.result.objectStoreNames.contains(storeName)) {
           request.result.createObjectStore(storeName);
+        }
+        if (!request.result.objectStoreNames.contains(mediaStoreName)) {
+          request.result.createObjectStore(mediaStoreName);
         }
       };
       request.onsuccess = () => resolve(request.result);
@@ -90,10 +94,46 @@
     return legacy;
   }
 
+  async function writeMedia(sessionId, media) {
+    if (!sessionId) throw new Error("A session ID is required to save media.");
+    const database = await openDatabase();
+    return new Promise((resolve, reject) => {
+      const request = database.transaction(mediaStoreName, "readwrite")
+        .objectStore(mediaStoreName).put(media, sessionId);
+      request.onsuccess = () => resolve(true);
+      request.onerror = () => reject(request.error || new Error("Could not save session media."));
+    });
+  }
+
+  async function readMedia(sessionId) {
+    if (!sessionId) return null;
+    const database = await openDatabase();
+    return new Promise((resolve, reject) => {
+      const request = database.transaction(mediaStoreName, "readonly")
+        .objectStore(mediaStoreName).get(sessionId);
+      request.onsuccess = () => resolve(request.result || null);
+      request.onerror = () => reject(request.error || new Error("Could not read session media."));
+    });
+  }
+
+  async function removeMedia(sessionId) {
+    if (!sessionId) return;
+    const database = await openDatabase();
+    return new Promise((resolve, reject) => {
+      const request = database.transaction(mediaStoreName, "readwrite")
+        .objectStore(mediaStoreName).delete(sessionId);
+      request.onsuccess = () => resolve(true);
+      request.onerror = () => reject(request.error || new Error("Could not clear session media."));
+    });
+  }
+
   global.MemoryLanePhotoStorage = Object.freeze({
     read,
     write,
     remove,
     migrate,
+    writeMedia,
+    readMedia,
+    removeMedia,
   });
 })(window);

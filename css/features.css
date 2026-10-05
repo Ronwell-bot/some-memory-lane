@@ -147,6 +147,27 @@ a {
 ========================================== */
 
 .shuffle-btn {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 10px 14px;
+}
+
+.shuffle-btn:focus-visible,
+.home-btn:focus-visible {
+  outline: 3px solid #c49a3a;
+  outline-offset: 3px;
+}
+
+.home-btn {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.strip-label {
+  color: #514941;
+}
   display: inline-flex;
 
   align-items: center;
@@ -406,6 +427,20 @@ a {
 
   cursor: grab;
 
+  cursor: pointer;
+}
+
+.strip:focus-visible {
+  outline: 3px solid #c49a3a;
+  outline-offset: 5px;
+}
+
+.strip.is-selected {
+  outline: 2px solid #c49a3a;
+  outline-offset: 4px;
+}
+
+.strip img {
   user-select: none;
 
   touch-action: none;
@@ -649,6 +684,24 @@ a {
   pointer-events: none;
 
   opacity: 0.8;
+}
+
+@media (max-width: 600px) {
+  .shuffle-btn,
+  .home-btn {
+    min-width: 44px;
+    min-height: 44px;
+    width: auto;
+    height: auto;
+  }
+
+  .shuffle-btn {
+    padding: 10px 12px;
+  }
+
+  .home-btn {
+    padding: 10px 12px;
+  }
 }
 
 .wall-message-dot {
@@ -1044,4 +1097,14 @@ body {
 
 .wall-message-dot {
   background: var(--coral);
+}
+
+@media (max-width: 600px) {
+  .shuffle-btn,
+  .home-btn {
+    min-width: 44px;
+    min-height: 44px;
+    width: auto;
+    height: auto;
+  }
 }

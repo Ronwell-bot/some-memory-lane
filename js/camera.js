@@ -54,6 +54,16 @@ const captureReview = document.getElementById("captureReview");
 
 const captureThumbnails = document.getElementById("captureThumbnails");
 
+const uploadInsteadButton = document.getElementById("uploadInstead");
+const uploadPanel = document.getElementById("uploadPanel");
+const photoUpload = document.getElementById("photoUpload");
+const choosePhotosButton = document.getElementById("choosePhotos");
+const createUploadedStripButton = document.getElementById(
+  "createUploadedStrip",
+);
+const uploadThumbnails = document.getElementById("uploadThumbnails");
+const uploadStatus = document.getElementById("uploadStatus");
+
 /* ==========================================
    LOAD SESSION
 ========================================== */
@@ -176,6 +186,12 @@ let storageReady = false;
 
 let cameraBusy = false;
 
+let workflowMode = "camera";
+let uploadedPhotos = [];
+let sessionRecorder = null;
+let recordingChunks = [];
+let recordingSupported = false;
+
 /*
     Prevent multiple countdowns
     from running simultaneously.
@@ -241,6 +257,8 @@ function sessionMetadata() {
   const metadata = {
     ...savedSession,
     photoCount: captureMode,
+    workflowMode,
+    photoSource: workflowMode === "upload" ? "uploaded" : "captured",
   };
 
   delete metadata.photos;
@@ -372,9 +390,332 @@ function updatePhotoCounter() {
   }
 }
 
+function readUploadedFile(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result));
+    reader.onerror = () => reject(new Error(`Could not read ${file.name}.`));
+    reader.readAsDataURL(file);
+  });
+}
+
+function validImageFile(file) {
+  return ["image/jpeg", "image/png", "image/webp"].includes(file.type) ||
+    /\.(jpe?g|png|webp)$/i.test(file.name);
+}
+
+function renderUploadThumbnails() {
+  if (!uploadThumbnails) return;
+  uploadThumbnails.replaceChildren();
+  uploadedPhotos.forEach((photo, index) => {
+    const item = document.createElement("div");
+    const image = document.createElement("img");
+    const replace = document.createElement("button");
+    const remove = document.createElement("button");
+    item.className = "upload-thumb";
+    image.src = photo;
+    image.alt = `Uploaded photo ${index + 1}`;
+    replace.type = "button";
+    replace.textContent = "Replace";
+    remove.type = "button";
+    remove.textContent = "Remove";
+    remove.addEventListener("click", () => {
+      uploadedPhotos.splice(index, 1);
+      renderUploadThumbnails();
+    });
+    replace.addEventListener("click", () => chooseReplacement(index));
+    item.append(image, replace, remove);
+    uploadThumbnails.append(item);
+  });
+  if (uploadStatus) {
+    uploadStatus.textContent = `${uploadedPhotos.length} of ${captureMode} photos selected.`;
+  }
+  if (createUploadedStripButton) {
+    createUploadedStripButton.disabled = uploadedPhotos.length !== captureMode;
+  }
+}
+
+async function handlePhotoUpload(event, replaceIndex = null) {
+  const files = Array.from(event.target.files || []);
+  event.target.value = "";
+  if (!files.length) return;
+  const invalidFile = files.find((file) => !validImageFile(file));
+  if (invalidFile) {
+    if (uploadStatus) {
+      uploadStatus.textContent = `${invalidFile.name} is not a supported image. Use JPG, PNG, or WebP.`;
+    }
+    return;
+  }
+  const available = replaceIndex === null ? captureMode - uploadedPhotos.length : 1;
+  if (files.length > available) {
+    if (uploadStatus) uploadStatus.textContent = `This strip needs exactly ${captureMode} photos.`;
+    return;
+  }
+  try {
+    const images = await Promise.all(files.map(readUploadedFile));
+    if (replaceIndex === null) uploadedPhotos.push(...images);
+    else uploadedPhotos[replaceIndex] = images[0];
+    renderUploadThumbnails();
+  } catch (error) {
+    console.error("Unable to load uploaded photos:", error);
+    if (uploadStatus) uploadStatus.textContent = error.message;
+  }
+}
+
+function chooseReplacement(index) {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = ".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp";
+  input.addEventListener("change", (event) => handlePhotoUpload(event, index));
+  input.click();
+}
+
+async function createUploadedSession() {
+  if (uploadedPhotos.length !== captureMode || !savedSession?.id) return;
+  sessionFinished = true;
+  stopCamera();
+  try {
+    await window.MemoryLanePhotoStorage.write(savedSession.id, uploadedPhotos);
+    sessionStorage.setItem("memoryLaneSession", JSON.stringify({
+      ...savedSession,
+      workflowMode: "upload",
+      photoSource: "uploaded",
+      captures: captureMode,
+      photoCount: captureMode,
+    }));
+    window.location.href = "../pages/edit.html";
+  } catch (error) {
+    console.error("Unable to save uploaded photos:", error);
+    if (uploadStatus) uploadStatus.textContent = "Photos could not be saved. Please try again.";
+  }
+}
+
+function openUploadMode() {
+  workflowMode = "upload";
+  stopCamera();
+  if (uploadPanel) uploadPanel.hidden = false;
+  if (uploadInsteadButton) uploadInsteadButton.disabled = true;
+  if (startButton) startButton.disabled = true;
+}
+
+function startSessionRecording() {
+  if (workflowMode !== "camera" || !stream || !window.MediaRecorder || sessionRecorder) return;
+  const mimeType = ["video/webm;codecs=vp8", "video/webm"].find((type) =>
+    MediaRecorder.isTypeSupported(type),
+  );
+  if (!mimeType) return;
+  recordingChunks = [];
+  recordingSupported = true;
+  sessionRecorder = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 600000 });
+  sessionRecorder.ondataavailable = (event) => {
+    if (event.data.size) recordingChunks.push(event.data);
+  };
+  sessionRecorder.start(500);
+}
+
+function stopSessionRecording() {
+  return new Promise((resolve) => {
+    if (!sessionRecorder || sessionRecorder.state === "inactive") {
+      resolve(null);
+      return;
+    }
+    const recorder = sessionRecorder;
+    recorder.onstop = () => {
+      sessionRecorder = null;
+      const blob = new Blob(recordingChunks, { type: recorder.mimeType });
+      recordingChunks = [];
+      resolve(blob.size ? blob : null);
+    };
+    recorder.stop();
+  });
+}
+
 function renderCaptureReview() {
   if (!captureReview || !captureThumbnails) {
     return;
+  }
+
+  function readUploadedFile(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(String(reader.result));
+      reader.onerror = () => reject(new Error(`Could not read ${file.name}.`));
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function validImageFile(file) {
+    return (
+      ["image/jpeg", "image/png", "image/webp"].includes(file.type) ||
+      /\.(jpe?g|png|webp)$/i.test(file.name)
+    );
+  }
+
+  function renderUploadThumbnails() {
+    if (!uploadThumbnails) {
+      return;
+    }
+
+    uploadThumbnails.replaceChildren();
+    uploadedPhotos.forEach((photo, index) => {
+      const item = document.createElement("div");
+      const image = document.createElement("img");
+      const replace = document.createElement("button");
+
+      item.className = "upload-thumb";
+      image.src = photo;
+      image.alt = `Uploaded photo ${index + 1}`;
+      replace.type = "button";
+      replace.textContent = "Replace";
+      replace.addEventListener("click", () => chooseReplacement(index));
+      item.append(image, replace);
+      uploadThumbnails.appendChild(item);
+    });
+
+    if (uploadStatus) {
+      uploadStatus.textContent = `${uploadedPhotos.length} of ${captureMode} photos selected.`;
+    }
+    if (createUploadedStripButton) {
+      createUploadedStripButton.disabled = uploadedPhotos.length !== captureMode;
+    }
+  }
+
+  async function handlePhotoUpload(event, replaceIndex = null) {
+    const files = Array.from(event.target.files || []);
+    event.target.value = "";
+
+    if (!files.length) {
+      return;
+    }
+
+    const invalidFile = files.find((file) => !validImageFile(file));
+    if (invalidFile) {
+      if (uploadStatus) {
+        uploadStatus.textContent = `${invalidFile.name} is not a supported image. Use JPG, PNG, or WebP.`;
+      }
+      return;
+    }
+
+    const available = replaceIndex === null
+      ? captureMode - uploadedPhotos.length
+      : 1;
+    if (files.length > available) {
+      if (uploadStatus) {
+        uploadStatus.textContent = `This strip needs exactly ${captureMode} photos.`;
+      }
+      return;
+    }
+
+    try {
+      const images = await Promise.all(files.map(readUploadedFile));
+      if (replaceIndex === null) {
+        uploadedPhotos.push(...images);
+      } else {
+        uploadedPhotos[replaceIndex] = images[0];
+      }
+      renderUploadThumbnails();
+    } catch (error) {
+      console.error("Unable to load uploaded photos:", error);
+      if (uploadStatus) {
+        uploadStatus.textContent = error.message;
+      }
+    }
+  }
+
+  function chooseReplacement(index) {
+    const replacementInput = document.createElement("input");
+    replacementInput.type = "file";
+    replacementInput.accept = ".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp";
+    replacementInput.addEventListener("change", (event) =>
+      handlePhotoUpload(event, index),
+    );
+    replacementInput.click();
+  }
+
+  async function createUploadedSession() {
+    if (uploadedPhotos.length !== captureMode || !savedSession?.id) {
+      return;
+    }
+
+    stopCamera();
+    sessionFinished = true;
+    const uploadSession = {
+      ...savedSession,
+      workflowMode: "upload",
+      photoSource: "uploaded",
+      captures: captureMode,
+      photoCount: captureMode,
+    };
+
+    try {
+      await window.MemoryLanePhotoStorage.write(savedSession.id, uploadedPhotos);
+      sessionStorage.setItem("memoryLaneSession", JSON.stringify(uploadSession));
+      window.location.href = "../pages/edit.html";
+    } catch (error) {
+      console.error("Unable to save uploaded photos:", error);
+      if (uploadStatus) {
+        uploadStatus.textContent = "Photos could not be saved. Please try again.";
+      }
+    }
+  }
+
+  function openUploadMode() {
+    workflowMode = "upload";
+    stopCamera();
+    if (uploadPanel) {
+      uploadPanel.hidden = false;
+    }
+    if (uploadInsteadButton) {
+      uploadInsteadButton.disabled = true;
+    }
+    if (startButton) {
+      startButton.disabled = true;
+    }
+  }
+
+  function startSessionRecording() {
+    if (workflowMode !== "camera" || !stream || !window.MediaRecorder) {
+      return;
+    }
+
+    if (sessionRecorder) {
+      return;
+    }
+
+    const mimeType = ["video/webm;codecs=vp8", "video/webm"].find((type) =>
+      MediaRecorder.isTypeSupported(type),
+    );
+    if (!mimeType) {
+      return;
+    }
+
+    recordingChunks = [];
+    recordingSupported = true;
+    sessionRecorder = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 600000 });
+    sessionRecorder.ondataavailable = (event) => {
+      if (event.data.size) {
+        recordingChunks.push(event.data);
+      }
+    };
+    sessionRecorder.start(500);
+  }
+
+  function stopSessionRecording() {
+    return new Promise((resolve) => {
+      if (!sessionRecorder || sessionRecorder.state === "inactive") {
+        resolve(null);
+        return;
+      }
+
+      const recorder = sessionRecorder;
+      recorder.onstop = async () => {
+        sessionRecorder = null;
+        const blob = new Blob(recordingChunks, { type: recorder.mimeType });
+        recordingChunks = [];
+        resolve(blob.size ? blob : null);
+      };
+      recorder.stop();
+    });
   }
 
   captureThumbnails.replaceChildren();
@@ -946,6 +1287,8 @@ async function finishSession() {
 
   setCameraStatus("Session Complete", true);
 
+  const sessionVideo = await stopSessionRecording();
+
   /* ======================================
        STOP WEBCAM
     ====================================== */
@@ -965,6 +1308,17 @@ async function finishSession() {
     window.location.href = "../fallback.html?reason=photos";
 
     return;
+  }
+
+  if (sessionVideo && recordingSupported) {
+    try {
+      await window.MemoryLanePhotoStorage.writeMedia(savedSession.id, {
+        type: sessionVideo.type,
+        blob: sessionVideo,
+      });
+    } catch (error) {
+      console.warn("Timelapse source could not be saved:", error);
+    }
   }
 
   try {
@@ -1056,10 +1410,17 @@ if (startButton) {
         return;
       }
 
+      startSessionRecording();
+
       startCountdown();
     },
   );
 }
+
+uploadInsteadButton?.addEventListener("click", openUploadMode);
+choosePhotosButton?.addEventListener("click", () => photoUpload?.click());
+photoUpload?.addEventListener("change", handlePhotoUpload);
+createUploadedStripButton?.addEventListener("click", createUploadedSession);
 
 /* ==========================================
    REQUEST CAMERA

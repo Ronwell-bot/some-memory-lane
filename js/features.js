@@ -37,10 +37,22 @@ let lastTouchTapAt = 0;
 function setupStrips() {
   strips.forEach((strip, index) => {
     strip.style.zIndex = 5 + index;
+    strip.tabIndex = 0;
+    strip.setAttribute("role", "button");
+    strip.setAttribute(
+      "aria-label",
+      `Featured memory ${index + 1}, ${strip.querySelector(".strip-label")?.textContent.trim() || "undated"}`,
+    );
 
     strip.addEventListener("pointerdown", startDragging);
 
     strip.addEventListener("click", selectStrip);
+    strip.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        selectStrip(event);
+      }
+    });
   });
 }
 

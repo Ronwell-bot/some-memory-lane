@@ -39,6 +39,15 @@ const featuredWallButton = document.getElementById("featuredWallButton");
 const downloadAndFinishButton = document.getElementById(
   "downloadAndFinishButton",
 );
+const timelapsePanel = document.getElementById("timelapsePanel");
+const timelapseStatus = document.getElementById("timelapseStatus");
+const timelapseVideo = document.getElementById("timelapseVideo");
+const downloadTimelapseButton = document.getElementById(
+  "downloadTimelapseButton",
+);
+
+let finishDialogReturnFocus = null;
+let timelapseUrl = "";
 
 /* ==========================================
    LOAD SESSION
@@ -54,6 +63,193 @@ function readSession() {
 
     return null;
   }
+
+  async function createTimelapse(sourceBlob) {
+    if (!sourceBlob || !window.MediaRecorder || !HTMLCanvasElement.prototype.captureStream) {
+      throw new Error("Timelapse video is not supported in this browser.");
+    }
+
+    const sourceUrl = URL.createObjectURL(sourceBlob);
+    const sourceVideo = document.createElement("video");
+    sourceVideo.src = sourceUrl;
+    sourceVideo.muted = true;
+    sourceVideo.loop = true;
+    sourceVideo.playsInline = true;
+    await new Promise((resolve, reject) => {
+      sourceVideo.onloadedmetadata = resolve;
+      sourceVideo.onerror = () => reject(new Error("Could not load the recorded session."));
+    });
+
+    const width = Math.min(sourceVideo.videoWidth || 640, 640);
+    const height = Math.max(
+      1,
+      Math.round(width * ((sourceVideo.videoHeight || 360) / (sourceVideo.videoWidth || 640))),
+    );
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const context = canvas.getContext("2d");
+    const stream = canvas.captureStream(24);
+    const mimeType = ["video/webm;codecs=vp8", "video/webm"].find((type) =>
+      MediaRecorder.isTypeSupported(type),
+    );
+    if (!context || !mimeType) {
+      URL.revokeObjectURL(sourceUrl);
+      throw new Error("Timelapse encoding is not supported in this browser.");
+    }
+
+    const chunks = [];
+    const recorder = new MediaRecorder(stream, {
+      mimeType,
+      videoBitsPerSecond: 600000,
+    });
+    recorder.ondataavailable = (event) => {
+      if (event.data.size) {
+        chunks.push(event.data);
+      }
+    };
+    await sourceVideo.play();
+    recorder.start(500);
+    const startedAt = performance.now();
+
+    await new Promise((resolve) => {
+      function drawFrame(now) {
+        context.fillStyle = "#f7f1e7";
+        context.fillRect(0, 0, width, height);
+        context.drawImage(sourceVideo, 0, 0, width, height);
+        if (now - startedAt < 30000) {
+          requestAnimationFrame(drawFrame);
+        } else {
+          resolve();
+        }
+      }
+      requestAnimationFrame(drawFrame);
+    });
+
+    await new Promise((resolve) => {
+      recorder.onstop = resolve;
+      recorder.stop();
+    });
+    sourceVideo.pause();
+    URL.revokeObjectURL(sourceUrl);
+    return new Blob(chunks, { type: mimeType });
+  }
+
+  async function prepareTimelapse() {
+    if (savedSession?.workflowMode !== "camera" || !timelapsePanel) {
+      return;
+    }
+
+    timelapsePanel.hidden = false;
+    try {
+      const media = await window.MemoryLanePhotoStorage.readMedia(savedSession.id);
+      const blob = await createTimelapse(media?.blob);
+      timelapseUrl = URL.createObjectURL(blob);
+      timelapseVideo.src = timelapseUrl;
+      timelapseVideo.hidden = false;
+      downloadTimelapseButton.hidden = false;
+      timelapseStatus.textContent = "Your 30-second timelapse is ready.";
+    } catch (error) {
+      console.warn("Timelapse unavailable:", error);
+      timelapseStatus.textContent =
+        "The photo strip is ready. Timelapse video is unavailable in this browser.";
+    }
+  }
+
+  function downloadTimelapse() {
+    if (!timelapseUrl) {
+      return;
+    }
+    const link = document.createElement("a");
+    link.href = timelapseUrl;
+    link.download = "some-memory-lane-timelapse.webm";
+    link.click();
+  }
+}
+
+async function createTimelapse(sourceBlob) {
+  if (!sourceBlob || !window.MediaRecorder || !HTMLCanvasElement.prototype.captureStream) {
+    throw new Error("Timelapse video is not supported in this browser.");
+  }
+  const sourceUrl = URL.createObjectURL(sourceBlob);
+  const sourceVideo = document.createElement("video");
+  sourceVideo.src = sourceUrl;
+  sourceVideo.muted = true;
+  sourceVideo.loop = true;
+  sourceVideo.playsInline = true;
+  await new Promise((resolve, reject) => {
+    sourceVideo.onloadedmetadata = resolve;
+    sourceVideo.onerror = () => reject(new Error("Could not load the recorded session."));
+  });
+  const width = Math.min(sourceVideo.videoWidth || 640, 640);
+  const height = Math.max(1, Math.round(width * ((sourceVideo.videoHeight || 360) /
+    (sourceVideo.videoWidth || 640))));
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const context = canvas.getContext("2d");
+  const stream = canvas.captureStream(24);
+  const mimeType = ["video/webm;codecs=vp8", "video/webm"].find((type) =>
+    MediaRecorder.isTypeSupported(type));
+  if (!context || !mimeType) {
+    URL.revokeObjectURL(sourceUrl);
+    throw new Error("Timelapse encoding is not supported in this browser.");
+  }
+  const chunks = [];
+  const recorder = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 600000 });
+  recorder.ondataavailable = (event) => {
+    if (event.data.size) chunks.push(event.data);
+  };
+  await sourceVideo.play();
+  recorder.start(500);
+  await new Promise((resolve) => {
+    const startedAt = performance.now();
+    function drawFrame(now) {
+      context.fillStyle = "#f7f1e7";
+      context.fillRect(0, 0, width, height);
+      context.drawImage(sourceVideo, 0, 0, width, height);
+      if (now - startedAt < 30000) requestAnimationFrame(drawFrame);
+      else resolve();
+    }
+    requestAnimationFrame(drawFrame);
+  });
+  await new Promise((resolve) => {
+    recorder.onstop = resolve;
+    recorder.stop();
+  });
+  sourceVideo.pause();
+  URL.revokeObjectURL(sourceUrl);
+  return new Blob(chunks, { type: mimeType });
+}
+
+async function prepareTimelapse() {
+  if (!savedSession?.id || !timelapsePanel) return;
+  timelapsePanel.hidden = false;
+  try {
+    const media = await window.MemoryLanePhotoStorage.readMedia(savedSession.id);
+    if (!media?.blob) {
+      timelapsePanel.hidden = true;
+      return;
+    }
+    const blob = await createTimelapse(media?.blob);
+    timelapseUrl = URL.createObjectURL(blob);
+    timelapseVideo.src = timelapseUrl;
+    timelapseVideo.hidden = false;
+    downloadTimelapseButton.hidden = false;
+    timelapseStatus.textContent = "Your 30-second timelapse is ready.";
+  } catch (error) {
+    console.warn("Timelapse unavailable:", error);
+    timelapseStatus.textContent =
+      "The photo strip is ready. Timelapse video is unavailable in this browser.";
+  }
+}
+
+function downloadTimelapse() {
+  if (!timelapseUrl) return;
+  const link = document.createElement("a");
+  link.href = timelapseUrl;
+  link.download = "some-memory-lane-timelapse.webm";
+  link.click();
 }
 
 const savedSession = readSession();
@@ -499,6 +695,30 @@ const stripTemplates = {
       { photoIndex: 1, x: 24, y: 314, width: 401, height: 284 },
       { photoIndex: 2, x: 24, y: 613, width: 401, height: 284 },
       { photoIndex: 3, x: 24, y: 912, width: 401, height: 284 },
+    ],
+  },
+
+  "layout1-design24": {
+    image: "../assets/strip design/17.png",
+    width: 450,
+    height: 1300,
+    slots: [
+      { photoIndex: 0, x: 15, y: 196, width: 420, height: 222 },
+      { photoIndex: 1, x: 15, y: 508, width: 420, height: 222 },
+      { photoIndex: 2, x: 15, y: 741, width: 420, height: 222 },
+      { photoIndex: 3, x: 17, y: 975, width: 420, height: 222 },
+    ],
+  },
+
+  "layout1-design25": {
+    image: "../assets/strip design/18.png",
+    width: 450,
+    height: 1300,
+    slots: [
+      { photoIndex: 0, x: 42, y: 211, width: 366, height: 213 },
+      { photoIndex: 1, x: 42, y: 446, width: 366, height: 213 },
+      { photoIndex: 2, x: 42, y: 681, width: 366, height: 213 },
+      { photoIndex: 3, x: 42, y: 914, width: 366, height: 212 },
     ],
   },
 
@@ -2116,6 +2336,8 @@ function displayStrip(canvas) {
 
     300,
   );
+
+  void prepareTimelapse();
 }
 
 /* ==========================================
@@ -2182,6 +2404,7 @@ function openFinishDialog() {
     );
   }
 
+  finishDialogReturnFocus = document.activeElement;
   finishDialog.hidden = false;
   document.body.classList.add("dialog-open");
   keepPrivateButton?.focus();
@@ -2194,6 +2417,8 @@ function closeFinishDialog() {
 
   finishDialog.hidden = true;
   document.body.classList.remove("dialog-open");
+  finishDialogReturnFocus?.focus();
+  finishDialogReturnFocus = null;
 }
 
 function finishWithVisibility(isFeatured) {
@@ -2364,6 +2589,7 @@ finishDialogClose?.addEventListener("click", closeFinishDialog);
 keepPrivateButton?.addEventListener("click", () => finishWithVisibility(false));
 featuredWallButton?.addEventListener("click", () => finishWithVisibility(true));
 downloadAndFinishButton?.addEventListener("click", downloadAndFinish);
+downloadTimelapseButton?.addEventListener("click", downloadTimelapse);
 
 finishDialog?.addEventListener("click", (event) => {
   if (event.target === finishDialog) {
@@ -2373,7 +2599,25 @@ finishDialog?.addEventListener("click", (event) => {
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && finishDialog && !finishDialog.hidden) {
+    event.preventDefault();
     closeFinishDialog();
+    return;
+  }
+
+  if (event.key === "Tab" && finishDialog && !finishDialog.hidden) {
+    const focusable = finishDialog.querySelectorAll(
+      'button:not([disabled]):not([hidden]), a[href], input:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
   }
 });
 

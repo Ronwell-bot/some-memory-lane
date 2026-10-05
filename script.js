@@ -16,6 +16,8 @@ let musicPlaying = false;
 
 const musicPreferenceKey = "memoryLaneMusicEnabled";
 
+let portfolioDialogReturnFocus = null;
+
 function updateMusicControl() {
   musicToggle.classList.toggle("playing", musicPlaying);
   musicToggle.setAttribute(
@@ -55,6 +57,7 @@ music.addEventListener("ended", () => {
 updateMusicControl();
 
 function openPortfolioDialog() {
+  portfolioDialogReturnFocus = document.activeElement;
   portfolioDialog.hidden = false;
   document.body.classList.add("dialog-open");
   portfolioDialogClose.focus();
@@ -63,6 +66,8 @@ function openPortfolioDialog() {
 function closePortfolioDialog() {
   portfolioDialog.hidden = true;
   document.body.classList.remove("dialog-open");
+  portfolioDialogReturnFocus?.focus();
+  portfolioDialogReturnFocus = null;
 }
 
 portfolioDialogClose.addEventListener("click", closePortfolioDialog);
@@ -79,7 +84,30 @@ portfolioDialogConfirm.addEventListener("click", () => {
 });
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" || event.key === "ArrowLeft") {
+  if (event.key === "Escape" && !portfolioDialog.hidden) {
+    event.preventDefault();
+    closePortfolioDialog();
+    return;
+  }
+
+  if (event.key === "Tab" && !portfolioDialog.hidden) {
+    const focusable = portfolioDialog.querySelectorAll(
+      'button:not([disabled]):not([hidden]), a[href], input:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+    return;
+  }
+
+  if (event.key === "ArrowLeft" && portfolioDialog.hidden) {
     event.preventDefault();
     openPortfolioDialog();
   }

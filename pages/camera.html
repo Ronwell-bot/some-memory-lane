@@ -65,8 +65,8 @@
 
         <!-- Camera Status -->
 
-        <div class="status">
-          <div class="light red" id="statusLight"></div>
+        <div class="status" role="status" aria-live="polite">
+        <div class="light red" id="statusLight" aria-hidden="true"></div>
 
           <span id="statusText"> Camera Off </span>
         </div>
@@ -116,7 +116,13 @@
         <div class="camera-container">
           <!-- Camera -->
 
-          <video id="video" autoplay playsinline muted></video>
+          <video
+            id="video"
+            autoplay
+            playsinline
+            muted
+            aria-label="Live camera preview"
+          ></video>
 
           <!-- Flash Effect -->
 
@@ -124,7 +130,7 @@
 
           <!-- Countdown -->
 
-          <div id="countdown">3</div>
+          <div id="countdown" aria-live="assertive" aria-atomic="true">3</div>
 
           <!-- Camera Overlay -->
 
@@ -167,7 +173,37 @@
         <button id="startCapture" type="button">Start Countdown</button>
 
         <button id="retakeSession" type="button">Restart Session</button>
+
+        <button id="uploadInstead" type="button" class="upload-btn">
+          Upload Instead
+        </button>
       </div>
+
+      <section class="upload-panel" id="uploadPanel" hidden aria-labelledby="uploadTitle">
+        <div class="upload-panel-heading">
+          <h2 id="uploadTitle">Choose Your Photos</h2>
+          <p id="uploadStatus">Select up to the required number of photos.</p>
+        </div>
+        <input
+          id="photoUpload"
+          type="file"
+          accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+          multiple
+          hidden
+        />
+        <div class="upload-actions">
+          <button id="choosePhotos" type="button">Choose Photos</button>
+          <button id="createUploadedStrip" type="button" disabled>
+            Create My Strip
+          </button>
+        </div>
+        <div
+          class="upload-thumbnails"
+          id="uploadThumbnails"
+          aria-live="polite"
+          aria-label="Uploaded photo previews"
+        ></div>
+      </section>
 
       <!-- ======================================
              HIDDEN CANVAS

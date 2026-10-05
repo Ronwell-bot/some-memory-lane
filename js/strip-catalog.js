@@ -20,6 +20,8 @@
         ["layout1-design21", "Movie Ticket", "14.png"],
         ["layout1-design22", "White Film", "15.png"],
         ["layout1-design23", "Film Roll", "16.png"],
+        ["layout1-design24", "Memory Ticket", "17.png"],
+        ["layout1-design25", "Daily Memory", "18.png"],
       ],
     },
     {
@@ -99,6 +101,8 @@
     "layout1-design21": [450, 1300],
     "layout1-design22": [450, 1300],
     "layout1-design23": [450, 1300],
+    "layout1-design24": [450, 1300],
+    "layout1-design25": [450, 1300],
   };
 
   entries.forEach((entry) => {
@@ -113,7 +117,9 @@
       entry.id === "layout1-design7" ||
       entry.id === "layout1-design21" ||
       entry.id === "layout1-design22" ||
-      entry.id === "layout1-design23"
+      entry.id === "layout1-design23" ||
+      entry.id === "layout1-design24" ||
+      entry.id === "layout1-design25"
     ) {
       entry.category = "Illustrated designs";
     }
